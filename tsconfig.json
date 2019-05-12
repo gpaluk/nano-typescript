@@ -7,5 +7,6 @@
         "allowJs": true,
         "baseUrl": "src",
         "skipLibCheck": true,
+        "lib":["dom"]
     }
 }
