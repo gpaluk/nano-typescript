@@ -1,0 +1,36 @@
+{
+  "name": "nano-typescript",
+  "version": "0.0.1",
+  "description": "Super fast and lightweight 2D graphics library for TypeScript",
+  "main": "nano.js",
+  "scripts": {
+    "start": "webpack-dev-server --config webpack.config.js --host 0.0.0.0 --port 3000 --display-modules --content-base dev --inline --hot --mode development --env.ENVIRONMENT=dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PluginIO/nano-typescript.git"
+  },
+  "keywords": [
+    "2d",
+    "graphics",
+    "canvas",
+    "library",
+    "typescript",
+    "fast"
+  ],
+  "author": "Gary Paluk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PluginIO/nano-typescript/issues"
+  },
+  "homepage": "https://github.com/PluginIO/nano-typescript#readme",
+  "devDependencies": {
+    "ts-loader": "^6.0.0",
+    "typescript": "^3.4.5",
+    "uglifyjs-webpack-plugin": "^2.1.2",
+    "webpack": "^4.31.0",
+    "webpack-cli": "^3.3.2",
+    "webpack-dev-server": "^3.3.1"
+  }
+}
