@@ -90,6 +90,23 @@ export abstract class Spatial
         this._worldTransformIsDirty = true;
     }
 
+    public rotate(radian:number):void
+    {
+        this.rotation += radian;
+    }
+
+    public translate(x:number, y:number):void
+    {
+        this.x += x;
+        this.y += y;
+    }
+
+    public scale(x:number, y:number):void
+    {
+        this.scaleX += x;
+        this.scaleY += y;
+    }
+
     public get parent():Spatial
     {
         return this._parent;

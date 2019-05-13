@@ -41,10 +41,11 @@ export class Sprite extends Container
             return;
         }
 
-        if(this.image)
+        let c:CanvasRenderingContext2D;
+        if(this.canvas || this.image)
         {
             let m:Matrix = this.worldTransform.matrix;
-            let c: CanvasRenderingContext2D = Stage.context;
+            c = Stage.context;
 
             //console.log(m.toString());
             
@@ -53,7 +54,15 @@ export class Sprite extends Container
             c.globalCompositeOperation = this.blendMode;
 
             c.transform(m.m00, m.m10, m.m01, m.m11, m.m02, m.m12);
+        }
+        if(this.canvas)
+        {
             c.drawImage(this.canvas, -this.pivot.x, -this.pivot.y);
+        }
+
+        if(this.image)
+        {
+            c.drawImage(this.image, -this.pivot.x, -this.pivot.y);
         }
 
         super.draw();
