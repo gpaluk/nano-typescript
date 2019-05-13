@@ -158,9 +158,9 @@ export class Matrix
 
     public toString(): string
     {
-        return `[Matrix]\n" +
-            "m00:${this.m00.toFixed(5)}, m01:${this.m01.toFixed(5)}, m02:${this.m02.toFixed(5)}\n" +
-            "m10:${this.m10.toFixed(5)}, m11:${this.m11.toFixed(5)}, m12:${this.m12.toFixed(5)}\n" +
-            "m20:${this.m20.toFixed(5)}, m21:${this.m21.toFixed(5)}, m22:${this.m22.toFixed(5)}`;
+        return `[Matrix]\n`+
+        ` m00: ${this.m00.toPrecision(8)}, m01: ${this.m01.toPrecision(8)}, m02: ${this.m02.toPrecision(8)}\n`+
+        ` m10: ${this.m10.toPrecision(8)}, m11: ${this.m11.toPrecision(8)}, m12: ${this.m12.toPrecision(8)}\n`+
+        ` m20: ${this.m20.toPrecision(8)}, m21: ${this.m21.toPrecision(8)}, m22: ${this.m22.toPrecision(8)}`;
     }
 }

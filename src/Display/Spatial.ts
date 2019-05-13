@@ -16,7 +16,7 @@ export abstract class Spatial
     protected _worldBoundIsDirty: boolean = true;
     protected _worldTransformIsDirty: boolean = true;
 
-    protected _parent: Spatial;
+    protected _parent: Spatial = null;
 
     // internal use only
     protected _worldBound:Bound = Bound.IDENTITY;
@@ -24,11 +24,11 @@ export abstract class Spatial
     public velocity:Point = Point.ZERO;
     public rotationSpeed:number = 0;
 
-    private _x:number;
-    private _y:number;
-    private _scaleX:number;
-    private _scaleY:number;
-    private _rotation:number;
+    private _x:number = 0;
+    private _y:number = 0;
+    private _scaleX:number = 1;
+    private _scaleY:number = 1;
+    private _rotation:number = 0;
 
     public dispose()
     {
@@ -103,6 +103,7 @@ export abstract class Spatial
     public update(initiator:boolean):void
     {
         let dt = Timer.deltaSeconds;
+
         if(!this.velocity.isZero)
         {
             this.x += this.velocity.x * dt;
@@ -140,6 +141,8 @@ export abstract class Spatial
             }
             else
             {
+                //console.log(this.transform);
+
                 this.worldTransform = this.transform;
             }
         }

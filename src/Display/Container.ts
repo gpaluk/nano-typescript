@@ -79,8 +79,4 @@ export class Container extends Spatial
         }
     }
 
-    public update(initiator:boolean = true)
-    {
-        // virtual
-    }
 }

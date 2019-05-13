@@ -13,29 +13,25 @@ export class Sprite extends Container
     public pivot:Point = Point.ZERO;
 
     public image:HTMLImageElement;
+    public canvas:HTMLCanvasElement;
+    public graphics:CanvasRenderingContext2D;
 
     constructor()
     {
         super();
-        
+
+        this.canvas = document.createElement('canvas') as HTMLCanvasElement;
+        this.graphics = this.canvas.getContext('2d');
         this.image = document.createElement('img') as HTMLImageElement;
-        this.updateModelSpace();
     }
 
     //override
-    public update(initiator:boolean = true)
+    public update(initiator:boolean = true):void
     {
         // TODO update model space
+
         super.update(initiator);
     }
-
-    /*
-    // override
-    public updateWorldBound():void
-    {
-        this._worldBound = _mo
-    }
-    */
 
     // override
     public draw():void
@@ -50,12 +46,16 @@ export class Sprite extends Container
             let m:Matrix = this.worldTransform.matrix;
             let c: CanvasRenderingContext2D = Stage.context;
 
+            //console.log(m.toString());
+            
             c.globalAlpha = this.alpha;
             c.imageSmoothingEnabled = this.smoothing;
             c.globalCompositeOperation = this.blendMode;
 
             c.transform(m.m00, m.m10, m.m01, m.m11, m.m02, m.m12);
-            c.drawImage(this.image, 0, 0);
+            c.drawImage(this.canvas, -this.pivot.x, -this.pivot.y);
         }
+
+        super.draw();
     }
 }
