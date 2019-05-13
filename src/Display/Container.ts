@@ -16,10 +16,16 @@ export class Container extends Spatial
         super.dispose();
     }
 
+    public get children():Spatial[]
+    {
+        return this._children;
+    }
+
     public addChild(spatial:Spatial):void
     {
-        if(this._children.lastIndexOf(spatial) == -1)
+        if(this._children.lastIndexOf(spatial) != -1)
         {
+            //TODO warn
             return;
         }
         spatial.parent = this;
@@ -47,13 +53,13 @@ export class Container extends Spatial
     }
 
     // override
-    public updateWorldData(applicationTime:number):void
+    public updateWorldData():void
     {
-        super.updateWorldData(applicationTime);
+        super.updateWorldData();
 
         for(let child of this._children)
         {
-            child.update(applicationTime, false);
+            child.update(false);
         }
     }
 
@@ -63,5 +69,18 @@ export class Container extends Spatial
         {
             child.draw();
         }
+    }
+
+    public drawDebug():void
+    {
+        for(let child of this._children)
+        {
+            child.drawDebug();
+        }
+    }
+
+    public update(initiator:boolean = true)
+    {
+        // virtual
     }
 }

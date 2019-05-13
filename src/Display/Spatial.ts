@@ -1,6 +1,7 @@
 import { Transform } from "Geom/Transform";
 import { Bound } from "./Bound";
 import { Point } from "Geom/Point";
+import { Timer } from "Utils/Timer";
 
 export abstract class Spatial
 {
@@ -99,21 +100,21 @@ export abstract class Spatial
         this._parent = value;
     }
 
-    public update(applicationTime:number, initiator:boolean):void
+    public update(initiator:boolean):void
     {
-        //let dt = Timer.DeltaSeconds;
+        let dt = Timer.deltaSeconds;
         if(!this.velocity.isZero)
         {
-            this.x += this.velocity.x * applicationTime;
-            this.y += this.velocity.y * applicationTime;
+            this.x += this.velocity.x * dt;
+            this.y += this.velocity.y * dt;
         }
 
         if(this.rotationSpeed != 0)
         {
-            this.rotation += this.rotationSpeed * applicationTime;
+            this.rotation += this.rotationSpeed * dt;
         }
 
-        this.updateWorldData(applicationTime);
+        this.updateWorldData();
         this.updateWorldBound();
 
         if(initiator)
@@ -123,7 +124,7 @@ export abstract class Spatial
     }
 
     // virtual
-    protected updateWorldData(applicationTime:number):void
+    protected updateWorldData():void
     {
         // TODO updateController(applicationTime);
 
