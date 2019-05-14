@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/PluginIO/nano-typescript#readme",
   "devDependencies": {
+    "eslint": "^5.16.0",
     "ts-loader": "^6.0.0",
     "typescript": "^3.4.5",
     "uglifyjs-webpack-plugin": "^2.1.2",

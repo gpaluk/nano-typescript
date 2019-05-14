@@ -60,6 +60,17 @@ export class Stage
         return Stage._instance._context;
     }
 
+    public play():void
+    {
+        this._lastUpdate = Date.now();
+        this._isPaused = false;
+    }
+
+    public pause():void
+    {
+        this._isPaused = true;
+    }
+
     private addEventListeners():void
     {
         let canvas = this.instance._canvas;
@@ -107,14 +118,22 @@ export class Stage
 
     private _onBlur(e:Event):void
     {
-        this._isFocussed = false;
-        console.log("Blur");
+        console.log(e.target);
+        if(!this._isPaused)
+        {
+            this._isFocussed = false;
+            Stage._instance.pause();
+        }
     }
 
     private _onFocus(e:Event):void
     {
-        this._isFocussed = true;
-        console.log("Focus");
+        console.log(e.target);
+        if(!this._isFocussed)
+        {
+            this._isFocussed = true;
+            Stage._instance.play();
+        }
     }
 
     public get instance():Stage
