@@ -2,21 +2,35 @@ import { Stage } from "Display/Stage"
 import { Color } from "Display/Color";
 import { Sprite } from "Display/Sprite";
 import { BlendMode } from "Display/BlendMode";
-
-//TODO assign domElement via let root = document.querySelector("#nano-root");
+import { Point } from "Geom/Point";
+import { AnchorType } from "Display/AnchorType";
 
 let clearColor:Color = new Color(0.3, 0.6, 0.9, 1);
 let stage:Stage = Stage.init(800, 600, clearColor, 30, true);
 
-let sprite:Sprite = new Sprite();
-sprite.blendMode = BlendMode.DARKEN;
-sprite.smoothing = false;
-sprite.graphics.fillStyle = '#0000FF';
-sprite.graphics.fillRect(0, 0, 50, 50);
-sprite.rotate((Math.PI / 180) * 50);
-sprite.scale(2, 2);
-sprite.translate(150, 100);
-sprite.image.src = "./assets/bunny.png";
-sprite.rotationSpeed = 1;
+let bunny:Sprite = new Sprite();
+bunny.blendMode = BlendMode.SOURCE_OVER;
+bunny.anchor = AnchorType.CENTER;
+bunny.scale(1.5, 1.5);
+bunny.smoothing = false;
+bunny.graphics.fillStyle = '#FF0000';
+bunny.graphics.fillRect(0, 0, 100, 100);
+bunny.image = "./assets/bunny.png";
+bunny.tint = new Color(1, 1, 0, 0.5);
+bunny.x = 300;
+bunny.y = 300;
+bunny.rotationSpeed = 1;
 
-stage.root.addChild(sprite);
+let star:Sprite = new Sprite();
+star.blendMode = BlendMode.COLOR_BURN;
+star.x = 30;
+star.y = 30;
+star.alpha = 0.75;
+star.tint = new Color(1, 0, 0, 0.5);
+star.smoothing = false;
+star.anchor = AnchorType.CENTER;
+star.image = "./assets/star.png";
+star.rotationSpeed = 2;
+
+bunny.addChild(star);
+stage.root.addChild(bunny);

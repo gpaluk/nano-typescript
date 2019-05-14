@@ -103,8 +103,8 @@ export abstract class Spatial
 
     public scale(x:number, y:number):void
     {
-        this.scaleX += x;
-        this.scaleY += y;
+        this.scaleX *= x;
+        this.scaleY *= y;
     }
 
     public get parent():Spatial
