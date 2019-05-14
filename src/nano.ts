@@ -9,14 +9,16 @@ let clearColor:Color = new Color(0.3, 0.6, 0.9, 1);
 let stage:Stage = Stage.init(800, 600, clearColor, 30, true);
 
 let sprite:Sprite = new Sprite();
-sprite.blendMode = BlendMode.DARKEN;
+sprite.blendMode = BlendMode.COLOR_BURN;
+sprite.alpha = 0.5;
 sprite.smoothing = false;
-sprite.graphics.fillStyle = '#0000FF';
-sprite.graphics.fillRect(0, 0, 50, 50);
+sprite.graphics.fillStyle = '#FF00FF';
+sprite.graphics.fillRect(0, 0, 100, 100);
 sprite.rotate((Math.PI / 180) * 50);
-sprite.scale(2, 2);
-sprite.translate(150, 100);
+sprite.scale(.5, .5);
+sprite.translate(300, 300);
 sprite.image.src = "./assets/bunny.png";
+sprite.mask.src = "./assets/star.png";
+sprite.tint = new Color(1, 0, 0, .8);
 sprite.rotationSpeed = 1;
-
 stage.root.addChild(sprite);

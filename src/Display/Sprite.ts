@@ -3,6 +3,7 @@ import { Point } from "Geom/Point";
 import { Container } from "./Container";
 import { Matrix } from "Geom/Matrix";
 import { Stage } from "./Stage";
+import { Color } from "./Color";
 
 export class Sprite extends Container
 {
@@ -12,17 +13,32 @@ export class Sprite extends Container
 
     public pivot:Point = Point.ZERO;
 
+
+    private _targetCanvas:HTMLCanvasElement;
+    private _targetContext:CanvasRenderingContext2D;
+
     public image:HTMLImageElement;
     public canvas:HTMLCanvasElement;
     public graphics:CanvasRenderingContext2D;
+
+    public tint:Color;
+    public mask:HTMLImageElement;
+
+    // TODO Dynamic allocation
+    private _width:number = 100;
+    private _height:number = 100;
 
     constructor()
     {
         super();
 
+        this._targetCanvas = document.createElement('canvas') as HTMLCanvasElement;
+        this._targetContext = this._targetCanvas.getContext('2d');
+
         this.canvas = document.createElement('canvas') as HTMLCanvasElement;
         this.graphics = this.canvas.getContext('2d');
-        this.image = document.createElement('img') as HTMLImageElement;
+        this.image = document.createElement('img');
+        this.mask = document.createElement('img');
     }
 
     //override
@@ -33,6 +49,7 @@ export class Sprite extends Container
         super.update(initiator);
     }
 
+    // TODO add dirty flags to image elements
     // override
     public draw():void
     {
@@ -41,30 +58,56 @@ export class Sprite extends Container
             return;
         }
 
-        let c:CanvasRenderingContext2D;
-        if(this.canvas || this.image)
-        {
-            let m:Matrix = this.worldTransform.matrix;
-            c = Stage.context;
+        let ctx = this._targetContext;
+        ctx.clearRect(0, 0, this._width, this._height);
+        ctx.globalAlpha = 1;
+        ctx.imageSmoothingEnabled = this.smoothing;
+        ctx.globalCompositeOperation = this.blendMode;
 
-            //console.log(m.toString());
-            
-            c.globalAlpha = this.alpha;
-            c.imageSmoothingEnabled = this.smoothing;
-            c.globalCompositeOperation = this.blendMode;
-
-            c.transform(m.m00, m.m10, m.m01, m.m11, m.m02, m.m12);
-        }
-        if(this.canvas)
+        ctx.drawImage(this.graphics.canvas, 0, 0, this._width, this._height);
+        
+        if(this.image.src != "")
         {
-            c.drawImage(this.canvas, -this.pivot.x, -this.pivot.y);
+            ctx.drawImage(this.image, 0, 0, this._width, this._height);
         }
 
-        if(this.image)
+        if(this.tint != null)
         {
-            c.drawImage(this.image, -this.pivot.x, -this.pivot.y);
+            ctx.globalAlpha = 1;
+
+            ctx.globalCompositeOperation = BlendMode.SOURCE_ATOP;
+            ctx.fillStyle = this.tint.toHexRGBA();
+            ctx.fillRect(0, 0, this._width, this._height);
         }
+
+        if(this.mask.src != "")
+        {
+            ctx.globalAlpha = 1;
+            ctx.globalCompositeOperation = BlendMode.DESTINATION_IN;
+            ctx.drawImage(this.mask, 0, 0, this._width, this._height);
+        }
+        
+        let stageCtx = Stage.context;
+
+        let m:Matrix = this.worldTransform.matrix;
+        stageCtx.globalAlpha = this.alpha;
+        stageCtx.imageSmoothingEnabled = this.smoothing;
+        stageCtx.globalCompositeOperation = this.blendMode;
+        stageCtx.transform(m.m00, m.m10, m.m01, m.m11, m.m02, m.m12);
+
+        ctx.globalAlpha = this.alpha;
+        stageCtx.drawImage(ctx.canvas, 0, 0);
 
         super.draw();
+    }
+
+    public get width():number
+    {
+        return this._width;
+    }
+
+    public get height():number
+    {
+        return this._height;
     }
 }
