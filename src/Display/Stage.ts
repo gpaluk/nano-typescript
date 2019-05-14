@@ -118,7 +118,6 @@ export class Stage
 
     private _onBlur(e:Event):void
     {
-        console.log(e.target);
         if(!this._isPaused)
         {
             this._isFocussed = false;
@@ -128,7 +127,6 @@ export class Stage
 
     private _onFocus(e:Event):void
     {
-        console.log(e.target);
         if(!this._isFocussed)
         {
             this._isFocussed = true;

@@ -2,8 +2,8 @@ import { Stage } from "Display/Stage"
 import { Color } from "Display/Color";
 import { Sprite } from "Display/Sprite";
 import { BlendMode } from "Display/BlendMode";
-import { Point } from "Geom/Point";
 import { AnchorType } from "Display/AnchorType";
+import { MovieClip } from "Display/MovieClip";
 
 let clearColor:Color = new Color(0.3, 0.6, 0.9, 1);
 let stage:Stage = Stage.init(800, 600, clearColor, 30, true);
@@ -20,6 +20,7 @@ bunny.tint = new Color(1, 1, 0, 0.5);
 bunny.x = 300;
 bunny.y = 300;
 bunny.rotationSpeed = 1;
+bunny.update();
 
 let star:Sprite = new Sprite();
 star.blendMode = BlendMode.COLOR_BURN;
@@ -34,3 +35,15 @@ star.rotationSpeed = 2;
 
 bunny.addChild(star);
 stage.root.addChild(bunny);
+
+let frames:Sprite[] = [bunny, star];
+let mc:MovieClip = new MovieClip();
+mc.blendMode = BlendMode.COLOR_BURN;
+mc.anchor = AnchorType.CENTER;
+mc.rotationSpeed = -4;
+mc.x = 100;
+mc.y = 100;
+mc.framerate = 2;
+mc.tint = new Color(1, 0, 0, 0.8);
+mc.frames = frames;
+stage.root.addChild(mc);

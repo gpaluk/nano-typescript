@@ -14,21 +14,31 @@ export class Sprite extends Container
 
     public pivot:Point = Point.ZERO;
 
-    private _targetCanvas:HTMLCanvasElement;
-    private _targetContext:CanvasRenderingContext2D;
+    protected _targetCanvas:HTMLCanvasElement;
+    protected _targetContext:CanvasRenderingContext2D;
 
     public canvas:HTMLCanvasElement;
     public graphics:CanvasRenderingContext2D;
 
-    private _tint:Color;
-    private _image:HTMLImageElement;
-    private _mask:HTMLImageElement;
+    protected _tint:Color;
+    protected _image:HTMLImageElement;
+    protected _mask:HTMLImageElement;
 
     // TODO Dynamic allocation
     private _width:number = 100;
     private _height:number = 100;
 
-    private _isDirty:boolean = true;
+    protected _isDirty:boolean = true;
+
+    public get targetContext():CanvasRenderingContext2D
+    {
+        return this._targetContext;
+    }
+
+    public get targetCanvas():HTMLCanvasElement
+    {
+        return this._targetCanvas;
+    }
 
     constructor()
     {
@@ -49,6 +59,11 @@ export class Sprite extends Container
         this._mask.onerror = () => { this._mask.src = ""; }
     }
 
+    public dispose():void
+    {
+
+    }
+
     //override
     public update(initiator:boolean = true):void
     {
@@ -56,7 +71,7 @@ export class Sprite extends Container
 
         super.update(initiator);
     }
-    
+
     // override
     public draw():void
     {
@@ -70,15 +85,15 @@ export class Sprite extends Container
             this.redraw();
         }
 
-        let context = Stage.context;
-
+        let context:CanvasRenderingContext2D = Stage.context;
         let m:Matrix = this.worldTransform.matrix;
+
         context.globalAlpha = this.alpha;
         context.imageSmoothingEnabled = this.smoothing;
         context.globalCompositeOperation = this.blendMode;
         context.setTransform(m.m00, m.m10, m.m01, m.m11, m.m02, m.m12);
 
-        let target = this._targetContext;
+        let target:CanvasRenderingContext2D = this._targetContext;
         target.globalAlpha = this.alpha;
         context.drawImage(target.canvas, -this.pivot.x, -this.pivot.y);
         
@@ -127,6 +142,11 @@ export class Sprite extends Container
     public set image(value:string)
     {
         this._image.src = value;
+    }
+
+    public get image():string
+    {
+        return this._image.src;
     }
     
     public get tint():Color
