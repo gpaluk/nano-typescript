@@ -188,14 +188,14 @@ var Point = /** @class */ (function () {
     };
     Object.defineProperty(Point.prototype, "isZero", {
         get: function () {
-            return (this.x == 0 && this.y == 0);
+            return this.x == 0 && this.y == 0;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(Point.prototype, "isOne", {
         get: function () {
-            return (this.x == 1 && this.y == 1);
+            return this.x == 1 && this.y == 1;
         },
         enumerable: true,
         configurable: true
@@ -218,7 +218,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Timer = /** @class */ (function () {
     function Timer() {
     }
-    // TODO complete timer system
+    // TODO [GJP] complete timer system
     Timer.deltaSeconds = 0;
     return Timer;
 }());
@@ -244,7 +244,6 @@ var Stage = /** @class */ (function () {
         this._accumulator = 0;
         this._updateInterval = 0;
     }
-    ;
     Stage.init = function (width, height, clearColor, framerate, debug) {
         if (clearColor === void 0) { clearColor = null; }
         if (framerate === void 0) { framerate = 30; }
@@ -253,16 +252,17 @@ var Stage = /** @class */ (function () {
             this._instance = new Stage();
         }
         var instance = this._instance;
-        clearColor == null ? instance._clearColor = new Color_1.Color(0.3, 0.6, 0.9, 1)
-            : instance._clearColor = clearColor;
+        clearColor == null
+            ? (instance._clearColor = new Color_1.Color(0.3, 0.6, 0.9, 1))
+            : (instance._clearColor = clearColor);
         instance.framerate = framerate;
         instance._debug = debug;
         instance._canvas = document.createElement('canvas');
-        instance._context = instance._canvas.getContext("2d");
+        instance._context = instance._canvas.getContext('2d');
         instance._canvas.width = width;
         instance._canvas.height = height;
         instance._root = new Container_1.Container();
-        instance._root.name = "__root";
+        instance._root.name = '__root';
         // testing
         document.body.appendChild(instance._canvas);
         instance.clear();
@@ -297,22 +297,22 @@ var Stage = /** @class */ (function () {
         window.onfocus = this.instance._onFocus;
     };
     Stage.prototype._onTouchStart = function (e) {
-        console.log("TouchStart");
+        console.log('TouchStart');
     };
     Stage.prototype._onTouchEnd = function (e) {
-        console.log("TouchEnd");
+        console.log('TouchEnd');
     };
     Stage.prototype._onClick = function (e) {
-        console.log("Click");
+        console.log('Click');
     };
     Stage.prototype._onMouseDown = function (e) {
-        console.log("MouseDown");
+        console.log('MouseDown');
     };
     Stage.prototype._onMouseUp = function (e) {
-        console.log("MouseUp");
+        console.log('MouseUp');
     };
     Stage.prototype._onMouseMove = function (e) {
-        console.log("MouseMove");
+        console.log('MouseMove');
     };
     Stage.prototype._onBlur = function (e) {
         if (!this._isPaused) {
@@ -463,19 +463,21 @@ var Color = /** @class */ (function () {
         var red = Math.floor(this._red * 255);
         var green = Math.floor(this._green * 255);
         var blue = Math.floor(this._blue * 255);
-        return "#" + red.toString(16).padStart(2, '0') +
+        return ('#' +
+            red.toString(16).padStart(2, '0') +
             green.toString(16).padStart(2, '0') +
-            blue.toString(16).padStart(2, '0');
+            blue.toString(16).padStart(2, '0'));
     };
     Color.prototype.toHexRGBA = function () {
         var red = Math.floor(this._red * 255);
         var green = Math.floor(this._green * 255);
         var blue = Math.floor(this._blue * 255);
         var alpha = Math.floor(this._alpha * 255);
-        return "#" + red.toString(16).padStart(2, '0') +
+        return ('#' +
+            red.toString(16).padStart(2, '0') +
             green.toString(16).padStart(2, '0') +
             blue.toString(16).padStart(2, '0') +
-            alpha.toString(16).padStart(2, '0');
+            alpha.toString(16).padStart(2, '0'));
     };
     return Color;
 }());
@@ -733,13 +735,19 @@ var Sprite = /** @class */ (function (_super) {
         _this.canvas = document.createElement('canvas');
         _this.graphics = _this.canvas.getContext('2d');
         _this._image = document.createElement('img');
-        _this._image.crossOrigin = 'anonymous';
-        _this._image.onload = function () { _this._isDirty = true; };
-        _this._image.onerror = function () { _this._image.src = ""; };
+        _this._image.onload = function () {
+            _this._isDirty = true;
+        };
+        _this._image.onerror = function () {
+            _this._image.src = '';
+        };
         _this._mask = document.createElement('img');
-        _this._mask.crossOrigin = 'anonymous';
-        _this._mask.onload = function () { _this._isDirty = true; };
-        _this._mask.onerror = function () { _this._mask.src = ""; };
+        _this._mask.onload = function () {
+            _this._isDirty = true;
+        };
+        _this._mask.onerror = function () {
+            _this._mask.src = '';
+        };
         return _this;
     }
     Object.defineProperty(Sprite.prototype, "targetContext", {
@@ -756,8 +764,7 @@ var Sprite = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Sprite.prototype.dispose = function () {
-    };
+    Sprite.prototype.dispose = function () { };
     //override
     Sprite.prototype.update = function (initiator) {
         // TODO update model space
@@ -790,7 +797,7 @@ var Sprite = /** @class */ (function (_super) {
         ctx.imageSmoothingEnabled = this.smoothing;
         ctx.globalCompositeOperation = this.blendMode;
         ctx.drawImage(this.graphics.canvas, 0, 0, this._width, this._height);
-        if (this._image.src != "" || this._image.src != null) {
+        if (this._image.src != '' || this._image.src != null) {
             ctx.drawImage(this._image, 0, 0, this._width, this._height);
         }
         if (this._tint != null) {
@@ -799,7 +806,7 @@ var Sprite = /** @class */ (function (_super) {
             ctx.fillStyle = this._tint.toHexRGBA();
             ctx.fillRect(0, 0, this._width, this._height);
         }
-        if (this._mask.src != "" || this._mask.src != null) {
+        if (this._mask.src != '' || this._mask.src != null) {
             ctx.globalAlpha = 1;
             ctx.globalCompositeOperation = BlendMode_1.BlendMode.DESTINATION_IN;
             ctx.drawImage(this._mask, 0, 0, this._width, this._height);
@@ -835,23 +842,50 @@ var Sprite = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(Sprite.prototype, "width", {
-        get: function () {
+        /*
+        public get width():number
+        {
             return this._width;
-        },
-        set: function (value) {
+        }
+    
+        public set width(value:number)
+        {
             this._width = value;
             this._isDirty = true;
+        }
+    
+        public get height():number
+        {
+            return this._height;
+        }
+    
+        public set height(value:number)
+        {
+            this._height = value;
+            this._isDirty = true;
+        }
+        */
+        get: function () {
+            return this._targetCanvas.width;
+        },
+        set: function (value) {
+            if (this._isDirty) {
+                this.redraw();
+            }
+            this.scaleX = value / this._targetCanvas.width;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(Sprite.prototype, "height", {
         get: function () {
-            return this._height;
+            return this._targetCanvas.height;
         },
         set: function (value) {
-            this._height = value;
-            this._isDirty = true;
+            if (this._isDirty) {
+                this.redraw();
+            }
+            this.scaleY = value / this._targetCanvas.height;
         },
         enumerable: true,
         configurable: true
@@ -978,11 +1012,11 @@ var stage = Stage_1.Stage.init(800, 600, clearColor, 30, true);
 var bunny = new Sprite_1.Sprite();
 bunny.blendMode = BlendMode_1.BlendMode.SOURCE_OVER;
 bunny.anchor = AnchorType_1.AnchorType.CENTER;
-bunny.scale(1.5, 1.5);
+bunny.scale = 1.3;
 bunny.smoothing = false;
 bunny.graphics.fillStyle = '#FF0000';
 bunny.graphics.fillRect(0, 0, 100, 100);
-bunny.image = "./assets/bunny.png";
+bunny.image = './assets/bunny.png';
 bunny.tint = new Color_1.Color(1, 1, 0, 0.5);
 bunny.x = 300;
 bunny.y = 300;
@@ -992,11 +1026,13 @@ var star = new Sprite_1.Sprite();
 star.blendMode = BlendMode_1.BlendMode.COLOR_BURN;
 star.x = 30;
 star.y = 30;
+star.scale = 1.3;
 star.alpha = 0.75;
 star.tint = new Color_1.Color(1, 0, 0, 0.5);
 star.smoothing = false;
 star.anchor = AnchorType_1.AnchorType.CENTER;
-star.image = "./assets/star.png";
+star.image = './assets/star.png';
+star.mask = './assets/bunny.png';
 star.rotationSpeed = 2;
 bunny.addChild(star);
 stage.root.addChild(bunny);
@@ -1026,7 +1062,7 @@ var Point_1 = __webpack_require__(0);
 var Timer_1 = __webpack_require__(1);
 var Spatial = /** @class */ (function () {
     function Spatial() {
-        this.name = "";
+        this.name = '';
         // internal use only
         this.transform = Transform_1.Transform.IDENTITY;
         // internal use only
@@ -1044,8 +1080,7 @@ var Spatial = /** @class */ (function () {
         this._scaleY = 1;
         this._rotation = 0;
     }
-    Spatial.prototype.dispose = function () {
-    };
+    Spatial.prototype.dispose = function () { };
     Object.defineProperty(Spatial.prototype, "x", {
         get: function () {
             return this._x;
@@ -1108,10 +1143,14 @@ var Spatial = /** @class */ (function () {
         this.x += x;
         this.y += y;
     };
-    Spatial.prototype.scale = function (x, y) {
-        this.scaleX *= x;
-        this.scaleY *= y;
-    };
+    Object.defineProperty(Spatial.prototype, "scale", {
+        set: function (value) {
+            this.scaleX *= value;
+            this.scaleY *= value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(Spatial.prototype, "parent", {
         get: function () {
             return this._parent;
@@ -1283,10 +1322,10 @@ var Matrix = /** @class */ (function () {
         this.set(0, 0, 0, 0, 0, 0, 0, 0, 0);
     };
     Matrix.prototype.toString = function () {
-        return "[Matrix]\n" +
+        return ("[Matrix]\n" +
             (" m00: " + this.m00.toPrecision(8) + ", m01: " + this.m01.toPrecision(8) + ", m02: " + this.m02.toPrecision(8) + "\n") +
             (" m10: " + this.m10.toPrecision(8) + ", m11: " + this.m11.toPrecision(8) + ", m12: " + this.m12.toPrecision(8) + "\n") +
-            (" m20: " + this.m20.toPrecision(8) + ", m21: " + this.m21.toPrecision(8) + ", m22: " + this.m22.toPrecision(8));
+            (" m20: " + this.m20.toPrecision(8) + ", m21: " + this.m21.toPrecision(8) + ", m22: " + this.m22.toPrecision(8)));
     };
     return Matrix;
 }());
@@ -1316,12 +1355,7 @@ var Bound = /** @class */ (function () {
     }
     Object.defineProperty(Bound, "IDENTITY", {
         get: function () {
-            var vertices = [
-                Point_1.Point.ZERO,
-                Point_1.Point.ZERO,
-                Point_1.Point.ONE,
-                Point_1.Point.ONE
-            ];
+            var vertices = [Point_1.Point.ZERO, Point_1.Point.ZERO, Point_1.Point.ONE, Point_1.Point.ONE];
             return new Bound(vertices);
         },
         enumerable: true,

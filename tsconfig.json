@@ -1,5 +1,11 @@
 {
+    "include": ["./src/**/*.ts"],
+    "paths": {
+        "nano-typescript/*" : ["src/*"],
+    },
+    "outDir": "./release",
     "compilerOptions": {
+        "outDir": "./release",  
         "sourceMap": true,
         "noImplicitAny": true,
         "module": "commonjs",
