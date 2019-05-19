@@ -4,6 +4,8 @@ import {Sprite} from 'Display/Sprite'
 import {BlendMode} from 'Display/BlendMode'
 import {AnchorType} from 'Display/AnchorType'
 import {MovieClip} from 'Display/MovieClip'
+import {Texture} from 'Display/Texture'
+import {EventType} from 'Events/EventType'
 
 let clearColor: Color = new Color(0.3, 0.6, 0.9, 1)
 let stage: Stage = Stage.init(800, 600, clearColor, 30, true)
@@ -49,3 +51,20 @@ mc.framerate = 2
 mc.tint = new Color(1, 0, 0, 0.8)
 mc.frames = frames
 stage.root.addChild(mc)
+
+/*
+let texture: Texture = new Texture()
+texture.addEventListener(EventType.LOADED, (e: Event) => onLoaded(e))
+texture.addEventListener(EventType.ERROR, (e: ErrorEvent) => onError(e))
+
+texture.path = 'assets/star.png'
+
+function onLoaded(e: Event): void {
+    console.log('Texture loaded')
+    texture.draw(100, 100)
+}
+
+function onError(e: ErrorEvent): void {
+    console.log(`An error occured: ${e.message}`)
+}
+*/
