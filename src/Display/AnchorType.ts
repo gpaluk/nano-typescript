@@ -1,5 +1,4 @@
-export enum AnchorType
-{
+export enum AnchorType {
     NONE,
     BOTTOM_CENTER,
     BOTTOM_LEFT,

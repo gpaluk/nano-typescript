@@ -733,9 +733,11 @@ var Sprite = /** @class */ (function (_super) {
         _this.canvas = document.createElement('canvas');
         _this.graphics = _this.canvas.getContext('2d');
         _this._image = document.createElement('img');
+        _this._image.crossOrigin = 'anonymous';
         _this._image.onload = function () { _this._isDirty = true; };
         _this._image.onerror = function () { _this._image.src = ""; };
         _this._mask = document.createElement('img');
+        _this._mask.crossOrigin = 'anonymous';
         _this._mask.onload = function () { _this._isDirty = true; };
         _this._mask.onerror = function () { _this._mask.src = ""; };
         return _this;
