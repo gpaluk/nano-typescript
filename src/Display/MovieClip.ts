@@ -42,7 +42,7 @@ export class MovieClip extends Sprite {
     public set frame(frame: number) {
         this._currentFrame = frame
         if (this._frames[this._currentFrame] != null) {
-            this.image = this._frames[this._currentFrame].image
+            this.texture = this._frames[this._currentFrame].texture
         }
     }
 
