@@ -10,7 +10,7 @@ module.exports = env => {
         },
         output: {
             filename: '[name].js',
-            path: path.resolve(__dirname, './build/mac')
+            path: path.resolve(__dirname, './build/desktop')
         },
         devServer: {
             disableHostCheck: true
