@@ -1,8 +1,6 @@
 {
     "include": ["./src/**/*.ts"],
-    "outDir": "./release",
     "compilerOptions": {
-        "outDir": "./release",  
         "sourceMap": true,
         "noImplicitAny": true,
         "module": "commonjs",
