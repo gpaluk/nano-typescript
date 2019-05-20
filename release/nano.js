@@ -1047,6 +1047,22 @@ mc.framerate = 2;
 mc.tint = new Color_1.Color(1, 0, 0, 0.8);
 mc.frames = frames;
 stage.root.addChild(mc);
+/*
+let texture: Texture = new Texture()
+texture.addEventListener(EventType.LOADED, (e: Event) => onLoaded(e))
+texture.addEventListener(EventType.ERROR, (e: ErrorEvent) => onError(e))
+
+texture.path = 'assets/star.png'
+
+function onLoaded(e: Event): void {
+    console.log('Texture loaded')
+    texture.draw(100, 100)
+}
+
+function onError(e: ErrorEvent): void {
+    console.log(`An error occured: ${e.message}`)
+}
+*/
 
 
 /***/ }),

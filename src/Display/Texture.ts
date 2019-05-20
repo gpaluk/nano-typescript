@@ -20,11 +20,7 @@ export class Texture extends EventDispatcher {
     }
 
     public set path(value: string | null) {
-        if (value == null) {
-            this._path = ''
-        } else {
-            this._path = value
-        }
+        value == null ? (this._path = '') : (this._path = value)
         this._image.src = this._path
     }
 

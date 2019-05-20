@@ -5,12 +5,12 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 module.exports = env => {
     return {
         entry: {
-            nano: path.resolve(__dirname, './src/nano.ts'),
-            'nano.min': './src/nano.ts'
+            electron: path.resolve(__dirname, './electron.ts'),
+            'electron.min': './electron.ts'
         },
         output: {
             filename: '[name].js',
-            path: path.resolve(__dirname, 'release')
+            path: path.resolve(__dirname, './build/mac')
         },
         devServer: {
             disableHostCheck: true
@@ -61,6 +61,10 @@ module.exports = env => {
                 })
             ]
         },
-        plugins: [new CopyWebpackPlugin([{from: 'dev/assets', to: 'assets'}])]
+        target: 'electron-main',
+
+        node: {
+            __dirname: false
+        }
     }
 }

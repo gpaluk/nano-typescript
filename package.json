@@ -2,10 +2,10 @@
   "name": "nano-typescript",
   "version": "0.0.2",
   "description": "Super fast and lightweight 2D graphics library for TypeScript",
-  "main": "nano.js",
   "scripts": {
     "dev": "webpack-dev-server --config webpack.dev.js --host 0.0.0.0 --port 3000 --display-modules --content-base dev --inline --hot --mode development --env.ENVIRONMENT=dev",
     "release": "webpack --config webpack.release.js --mode production --progress --colors",
+    "mac": "webpack --config webpack.mac.js --mode production --progress --colors && electron ./build/mac/electron.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
