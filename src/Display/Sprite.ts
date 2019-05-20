@@ -5,6 +5,7 @@ import {Matrix} from 'Geom/Matrix'
 import {Stage} from './Stage'
 import {Color} from './Color'
 import {AnchorType} from './AnchorType'
+import {Texture} from './Texture'
 
 export class Sprite extends Container {
     public alpha: number = 1
@@ -20,7 +21,7 @@ export class Sprite extends Container {
     public graphics: CanvasRenderingContext2D
 
     protected _tint: Color
-    protected _image: HTMLImageElement
+    protected _texture: Texture
     protected _mask: HTMLImageElement
 
     // TODO Dynamic allocation
@@ -37,7 +38,7 @@ export class Sprite extends Container {
         return this._targetCanvas
     }
 
-    constructor() {
+    constructor(texture?: Texture) {
         super()
 
         this._targetCanvas = document.createElement(
@@ -48,12 +49,10 @@ export class Sprite extends Container {
         this.canvas = document.createElement('canvas') as HTMLCanvasElement
         this.graphics = this.canvas.getContext('2d')
 
-        this._image = document.createElement('img')
-        this._image.onload = () => {
-            this._isDirty = true
-        }
-        this._image.onerror = () => {
-            this._image.src = ''
+        if (texture) {
+            this._texture = texture
+        } else {
+            this._texture = new Texture()
         }
 
         this._mask = document.createElement('img')
@@ -66,6 +65,15 @@ export class Sprite extends Container {
     }
 
     public dispose(): void {}
+
+    public get texture(): Texture {
+        return this._texture
+    }
+
+    public set texture(value: Texture) {
+        this._texture = value
+        this._isDirty = true
+    }
 
     //override
     public update(initiator: boolean = true): void {
@@ -108,8 +116,8 @@ export class Sprite extends Container {
 
         ctx.drawImage(this.graphics.canvas, 0, 0, this._width, this._height)
 
-        if (this._image.src != '' || this._image.src != null) {
-            ctx.drawImage(this._image, 0, 0, this._width, this._height)
+        if (this._texture.image.src != '' || this._texture.image.src != null) {
+            ctx.drawImage(this._texture.image, 0, 0, this._width, this._height)
         }
 
         if (this._tint != null) {
@@ -133,6 +141,7 @@ export class Sprite extends Container {
         this._mask.src = value
     }
 
+    /*
     public set image(value: string) {
         this._image.src = value
     }
@@ -140,6 +149,7 @@ export class Sprite extends Container {
     public get image(): string {
         return this._image.src
     }
+    */
 
     public get tint(): Color {
         return this._tint
