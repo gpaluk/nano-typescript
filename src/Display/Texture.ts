@@ -60,7 +60,14 @@ export class Texture extends EventDispatcher {
         sWidth?: number,
         sHeight?: number
     ): void {
-        if (sY && sX && sWidth && sHeight && width && height) {
+        if (
+            sX != null &&
+            sY != null &&
+            sWidth != null &&
+            sHeight != null &&
+            width != null &&
+            height != null
+        ) {
             Stage.context.drawImage(
                 this._image,
                 sX,
@@ -72,7 +79,7 @@ export class Texture extends EventDispatcher {
                 width,
                 height
             )
-        } else if (width && height) {
+        } else if (width != null && height != null) {
             Stage.context.drawImage(this._image, x, y, width, height)
         } else {
             Stage.context.drawImage(this._image, x, y)
