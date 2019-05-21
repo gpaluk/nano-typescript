@@ -6,9 +6,14 @@ import {AnchorType} from 'Display/AnchorType'
 import {MovieClip} from 'Display/MovieClip'
 import {EventType} from 'Events/EventType'
 import {AssetLoader} from 'Loaders/AssetLoader'
+import {TileSet} from 'Display/TileSet'
 
 let clearColor: Color = new Color(0.3, 0.6, 0.9, 1)
 let stage = Stage.init(800, 600, clearColor, 30, true)
+
+const BUNNY_PATH: string = './assets/bunny.png'
+const STAR_PATH: string = './assets/star.png'
+const ICE_SET_PATH: string = './assets/ice_set.png'
 
 let loader: AssetLoader = new AssetLoader()
 loader.addEventListener(EventType.COMPLETE, onLoaderComplete)
@@ -16,8 +21,9 @@ loader.addEventListener(EventType.ERROR, onLoaderError)
 loader.addEventListener(EventType.TIMEOUT, onLoaderTimeout)
 loader.addEventListener(EventType.LOADED, onLoaderItemLoaded)
 
-loader.add('./assets/bunny.png')
-loader.add('./assets/star.png')
+loader.add(BUNNY_PATH)
+loader.add(STAR_PATH)
+loader.add(ICE_SET_PATH)
 loader.load()
 
 function onLoaderComplete(e: Event): void {
@@ -38,7 +44,12 @@ function onLoaderTimeout(e: Event): void {
 }
 
 function buildScene(): void {
-    let bunny: Sprite = loader.getSprite('./assets/bunny.png')
+    /*
+    let tileSet: TileSet = loader.getTileSet(ICE_SET_PATH, 32, 32)
+    tileSet.draw(1, 1, 50, 50, 100, 100)
+    */
+
+    let bunny: Sprite = loader.getSprite(BUNNY_PATH)
     bunny.blendMode = BlendMode.SOURCE_OVER
     bunny.anchor = AnchorType.CENTER
     bunny.scale = 1.3
@@ -51,7 +62,7 @@ function buildScene(): void {
     bunny.rotationSpeed = 1
     bunny.update()
 
-    let star: Sprite = loader.getSprite('./assets/star.png')
+    let star: Sprite = loader.getSprite(STAR_PATH)
     star.blendMode = BlendMode.COLOR_BURN
     star.x = 30
     star.y = 30
@@ -60,7 +71,7 @@ function buildScene(): void {
     star.tint = new Color(1, 0, 0, 0.5)
     star.smoothing = false
     star.anchor = AnchorType.CENTER
-    star.mask = './assets/bunny.png'
+    star.mask = BUNNY_PATH
     star.rotationSpeed = 2
 
     bunny.addChild(star)

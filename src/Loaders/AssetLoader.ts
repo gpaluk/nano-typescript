@@ -2,6 +2,7 @@ import {EventDispatcher} from 'Events/EventDispatcher'
 import {EventType} from 'Events/EventType'
 import {Texture} from 'Display/Texture'
 import {Sprite} from 'Display/Sprite'
+import {TileSet} from 'Display/TileSet'
 
 export class AssetLoader extends EventDispatcher {
     constructor() {
@@ -37,6 +38,14 @@ export class AssetLoader extends EventDispatcher {
 
     public getSprite(path: string): Sprite {
         return new Sprite(this.getTexture(path))
+    }
+
+    public getTileSet(
+        path: string,
+        tileWidth?: number,
+        tileHeight?: number
+    ): TileSet {
+        return new TileSet(this.getTexture(path), tileWidth, tileHeight)
     }
 
     public getAudio(path: string): HTMLAudioElement {
