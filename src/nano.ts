@@ -1,5 +1,13 @@
 import {Stage} from 'Display/Stage'
 import {Color} from 'Display/Color'
+import {Game} from 'Demo/Game'
+
+Stage.init(800, 600, Color.RED, 30, true)
+let game: Game = new Game()
+
+/*
+import {Stage} from 'Display/Stage'
+import {Color} from 'Display/Color'
 import {Sprite} from 'Display/Sprite'
 import {BlendMode} from 'Display/BlendMode'
 import {AnchorType} from 'Display/AnchorType'
@@ -57,14 +65,11 @@ function buildScene(): void {
     tileAnimation.frameRate = 5
 
     let tileMap: TileMap = new TileMap(10, 10)
-    tileMap.x = 100
-    tileMap.y = 50
     tileMap.animations.push(tileAnimation)
     tileMap.setData(tileSet, loader.getJson(MAP_DATA_PATH).data)
 
     stage.root.addChild(tileMap)
 
-    /*
     console.log('numTilesX: ' + tileSet.numTilesX)
     console.log('numTilesY: ' + tileSet.numTilesY)
     console.log('tileWidth: ' + tileSet.tileWidth)
@@ -74,9 +79,7 @@ function buildScene(): void {
     tile.draw(50, 60, 100, 100)
 
     tileSet.draw(4, 0, 50, 50, 100, 100)
-    */
 
-    /*
     let bunny: Sprite = loader.getSprite(BUNNY_PATH)
     bunny.blendMode = BlendMode.SOURCE_OVER
     bunny.anchor = AnchorType.CENTER
@@ -116,5 +119,5 @@ function buildScene(): void {
     mc.tint = new Color(1, 0, 0, 0.8)
     mc.frames = frames
     stage.root.addChild(mc)
-    */
 }
+*/

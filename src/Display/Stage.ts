@@ -59,9 +59,28 @@ export class Stage {
         return instance
     }
 
+    public static get instance(): Stage {
+        return Stage._instance
+    }
+
     public static get context(): CanvasRenderingContext2D {
         return Stage._instance._context
     }
+
+    /*
+    public static get isPaused(): boolean {
+        return Stage._instance._isPaused
+    }
+
+    public static get root(): Container {
+        return Stage._instance._root
+    }
+
+    // internal
+    public static set root(value: Container) {
+        Stage._instance._root = value
+    }
+    */
 
     public play(): void {
         this._lastUpdate = Date.now()
@@ -70,6 +89,10 @@ export class Stage {
 
     public pause(): void {
         this._isPaused = true
+    }
+
+    public get isPaused(): boolean {
+        return this._isPaused
     }
 
     private addEventListeners(): void {
@@ -138,6 +161,10 @@ export class Stage {
 
     public get root(): Container {
         return this._root
+    }
+
+    public set root(value: Container) {
+        this._root = value
     }
 
     public set framerate(value: number) {

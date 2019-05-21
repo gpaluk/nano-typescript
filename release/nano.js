@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 14);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -91,150 +91,9 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Point = /** @class */ (function () {
-    function Point(x, y) {
-        if (x === void 0) { x = 0; }
-        if (y === void 0) { y = 0; }
-        this.x = x;
-        this.y = y;
-    }
-    Object.defineProperty(Point, "ZERO", {
-        get: function () {
-            return new Point(0, 0);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Point, "ONE", {
-        get: function () {
-            return new Point(1, 1);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Point, "AXIS_X", {
-        get: function () {
-            return new Point(1, 0);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Point, "AXIS_Y", {
-        get: function () {
-            return new Point(0, 1);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Point.prototype.add = function (p) {
-        this.x += p.x;
-        this.y += p.y;
-    };
-    Point.prototype.subtract = function (p) {
-        this.x -= p.x;
-        this.y -= p.y;
-    };
-    Point.prototype.multiply = function (p) {
-        this.x *= p.x;
-        this.y *= p.y;
-    };
-    Point.prototype.divide = function (p) {
-        this.x /= p.x;
-        this.y /= p.y;
-    };
-    Point.prototype.scale = function (scalar) {
-        this.x *= scalar;
-        this.y *= scalar;
-    };
-    Point.prototype.dot = function (p) {
-        return this.x * p.x + this.y * p.y;
-    };
-    Point.prototype.reflection = function (normal) {
-        var n = normal.clone();
-        var t = this.clone();
-        var dotN = t.dot(n);
-        n.scale(dotN);
-        n.scale(2);
-        t.subtract(n);
-        return t;
-    };
-    Point.prototype.invert = function () {
-        this.x *= -1;
-        this.y *= -1;
-    };
-    Point.prototype.normalize = function () {
-        if (length < Number.EPSILON) {
-            this.x = 0;
-            this.y = 0;
-        }
-        else {
-            var invLength = 1 / length;
-            this.x *= invLength;
-            this.y *= invLength;
-        }
-    };
-    Point.prototype.squaredLength = function () {
-        return this.x * this.x + this.y * this.y;
-    };
-    Point.prototype.length = function () {
-        return Math.sqrt(this.x * this.x + this.y * this.y);
-    };
-    Point.prototype.set = function (x, y) {
-        this.x = x;
-        this.y = y;
-    };
-    Point.prototype.clone = function () {
-        return new Point(this.x, this.y);
-    };
-    Object.defineProperty(Point.prototype, "isZero", {
-        get: function () {
-            return this.x == 0 && this.y == 0;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Point.prototype, "isOne", {
-        get: function () {
-            return this.x == 1 && this.y == 1;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Point.prototype.toString = function () {
-        return "[Point] (x:" + this.x.toFixed(5) + ", y:" + this.y.toFixed(5) + ")";
-    };
-    return Point;
-}());
-exports.Point = Point;
-
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var Timer = /** @class */ (function () {
-    function Timer() {
-    }
-    // TODO [GJP] complete timer system
-    Timer.deltaSeconds = 0;
-    return Timer;
-}());
-exports.Timer = Timer;
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var Color_1 = __webpack_require__(3);
+var Color_1 = __webpack_require__(6);
 var Container_1 = __webpack_require__(4);
-var Timer_1 = __webpack_require__(1);
+var Timer_1 = __webpack_require__(2);
 var Stage = /** @class */ (function () {
     function Stage() {
         this._clearColor = new Color_1.Color(0.3, 0.6, 0.9);
@@ -407,7 +266,352 @@ exports.Stage = Stage;
 
 
 /***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Point = /** @class */ (function () {
+    function Point(x, y) {
+        if (x === void 0) { x = 0; }
+        if (y === void 0) { y = 0; }
+        this.x = x;
+        this.y = y;
+    }
+    Object.defineProperty(Point, "ZERO", {
+        get: function () {
+            return new Point(0, 0);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Point, "ONE", {
+        get: function () {
+            return new Point(1, 1);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Point, "AXIS_X", {
+        get: function () {
+            return new Point(1, 0);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Point, "AXIS_Y", {
+        get: function () {
+            return new Point(0, 1);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Point.prototype.add = function (p) {
+        this.x += p.x;
+        this.y += p.y;
+    };
+    Point.prototype.subtract = function (p) {
+        this.x -= p.x;
+        this.y -= p.y;
+    };
+    Point.prototype.multiply = function (p) {
+        this.x *= p.x;
+        this.y *= p.y;
+    };
+    Point.prototype.divide = function (p) {
+        this.x /= p.x;
+        this.y /= p.y;
+    };
+    Point.prototype.scale = function (scalar) {
+        this.x *= scalar;
+        this.y *= scalar;
+    };
+    Point.prototype.dot = function (p) {
+        return this.x * p.x + this.y * p.y;
+    };
+    Point.prototype.reflection = function (normal) {
+        var n = normal.clone();
+        var t = this.clone();
+        var dotN = t.dot(n);
+        n.scale(dotN);
+        n.scale(2);
+        t.subtract(n);
+        return t;
+    };
+    Point.prototype.invert = function () {
+        this.x *= -1;
+        this.y *= -1;
+    };
+    Point.prototype.normalize = function () {
+        if (length < Number.EPSILON) {
+            this.x = 0;
+            this.y = 0;
+        }
+        else {
+            var invLength = 1 / length;
+            this.x *= invLength;
+            this.y *= invLength;
+        }
+    };
+    Point.prototype.squaredLength = function () {
+        return this.x * this.x + this.y * this.y;
+    };
+    Point.prototype.length = function () {
+        return Math.sqrt(this.x * this.x + this.y * this.y);
+    };
+    Point.prototype.set = function (x, y) {
+        this.x = x;
+        this.y = y;
+    };
+    Point.prototype.clone = function () {
+        return new Point(this.x, this.y);
+    };
+    Object.defineProperty(Point.prototype, "isZero", {
+        get: function () {
+            return this.x == 0 && this.y == 0;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Point.prototype, "isOne", {
+        get: function () {
+            return this.x == 1 && this.y == 1;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Point.prototype.toString = function () {
+        return "[Point] (x:" + this.x.toFixed(5) + ", y:" + this.y.toFixed(5) + ")";
+    };
+    return Point;
+}());
+exports.Point = Point;
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Timer = /** @class */ (function () {
+    function Timer() {
+    }
+    // TODO [GJP] complete timer system
+    Timer.deltaSeconds = 0;
+    return Timer;
+}());
+exports.Timer = Timer;
+
+
+/***/ }),
 /* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var TileBounds_1 = __webpack_require__(20);
+var Tile = /** @class */ (function () {
+    function Tile(tileSet, tileX, tileY) {
+        if (tileX === void 0) { tileX = 1; }
+        if (tileY === void 0) { tileY = 1; }
+        this.bounds = TileBounds_1.TileBounds.NONE;
+        this.mapCode = 0;
+        this._tileSet = tileSet;
+        this._tileX = tileX;
+        this._tileY = tileY;
+    }
+    Tile.fromTile = function (tile) {
+        var t = new Tile(tile.tileSet, tile.tileX, tile.tileY);
+        t.mapCode = tile.mapCode;
+        t.bounds = tile.bounds;
+        return t;
+    };
+    Object.defineProperty(Tile.prototype, "left", {
+        get: function () {
+            return (this.bounds & TileBounds_1.TileBounds.LEFT) == TileBounds_1.TileBounds.LEFT;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Tile.prototype, "bottom", {
+        get: function () {
+            return (this.bounds & TileBounds_1.TileBounds.BOTTOM) == TileBounds_1.TileBounds.BOTTOM;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Tile.prototype, "right", {
+        get: function () {
+            return (this.bounds & TileBounds_1.TileBounds.RIGHT) == TileBounds_1.TileBounds.RIGHT;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Tile.prototype, "top", {
+        get: function () {
+            return (this.bounds & TileBounds_1.TileBounds.TOP) == TileBounds_1.TileBounds.TOP;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Tile.prototype, "tileSet", {
+        get: function () {
+            return this._tileSet;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Tile.prototype, "tileX", {
+        get: function () {
+            return this._tileX;
+        },
+        set: function (value) {
+            this._tileX = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Tile.prototype, "tileY", {
+        get: function () {
+            return this._tileY;
+        },
+        set: function (value) {
+            this.tileY = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Tile.prototype.draw = function (x, y, width, height) {
+        this._tileSet.draw(this._tileX, this._tileY, x, y, width, height);
+    };
+    Tile.prototype.set = function (tileSet, tileX, tileY, mapCode, bounds) {
+        if (mapCode === void 0) { mapCode = 0; }
+        if (bounds === void 0) { bounds = TileBounds_1.TileBounds.NONE; }
+        this._tileSet = tileSet;
+        this._tileX = tileX;
+        this._tileY = tileY;
+        this.mapCode = mapCode;
+        this.bounds = bounds;
+    };
+    // virtual
+    Tile.prototype.update = function () { };
+    return Tile;
+}());
+exports.Tile = Tile;
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var Spatial_1 = __webpack_require__(15);
+var Container = /** @class */ (function (_super) {
+    __extends(Container, _super);
+    function Container() {
+        var _this = _super.call(this) || this;
+        _this._children = [];
+        return _this;
+    }
+    Container.prototype.dispose = function () {
+        this.removeAllChildren();
+        _super.prototype.dispose.call(this);
+    };
+    Object.defineProperty(Container.prototype, "children", {
+        get: function () {
+            return this._children;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Container.prototype.addChild = function (spatial) {
+        if (this._children.lastIndexOf(spatial) != -1) {
+            //TODO warn
+            return;
+        }
+        spatial.parent = this;
+        this._children.push(spatial);
+    };
+    Container.prototype.removeChild = function (spatial) {
+        var index = this._children.lastIndexOf(spatial);
+        if (index != -1) {
+            spatial.parent = null;
+            this._children.splice(index, 1);
+        }
+    };
+    Container.prototype.removeAllChildren = function () {
+        for (var _i = 0, _a = this._children; _i < _a.length; _i++) {
+            var child = _a[_i];
+            child.parent = null;
+            child.dispose();
+        }
+        this._children = null;
+    };
+    // override
+    Container.prototype.updateWorldData = function () {
+        _super.prototype.updateWorldData.call(this);
+        for (var _i = 0, _a = this._children; _i < _a.length; _i++) {
+            var child = _a[_i];
+            child.update(false);
+        }
+    };
+    Container.prototype.draw = function () {
+        for (var _i = 0, _a = this._children; _i < _a.length; _i++) {
+            var child = _a[_i];
+            child.draw();
+        }
+    };
+    Container.prototype.drawDebug = function () {
+        for (var _i = 0, _a = this._children; _i < _a.length; _i++) {
+            var child = _a[_i];
+            child.drawDebug();
+        }
+    };
+    return Container;
+}(Spatial_1.Spatial));
+exports.Container = Container;
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var EventType = /** @class */ (function () {
+    function EventType() {
+    }
+    EventType.LOADED = 'loaded';
+    EventType.ERROR = 'error';
+    EventType.TIMEOUT = 'timeout';
+    EventType.COMPLETE = 'complete';
+    return EventType;
+}());
+exports.EventType = EventType;
+
+
+/***/ }),
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -485,101 +689,14 @@ exports.Color = Color;
 
 
 /***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var Spatial_1 = __webpack_require__(10);
-var Container = /** @class */ (function (_super) {
-    __extends(Container, _super);
-    function Container() {
-        var _this = _super.call(this) || this;
-        _this._children = [];
-        return _this;
-    }
-    Container.prototype.dispose = function () {
-        this.removeAllChildren();
-        _super.prototype.dispose.call(this);
-    };
-    Object.defineProperty(Container.prototype, "children", {
-        get: function () {
-            return this._children;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Container.prototype.addChild = function (spatial) {
-        if (this._children.lastIndexOf(spatial) != -1) {
-            //TODO warn
-            return;
-        }
-        spatial.parent = this;
-        this._children.push(spatial);
-    };
-    Container.prototype.removeChild = function (spatial) {
-        var index = this._children.lastIndexOf(spatial);
-        if (index != -1) {
-            spatial.parent = null;
-            this._children.splice(index, 1);
-        }
-    };
-    Container.prototype.removeAllChildren = function () {
-        for (var _i = 0, _a = this._children; _i < _a.length; _i++) {
-            var child = _a[_i];
-            child.parent = null;
-            child.dispose();
-        }
-        this._children = null;
-    };
-    // override
-    Container.prototype.updateWorldData = function () {
-        _super.prototype.updateWorldData.call(this);
-        for (var _i = 0, _a = this._children; _i < _a.length; _i++) {
-            var child = _a[_i];
-            child.update(false);
-        }
-    };
-    Container.prototype.draw = function () {
-        for (var _i = 0, _a = this._children; _i < _a.length; _i++) {
-            var child = _a[_i];
-            child.draw();
-        }
-    };
-    Container.prototype.drawDebug = function () {
-        for (var _i = 0, _a = this._children; _i < _a.length; _i++) {
-            var child = _a[_i];
-            child.drawDebug();
-        }
-    };
-    return Container;
-}(Spatial_1.Spatial));
-exports.Container = Container;
-
-
-/***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Point_1 = __webpack_require__(0);
-var Matrix_1 = __webpack_require__(11);
+var Point_1 = __webpack_require__(1);
+var Matrix_1 = __webpack_require__(16);
 var Transform = /** @class */ (function () {
     function Transform() {
         this._scale = Point_1.Point.ONE;
@@ -694,7 +811,67 @@ exports.Transform = Transform;
 
 
 /***/ }),
-/* 6 */
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var BlendMode;
+(function (BlendMode) {
+    BlendMode["SOURCE_OVER"] = "source-over";
+    BlendMode["SOURCE_IN"] = "source-in";
+    BlendMode["SOURCE_OUT"] = "source-out";
+    BlendMode["SOURCE_ATOP"] = "source-atop";
+    BlendMode["DESTINATION_OVER"] = "destination-over";
+    BlendMode["DESTINATION_IN"] = "destination-in";
+    BlendMode["DESTINATION_OUT"] = "destination-out";
+    BlendMode["DESTINATION_ATOP"] = "destination-atop";
+    BlendMode["LIGHTER"] = "lighter";
+    BlendMode["COPY"] = "copy";
+    BlendMode["XOR"] = "xor";
+    BlendMode["MULTIPLY"] = "multiply";
+    BlendMode["SCREEN"] = "screen";
+    BlendMode["OVERLAY"] = "overlay";
+    BlendMode["DARKEN"] = "darken";
+    BlendMode["LIGHTEN"] = "lighten";
+    BlendMode["COLOR_DODGE"] = "color-dodge";
+    BlendMode["COLOR_BURN"] = "color-burn";
+    BlendMode["HARD_LIGHT"] = "hard-light";
+    BlendMode["SOFT_LIGHT"] = "soft-light";
+    BlendMode["DIFFERENCE"] = "difference";
+    BlendMode["EXCLUSION"] = "exclusion";
+    BlendMode["HUE"] = "hue";
+    BlendMode["SATURATION"] = "saturation";
+    BlendMode["COLOR"] = "color";
+    BlendMode["LUMINOSITY"] = "luminosity";
+})(BlendMode = exports.BlendMode || (exports.BlendMode = {}));
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var AnchorType;
+(function (AnchorType) {
+    AnchorType[AnchorType["NONE"] = 0] = "NONE";
+    AnchorType[AnchorType["BOTTOM_CENTER"] = 1] = "BOTTOM_CENTER";
+    AnchorType[AnchorType["BOTTOM_LEFT"] = 2] = "BOTTOM_LEFT";
+    AnchorType[AnchorType["BOTTOM_RIGHT"] = 3] = "BOTTOM_RIGHT";
+    AnchorType[AnchorType["CENTER"] = 4] = "CENTER";
+    AnchorType[AnchorType["CENTER_LEFT"] = 5] = "CENTER_LEFT";
+    AnchorType[AnchorType["CENTER_RIGHT"] = 6] = "CENTER_RIGHT";
+    AnchorType[AnchorType["TOP_CENTER"] = 7] = "TOP_CENTER";
+    AnchorType[AnchorType["TOP_LEFT"] = 8] = "TOP_LEFT";
+    AnchorType[AnchorType["TOP_RIGHT"] = 9] = "TOP_RIGHT";
+})(AnchorType = exports.AnchorType || (exports.AnchorType = {}));
+
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -713,14 +890,15 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var BlendMode_1 = __webpack_require__(7);
-var Point_1 = __webpack_require__(0);
+var BlendMode_1 = __webpack_require__(8);
+var Point_1 = __webpack_require__(1);
 var Container_1 = __webpack_require__(4);
-var Stage_1 = __webpack_require__(2);
-var AnchorType_1 = __webpack_require__(8);
+var Stage_1 = __webpack_require__(0);
+var AnchorType_1 = __webpack_require__(9);
+var Texture_1 = __webpack_require__(11);
 var Sprite = /** @class */ (function (_super) {
     __extends(Sprite, _super);
-    function Sprite() {
+    function Sprite(texture) {
         var _this = _super.call(this) || this;
         _this.alpha = 1;
         _this.smoothing = true;
@@ -734,13 +912,12 @@ var Sprite = /** @class */ (function (_super) {
         _this._targetContext = _this._targetCanvas.getContext('2d');
         _this.canvas = document.createElement('canvas');
         _this.graphics = _this.canvas.getContext('2d');
-        _this._image = document.createElement('img');
-        _this._image.onload = function () {
-            _this._isDirty = true;
-        };
-        _this._image.onerror = function () {
-            _this._image.src = '';
-        };
+        if (texture) {
+            _this._texture = texture;
+        }
+        else {
+            _this._texture = new Texture_1.Texture();
+        }
         _this._mask = document.createElement('img');
         _this._mask.onload = function () {
             _this._isDirty = true;
@@ -765,6 +942,17 @@ var Sprite = /** @class */ (function (_super) {
         configurable: true
     });
     Sprite.prototype.dispose = function () { };
+    Object.defineProperty(Sprite.prototype, "texture", {
+        get: function () {
+            return this._texture;
+        },
+        set: function (value) {
+            this._texture = value;
+            this._isDirty = true;
+        },
+        enumerable: true,
+        configurable: true
+    });
     //override
     Sprite.prototype.update = function (initiator) {
         // TODO update model space
@@ -797,8 +985,8 @@ var Sprite = /** @class */ (function (_super) {
         ctx.imageSmoothingEnabled = this.smoothing;
         ctx.globalCompositeOperation = this.blendMode;
         ctx.drawImage(this.graphics.canvas, 0, 0, this._width, this._height);
-        if (this._image.src != '' || this._image.src != null) {
-            ctx.drawImage(this._image, 0, 0, this._width, this._height);
+        if (this._texture.image.src != '' || this._texture.image.src != null) {
+            ctx.drawImage(this._texture.image, 0, 0, this._width, this._height);
         }
         if (this._tint != null) {
             ctx.globalAlpha = 1;
@@ -820,17 +1008,16 @@ var Sprite = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(Sprite.prototype, "image", {
-        get: function () {
-            return this._image.src;
-        },
-        set: function (value) {
-            this._image.src = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(Sprite.prototype, "tint", {
+        /*
+        public set image(value: string) {
+            this._image.src = value
+        }
+    
+        public get image(): string {
+            return this._image.src
+        }
+        */
         get: function () {
             return this._tint;
         },
@@ -935,147 +1122,342 @@ exports.Sprite = Sprite;
 
 
 /***/ }),
-/* 7 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
-var BlendMode;
-(function (BlendMode) {
-    BlendMode["SOURCE_OVER"] = "source-over";
-    BlendMode["SOURCE_IN"] = "source-in";
-    BlendMode["SOURCE_OUT"] = "source-out";
-    BlendMode["SOURCE_ATOP"] = "source-atop";
-    BlendMode["DESTINATION_OVER"] = "destination-over";
-    BlendMode["DESTINATION_IN"] = "destination-in";
-    BlendMode["DESTINATION_OUT"] = "destination-out";
-    BlendMode["DESTINATION_ATOP"] = "destination-atop";
-    BlendMode["LIGHTER"] = "lighter";
-    BlendMode["COPY"] = "copy";
-    BlendMode["XOR"] = "xor";
-    BlendMode["MULTIPLY"] = "multiply";
-    BlendMode["SCREEN"] = "screen";
-    BlendMode["OVERLAY"] = "overlay";
-    BlendMode["DARKEN"] = "darken";
-    BlendMode["LIGHTEN"] = "lighten";
-    BlendMode["COLOR_DODGE"] = "color-dodge";
-    BlendMode["COLOR_BURN"] = "color-burn";
-    BlendMode["HARD_LIGHT"] = "hard-light";
-    BlendMode["SOFT_LIGHT"] = "soft-light";
-    BlendMode["DIFFERENCE"] = "difference";
-    BlendMode["EXCLUSION"] = "exclusion";
-    BlendMode["HUE"] = "hue";
-    BlendMode["SATURATION"] = "saturation";
-    BlendMode["COLOR"] = "color";
-    BlendMode["LUMINOSITY"] = "luminosity";
-})(BlendMode = exports.BlendMode || (exports.BlendMode = {}));
+var Stage_1 = __webpack_require__(0);
+var EventType_1 = __webpack_require__(5);
+var EventDispatcher_1 = __webpack_require__(12);
+var Texture = /** @class */ (function (_super) {
+    __extends(Texture, _super);
+    function Texture(image) {
+        if (image === void 0) { image = null; }
+        var _this = _super.call(this) || this;
+        if (image) {
+            _this._image = image;
+        }
+        else {
+            _this._image = document.createElement('img');
+        }
+        _this._image.onload = function (e) { return _this.onImageLoad(e); };
+        _this._image.onerror = function (e) { return _this.onImageError(e); };
+        return _this;
+    }
+    Object.defineProperty(Texture.prototype, "image", {
+        get: function () {
+            return this._image;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Texture.prototype, "width", {
+        get: function () {
+            return this._image.width;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Texture.prototype, "height", {
+        get: function () {
+            return this._image.height;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Texture.prototype, "path", {
+        get: function () {
+            return this._image.src;
+        },
+        set: function (value) {
+            if (value == null) {
+                value = '';
+            }
+            this._image.src = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Texture.prototype.onImageLoad = function (e) {
+        this.dispatchEvent(new Event(EventType_1.EventType.LOADED));
+    };
+    Texture.prototype.onImageError = function (e) {
+        this._image.src = '';
+        this.dispatchEvent(new CustomEvent(EventType_1.EventType.ERROR));
+    };
+    Texture.prototype.draw = function (x, y, width, height, sX, sY, sWidth, sHeight) {
+        if (sX != null &&
+            sY != null &&
+            sWidth != null &&
+            sHeight != null &&
+            width != null &&
+            height != null) {
+            Stage_1.Stage.context.drawImage(this._image, sX, sY, sWidth, sHeight, x, y, width, height);
+        }
+        else if (width != null && height != null) {
+            Stage_1.Stage.context.drawImage(this._image, x, y, width, height);
+        }
+        else {
+            Stage_1.Stage.context.drawImage(this._image, x, y);
+        }
+    };
+    return Texture;
+}(EventDispatcher_1.EventDispatcher));
+exports.Texture = Texture;
 
 
 /***/ }),
-/* 8 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var AnchorType;
-(function (AnchorType) {
-    AnchorType[AnchorType["NONE"] = 0] = "NONE";
-    AnchorType[AnchorType["BOTTOM_CENTER"] = 1] = "BOTTOM_CENTER";
-    AnchorType[AnchorType["BOTTOM_LEFT"] = 2] = "BOTTOM_LEFT";
-    AnchorType[AnchorType["BOTTOM_RIGHT"] = 3] = "BOTTOM_RIGHT";
-    AnchorType[AnchorType["CENTER"] = 4] = "CENTER";
-    AnchorType[AnchorType["CENTER_LEFT"] = 5] = "CENTER_LEFT";
-    AnchorType[AnchorType["CENTER_RIGHT"] = 6] = "CENTER_RIGHT";
-    AnchorType[AnchorType["TOP_CENTER"] = 7] = "TOP_CENTER";
-    AnchorType[AnchorType["TOP_LEFT"] = 8] = "TOP_LEFT";
-    AnchorType[AnchorType["TOP_RIGHT"] = 9] = "TOP_RIGHT";
-})(AnchorType = exports.AnchorType || (exports.AnchorType = {}));
+var EventDispatcher = /** @class */ (function () {
+    function EventDispatcher() {
+        this._delegate = document.createDocumentFragment();
+    }
+    EventDispatcher.prototype.addEventListener = function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        this._delegate.addEventListener.apply(this._delegate, args);
+    };
+    EventDispatcher.prototype.dispatchEvent = function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        return this._delegate.dispatchEvent.apply(this._delegate, args);
+    };
+    EventDispatcher.prototype.removeEventListener = function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        return this._delegate.removeEventListener.apply(this._delegate, args);
+    };
+    return EventDispatcher;
+}());
+exports.EventDispatcher = EventDispatcher;
 
 
 /***/ }),
-/* 9 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Stage_1 = __webpack_require__(2);
-var Color_1 = __webpack_require__(3);
-var Sprite_1 = __webpack_require__(6);
-var BlendMode_1 = __webpack_require__(7);
-var AnchorType_1 = __webpack_require__(8);
-var MovieClip_1 = __webpack_require__(13);
+var Tile_1 = __webpack_require__(3);
+var TileSet = /** @class */ (function () {
+    function TileSet(texture, tileWidth, tileHeight) {
+        this._tileWidth = -1;
+        this._tileHeight = -1;
+        this._texture = texture;
+        if (tileWidth && tileHeight) {
+            this._tileWidth = tileWidth;
+            this._tileHeight = tileHeight;
+        }
+        else {
+            this._tileWidth = texture.width;
+            this._tileHeight = texture.height;
+        }
+    }
+    Object.defineProperty(TileSet.prototype, "tileWidth", {
+        get: function () {
+            return this._tileWidth;
+        },
+        set: function (value) {
+            this._tileWidth = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TileSet.prototype, "tileHeight", {
+        get: function () {
+            return this._tileHeight;
+        },
+        set: function (value) {
+            this._tileHeight = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TileSet.prototype, "texture", {
+        get: function () {
+            return this._texture;
+        },
+        set: function (value) {
+            this._texture = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TileSet.prototype, "numTilesX", {
+        get: function () {
+            return this._texture.width / this._tileWidth;
+        },
+        set: function (value) {
+            this._tileWidth = this._texture.width / value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TileSet.prototype, "numTilesY", {
+        get: function () {
+            return this._texture.height / this._tileHeight;
+        },
+        set: function (value) {
+            this._tileHeight = this._texture.height / value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    TileSet.prototype.getTile = function (x, y) {
+        return new Tile_1.Tile(this, x, y);
+    };
+    TileSet.prototype.getTileAt = function (index) {
+        var tilesWide = this.numTilesX;
+        var x = index % tilesWide;
+        return new Tile_1.Tile(this, x, (index - x) / tilesWide);
+    };
+    TileSet.prototype.draw = function (tileX, tileY, x, y, width, height) {
+        var sX = tileX * this._tileWidth;
+        var sY = tileY * this._tileHeight;
+        this._texture.draw(x, y, width, height, sX, sY, this._tileWidth, this._tileHeight);
+    };
+    return TileSet;
+}());
+exports.TileSet = TileSet;
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Stage_1 = __webpack_require__(0);
+var Color_1 = __webpack_require__(6);
+var BlendMode_1 = __webpack_require__(8);
+var AnchorType_1 = __webpack_require__(9);
+var MovieClip_1 = __webpack_require__(18);
+var EventType_1 = __webpack_require__(5);
+var AssetLoader_1 = __webpack_require__(19);
+var TileAnimation_1 = __webpack_require__(21);
+var TileMap_1 = __webpack_require__(23);
 var clearColor = new Color_1.Color(0.3, 0.6, 0.9, 1);
 var stage = Stage_1.Stage.init(800, 600, clearColor, 30, true);
-var bunny = new Sprite_1.Sprite();
-bunny.blendMode = BlendMode_1.BlendMode.SOURCE_OVER;
-bunny.anchor = AnchorType_1.AnchorType.CENTER;
-bunny.scale = 1.3;
-bunny.smoothing = false;
-bunny.graphics.fillStyle = '#FF0000';
-bunny.graphics.fillRect(0, 0, 100, 100);
-bunny.image = './assets/bunny.png';
-bunny.tint = new Color_1.Color(1, 1, 0, 0.5);
-bunny.x = 300;
-bunny.y = 300;
-bunny.rotationSpeed = 1;
-bunny.update();
-var star = new Sprite_1.Sprite();
-star.blendMode = BlendMode_1.BlendMode.COLOR_BURN;
-star.x = 30;
-star.y = 30;
-star.scale = 1.3;
-star.alpha = 0.75;
-star.tint = new Color_1.Color(1, 0, 0, 0.5);
-star.smoothing = false;
-star.anchor = AnchorType_1.AnchorType.CENTER;
-star.image = './assets/star.png';
-star.mask = './assets/bunny.png';
-star.rotationSpeed = 2;
-bunny.addChild(star);
-stage.root.addChild(bunny);
-var frames = [bunny, star];
-var mc = new MovieClip_1.MovieClip();
-mc.blendMode = BlendMode_1.BlendMode.COLOR_BURN;
-mc.anchor = AnchorType_1.AnchorType.CENTER;
-mc.rotationSpeed = -4;
-mc.x = 100;
-mc.y = 100;
-mc.framerate = 2;
-mc.tint = new Color_1.Color(1, 0, 0, 0.8);
-mc.frames = frames;
-stage.root.addChild(mc);
-/*
-let texture: Texture = new Texture()
-texture.addEventListener(EventType.LOADED, (e: Event) => onLoaded(e))
-texture.addEventListener(EventType.ERROR, (e: ErrorEvent) => onError(e))
-
-texture.path = 'assets/star.png'
-
-function onLoaded(e: Event): void {
-    console.log('Texture loaded')
-    texture.draw(100, 100)
+var BUNNY_PATH = './assets/bunny.png';
+var STAR_PATH = './assets/star.png';
+var ICE_SET_PATH = './assets/ice_set.png';
+var MAP_DATA_PATH = './assets/map_data.json';
+var loader = new AssetLoader_1.AssetLoader();
+loader.addEventListener(EventType_1.EventType.COMPLETE, onLoaderComplete);
+loader.addEventListener(EventType_1.EventType.ERROR, onLoaderError);
+loader.addEventListener(EventType_1.EventType.TIMEOUT, onLoaderTimeout);
+loader.addEventListener(EventType_1.EventType.LOADED, onLoaderItemLoaded);
+loader.add(BUNNY_PATH);
+loader.add(STAR_PATH);
+loader.add(ICE_SET_PATH);
+loader.add(MAP_DATA_PATH);
+loader.load();
+function onLoaderComplete(e) {
+    console.log('Loading complete');
+    buildScene();
 }
-
-function onError(e: ErrorEvent): void {
-    console.log(`An error occured: ${e.message}`)
+function onLoaderItemLoaded(e) {
+    console.log('Loaded item');
 }
-*/
+function onLoaderError(e) {
+    console.log('An error occured whilst loading assets');
+}
+function onLoaderTimeout(e) {
+    console.log('An timeout occured whilst loading assets');
+}
+function buildScene() {
+    var tileSet = loader.getTileSet(ICE_SET_PATH, 32, 32);
+    var tileAnimation = new TileAnimation_1.TileAnimation(tileSet);
+    tileAnimation.frameRate = 5;
+    var tileMap = new TileMap_1.TileMap(10, 10);
+    tileMap.animations.push(tileAnimation);
+    tileMap.setData(tileSet, loader.getJson(MAP_DATA_PATH).data);
+    stage.root.addChild(tileMap);
+    console.log('numTilesX: ' + tileSet.numTilesX);
+    console.log('numTilesY: ' + tileSet.numTilesY);
+    console.log('tileWidth: ' + tileSet.tileWidth);
+    console.log('tileHeight: ' + tileSet.tileHeight);
+    var tile = tileSet.getTile(0, 0);
+    tile.draw(50, 60, 100, 100);
+    tileSet.draw(4, 0, 50, 50, 100, 100);
+    var bunny = loader.getSprite(BUNNY_PATH);
+    bunny.blendMode = BlendMode_1.BlendMode.SOURCE_OVER;
+    bunny.anchor = AnchorType_1.AnchorType.CENTER;
+    bunny.scale = 1.3;
+    bunny.smoothing = false;
+    bunny.graphics.fillStyle = '#FF0000';
+    bunny.graphics.fillRect(0, 0, 100, 100);
+    bunny.tint = new Color_1.Color(1, 1, 0, 0.5);
+    bunny.x = 300;
+    bunny.y = 300;
+    bunny.rotationSpeed = 1;
+    bunny.update();
+    var star = loader.getSprite(STAR_PATH);
+    star.blendMode = BlendMode_1.BlendMode.COLOR_BURN;
+    star.x = 30;
+    star.y = 30;
+    star.scale = 1.3;
+    star.alpha = 0.75;
+    star.tint = new Color_1.Color(1, 0, 0, 0.5);
+    star.smoothing = false;
+    star.anchor = AnchorType_1.AnchorType.CENTER;
+    star.mask = BUNNY_PATH;
+    star.rotationSpeed = 2;
+    bunny.addChild(star);
+    stage.root.addChild(bunny);
+    var frames = [bunny, star];
+    var mc = new MovieClip_1.MovieClip();
+    mc.blendMode = BlendMode_1.BlendMode.COLOR_BURN;
+    mc.anchor = AnchorType_1.AnchorType.CENTER;
+    mc.rotationSpeed = -4;
+    mc.x = 100;
+    mc.y = 100;
+    mc.framerate = 2;
+    mc.tint = new Color_1.Color(1, 0, 0, 0.8);
+    mc.frames = frames;
+    stage.root.addChild(mc);
+}
 
 
 /***/ }),
-/* 10 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Transform_1 = __webpack_require__(5);
-var Bound_1 = __webpack_require__(12);
-var Point_1 = __webpack_require__(0);
-var Timer_1 = __webpack_require__(1);
+var Transform_1 = __webpack_require__(7);
+var Bound_1 = __webpack_require__(17);
+var Point_1 = __webpack_require__(1);
+var Timer_1 = __webpack_require__(2);
 var Spatial = /** @class */ (function () {
     function Spatial() {
         this.name = '';
@@ -1203,7 +1585,6 @@ var Spatial = /** @class */ (function () {
                 this.worldTransform = Transform_1.Transform.multiply(this._parent.worldTransform, this.transform);
             }
             else {
-                //console.log(this.transform);
                 this.worldTransform = this.transform;
             }
         }
@@ -1235,7 +1616,7 @@ exports.Spatial = Spatial;
 
 
 /***/ }),
-/* 11 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1349,14 +1730,14 @@ exports.Matrix = Matrix;
 
 
 /***/ }),
-/* 12 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Transform_1 = __webpack_require__(5);
-var Point_1 = __webpack_require__(0);
+var Transform_1 = __webpack_require__(7);
+var Point_1 = __webpack_require__(1);
 var Bound = /** @class */ (function () {
     function Bound(vertices) {
         this._vertices = [
@@ -1383,7 +1764,7 @@ exports.Bound = Bound;
 
 
 /***/ }),
-/* 13 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1402,8 +1783,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Sprite_1 = __webpack_require__(6);
-var Timer_1 = __webpack_require__(1);
+var Sprite_1 = __webpack_require__(10);
+var Timer_1 = __webpack_require__(2);
 var MovieClip = /** @class */ (function (_super) {
     __extends(MovieClip, _super);
     function MovieClip() {
@@ -1449,7 +1830,7 @@ var MovieClip = /** @class */ (function (_super) {
         set: function (frame) {
             this._currentFrame = frame;
             if (this._frames[this._currentFrame] != null) {
-                this.image = this._frames[this._currentFrame].image;
+                this.texture = this._frames[this._currentFrame].texture;
             }
         },
         enumerable: true,
@@ -1479,6 +1860,638 @@ var MovieClip = /** @class */ (function (_super) {
     return MovieClip;
 }(Sprite_1.Sprite));
 exports.MovieClip = MovieClip;
+
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var EventDispatcher_1 = __webpack_require__(12);
+var EventType_1 = __webpack_require__(5);
+var Texture_1 = __webpack_require__(11);
+var Sprite_1 = __webpack_require__(10);
+var TileSet_1 = __webpack_require__(13);
+var AssetLoader = /** @class */ (function (_super) {
+    __extends(AssetLoader, _super);
+    function AssetLoader() {
+        var _this = _super.call(this) || this;
+        _this._paths = [];
+        _this._imageMap = new Map();
+        _this._audioMap = new Map();
+        _this._jsonMap = new Map();
+        return _this;
+    }
+    AssetLoader.prototype.add = function (path) {
+        this._paths.unshift(path);
+    };
+    Object.defineProperty(AssetLoader.prototype, "paths", {
+        get: function () {
+            return this._paths;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    AssetLoader.prototype.getImage = function (path) {
+        return this._imageMap.get(path);
+    };
+    AssetLoader.prototype.getTexture = function (path) {
+        return new Texture_1.Texture(this._imageMap.get(path));
+    };
+    AssetLoader.prototype.getSprite = function (path) {
+        return new Sprite_1.Sprite(this.getTexture(path));
+    };
+    AssetLoader.prototype.getTileSet = function (path, tileWidth, tileHeight) {
+        return new TileSet_1.TileSet(this.getTexture(path), tileWidth, tileHeight);
+    };
+    AssetLoader.prototype.getAudio = function (path) {
+        return this._audioMap.get(path);
+    };
+    AssetLoader.prototype.getJson = function (path) {
+        return this._jsonMap.get(path);
+    };
+    AssetLoader.prototype.load = function () {
+        this.loadItem(this._paths.shift());
+    };
+    AssetLoader.prototype.loadItem = function (path) {
+        var _this = this;
+        var xhr = new XMLHttpRequest();
+        switch (this.getFileExtension(path)) {
+            case 'json':
+                xhr.responseType = 'text';
+                break;
+            default:
+                xhr.responseType = 'arraybuffer';
+                break;
+        }
+        xhr.onload = function (e) { return _this.onAssetLoad(e, path); };
+        xhr.onerror = function (e) { return _this.onAssetError(e, path); };
+        xhr.ontimeout = function (e) { return _this.onAssetTimeout(e, path); };
+        xhr.open('GET', path, true);
+        xhr.send();
+    };
+    AssetLoader.prototype.onAssetError = function (e, path) {
+        dispatchEvent(new Event(EventType_1.EventType.ERROR));
+    };
+    AssetLoader.prototype.onAssetTimeout = function (e, path) {
+        dispatchEvent(new Event(EventType_1.EventType.TIMEOUT));
+    };
+    AssetLoader.prototype.onAssetLoad = function (e, path) {
+        var target = e.target;
+        if (target.status == 200) {
+            var data = new Uint8Array(target.response);
+            var mimeType = this.getMimeType(data);
+            if (!mimeType) {
+                mimeType = this.getFileExtension(path);
+            }
+            switch (mimeType) {
+                case 'image/png':
+                    var png = document.createElement('img');
+                    png.src = path;
+                    png.crossOrigin = 'anonymous';
+                    png.height =
+                        (data[20] << 24) |
+                            (data[21] << 16) |
+                            (data[22] << 8) |
+                            data[23];
+                    png.width =
+                        (data[16] << 24) |
+                            (data[17] << 16) |
+                            (data[18] << 8) |
+                            data[19];
+                    this._imageMap.set(path, png);
+                    break;
+                case 'image/jpeg':
+                    var jpg = document.createElement('img');
+                    jpg.src = path;
+                    jpg.crossOrigin = 'anonymous';
+                    var offset = 0;
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i] == 0xff &&
+                            (data[i + 1] == 0xc0 || data[i + 1] == 0xc2)) {
+                            offset = i + 5;
+                            break;
+                        }
+                    }
+                    if (offset == 0) {
+                        console.warn('JPEG SOF chunk not found. Cannot determine the width and height');
+                    }
+                    else {
+                        jpg.width = (data[offset] << 8) | data[offset + 1];
+                        jpg.height = (data[offset + 2] << 8) | data[offset + 3];
+                    }
+                    this._imageMap.set(path, jpg);
+                    break;
+                case 'audio/mpeg':
+                    var audio = document.createElement('audio');
+                    audio.crossOrigin = 'anonymous';
+                    audio.src = path;
+                    audio.load(); // force asset to refresh
+                    this._audioMap.set(path, audio);
+                    break;
+                case 'json':
+                    this._jsonMap.set(path, JSON.parse(target.responseText));
+                    break;
+                default:
+                    console.warn("Unknown file type " + mimeType);
+                    this.dispatchEvent(new Event(EventType_1.EventType.ERROR));
+                    return;
+            }
+        }
+        else {
+            // the file was not found
+            this.dispatchEvent(new Event(EventType_1.EventType.ERROR));
+            return;
+        }
+        this.dispatchEvent(new Event(EventType_1.EventType.LOADED));
+        if (this._paths.length > 0) {
+            this.loadItem(this._paths.shift());
+        }
+        else {
+            this.dispatchEvent(new Event(EventType_1.EventType.COMPLETE));
+        }
+    };
+    AssetLoader.prototype.getMimeType = function (data) {
+        var magic = (data[0] << 8) | data[1];
+        switch (magic) {
+            case 0x4944:
+            case 0xfffb:
+                return 'audio/mpeg';
+            case 0x8950:
+                return 'image/png';
+            case 0x4749:
+                return 'image/gif';
+            case 0x2550:
+                return 'application/pdf';
+            case 0xffd8:
+            case 0xddd8:
+                return 'image/jpeg';
+            case 0x504b:
+                return 'application/zip';
+            default:
+                return null;
+        }
+    };
+    AssetLoader.prototype.getFileExtension = function (filePath) {
+        return filePath.substr(filePath.lastIndexOf('.') + 1, filePath.length - 1);
+    };
+    return AssetLoader;
+}(EventDispatcher_1.EventDispatcher));
+exports.AssetLoader = AssetLoader;
+
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var TileBounds;
+(function (TileBounds) {
+    TileBounds[TileBounds["NONE"] = 0] = "NONE";
+    TileBounds[TileBounds["TOP"] = 1] = "TOP";
+    TileBounds[TileBounds["RIGHT"] = 2] = "RIGHT";
+    TileBounds[TileBounds["BOTTOM"] = 4] = "BOTTOM";
+    TileBounds[TileBounds["LEFT"] = 8] = "LEFT";
+    TileBounds[TileBounds["DIAGONAL_UP"] = 128] = "DIAGONAL_UP";
+    TileBounds[TileBounds["DIAGONAL_DOWN"] = 129] = "DIAGONAL_DOWN";
+})(TileBounds = exports.TileBounds || (exports.TileBounds = {}));
+
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var TileCollection_1 = __webpack_require__(22);
+var TileAnimation = /** @class */ (function () {
+    function TileAnimation(tileset) {
+        this.frameRate = 30;
+        this.name = '';
+        this._frames = new TileCollection_1.TileCollection();
+        this._frames.addTileSet(tileset);
+    }
+    Object.defineProperty(TileAnimation.prototype, "frames", {
+        get: function () {
+            return this._frames.tiles;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    TileAnimation.prototype.tileAt = function (index) {
+        return this._frames.tileAt(Math.floor(index));
+    };
+    return TileAnimation;
+}());
+exports.TileAnimation = TileAnimation;
+
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Tile_1 = __webpack_require__(3);
+var TileSet_1 = __webpack_require__(13);
+var TileCollection = /** @class */ (function () {
+    function TileCollection() {
+        this._tiles = [];
+    }
+    TileCollection.prototype.tileAt = function (value) {
+        return this._tiles[value];
+    };
+    Object.defineProperty(TileCollection.prototype, "tiles", {
+        get: function () {
+            return this._tiles;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    TileCollection.prototype.addTileSet = function (tileSet) {
+        var x;
+        var y;
+        for (y = 0; y < tileSet.numTilesY; y++) {
+            for (x = 0; x < tileSet.numTilesX; x++) {
+                this._tiles.push(new Tile_1.Tile(tileSet, x, y));
+            }
+        }
+        return length;
+    };
+    TileCollection.prototype.addTileSetRow = function (tileSet, row) {
+        var x;
+        for (x = 0; x < tileSet.numTilesX; x++) {
+            this._tiles.push(new Tile_1.Tile(tileSet, x, row));
+        }
+        return length;
+    };
+    TileCollection.prototype.addTexture = function (texture) {
+        this._tiles.push(new Tile_1.Tile(new TileSet_1.TileSet(texture)));
+        return length;
+    };
+    TileCollection.prototype.addTileCollection = function (tileCollection) {
+        var i;
+        for (i = 0; i < tileCollection.length; i++) {
+            this._tiles.push(tileCollection.tileAt(i));
+        }
+        return length;
+    };
+    TileCollection.prototype.removeAt = function (index, length) {
+        this._tiles.splice(index, length);
+    };
+    Object.defineProperty(TileCollection.prototype, "length", {
+        get: function () {
+            return this._tiles.length;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return TileCollection;
+}());
+exports.TileCollection = TileCollection;
+
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var Tile_1 = __webpack_require__(3);
+var Container_1 = __webpack_require__(4);
+var AnimatedTile_1 = __webpack_require__(24);
+var Stage_1 = __webpack_require__(0);
+var TileMap = /** @class */ (function (_super) {
+    __extends(TileMap, _super);
+    function TileMap(width, height) {
+        if (width === void 0) { width = 10; }
+        if (height === void 0) { height = 10; }
+        var _this = _super.call(this) || this;
+        _this._animations = [];
+        _this._tileOverlapX = 0;
+        _this._tileOverlapY = 0;
+        _this._tileWidth = 0;
+        _this._tileHeight = 0;
+        _this._tiles = [];
+        for (var y = 0; y < height; y++) {
+            _this._tiles[y] = [];
+            for (var x = 0; x < width; x++) {
+                _this._tiles[y][x] = new Tile_1.Tile();
+            }
+        }
+        return _this;
+    }
+    TileMap.prototype.getTile = function (x, y) {
+        return this._tiles[y][x];
+    };
+    TileMap.prototype.getTileAt = function (index) {
+        var tilesWide = this.mapWidth;
+        var x = index % tilesWide;
+        return this._tiles[(index - x) / tilesWide][x];
+    };
+    TileMap.prototype.setTileAt = function (index, tile) {
+        var tilesWide = this.mapWidth;
+        var x = index % tilesWide;
+        this._tiles[(index - x) / tilesWide][x] = tile;
+    };
+    Object.defineProperty(TileMap.prototype, "animations", {
+        get: function () {
+            return this._animations;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TileMap.prototype, "tileWidth", {
+        get: function () {
+            return this._tileWidth;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TileMap.prototype, "tileHeight", {
+        get: function () {
+            return this._tileHeight;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TileMap.prototype, "mapWidth", {
+        get: function () {
+            return this._tiles[0].length;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TileMap.prototype, "mapHeight", {
+        get: function () {
+            return this._tiles.length;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TileMap.prototype, "tileOverlapX", {
+        get: function () {
+            if (this._tileOverlapX == 0) {
+                return this._tileWidth;
+            }
+            return this._tileOverlapX;
+        },
+        set: function (value) {
+            this._tileOverlapX = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TileMap.prototype, "tileOverlapY", {
+        get: function () {
+            if (this._tileOverlapY == 0) {
+                return this.tileHeight;
+            }
+            return this._tileOverlapY;
+        },
+        set: function (value) {
+            this._tileOverlapY = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    // override
+    TileMap.prototype.update = function (initiator) {
+        if (initiator === void 0) { initiator = true; }
+        var x;
+        var y;
+        for (y = 0; y < this._tiles.length; y++) {
+            for (x = 0; x < this._tiles[0].length; x++) {
+                this._tiles[y][x].update();
+            }
+        }
+        _super.prototype.update.call(this, initiator);
+    };
+    // override
+    TileMap.prototype.draw = function () {
+        var x;
+        var y;
+        var tile;
+        var tileSet;
+        var m = this.worldTransform.matrix;
+        Stage_1.Stage.context.transform(m.m00, m.m10, m.m01, m.m11, m.m02, m.m12);
+        var c = Stage_1.Stage.context;
+        c.save();
+        if (x != 0 || y != 0) {
+            c.translate(x, y);
+        }
+        if (this.rotation != 0) {
+            c.rotate(this.rotation);
+        }
+        if (this.scaleX != 1 || this.scaleY != 1) {
+            c.scale(this.scaleX, this.scaleY);
+        }
+        for (y = 0; y < this.mapHeight; y++) {
+            for (x = 0; x < this.mapWidth; x++) {
+                tile = this._tiles[y][x];
+                if (tile != null) {
+                    tileSet = tile.tileSet;
+                    if (tileSet != null) {
+                        tileSet.draw(tile.tileX, tile.tileY, this.tileOverlapX * x, this.tileOverlapY * y, this.tileWidth, this.tileHeight);
+                    }
+                }
+            }
+        }
+        _super.prototype.draw.call(this);
+        c.restore();
+    };
+    TileMap.prototype.setData = function (tileSet, data, mapCodes, bounds) {
+        var mapWidth = this._tiles[0].length;
+        var mapHeight = this._tiles.length;
+        this._tileWidth = tileSet.tileWidth;
+        this._tileHeight = tileSet.tileHeight;
+        var tiles = [];
+        var x;
+        var y;
+        for (y = 0; y < tileSet.numTilesY; y++) {
+            for (x = 0; x < tileSet.numTilesX; x++) {
+                var tile = new Tile_1.Tile(tileSet, x, y);
+                tiles.push(tile);
+            }
+        }
+        var index = 0;
+        for (y = 0; y < mapHeight; y++) {
+            for (x = 0; x < mapWidth; x++) {
+                switch (this.compareTo(data[index], 0)) {
+                    case -1:
+                        var animationIndex = Math.abs(data[index]) - 1;
+                        if (this._animations.length > animationIndex) {
+                            this._tiles[y][x] = new AnimatedTile_1.AnimatedTile(this._animations[animationIndex]);
+                        }
+                        else {
+                            this._tiles[y][x] = new Tile_1.Tile();
+                        }
+                        break;
+                    case 0:
+                        this._tiles[y][x] = new Tile_1.Tile();
+                        break;
+                    case 1:
+                        var val = data[index];
+                        this._tiles[y][x] = Tile_1.Tile.fromTile(tiles[val - 1]);
+                        break;
+                }
+                index++;
+            }
+        }
+        if (mapCodes) {
+            index = 0;
+            for (y = 0; y < mapHeight; y++) {
+                for (x = 0; x < mapWidth; x++) {
+                    this._tiles[y][x].mapCode = mapCodes[index];
+                    index++;
+                }
+            }
+        }
+        if (bounds) {
+            index = 0;
+            for (y = 0; y < mapHeight; y++) {
+                for (x = 0; x < mapWidth; x++) {
+                    this._tiles[y][x].bounds = bounds[index];
+                    index++;
+                }
+            }
+        }
+    };
+    TileMap.prototype.compareTo = function (value, to) {
+        if (value < to) {
+            return -1;
+        }
+        else if (value == to) {
+            return 0;
+        }
+        else {
+            return 1;
+        }
+    };
+    return TileMap;
+}(Container_1.Container));
+exports.TileMap = TileMap;
+
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var Tile_1 = __webpack_require__(3);
+var Timer_1 = __webpack_require__(2);
+var AnimatedTile = /** @class */ (function (_super) {
+    __extends(AnimatedTile, _super);
+    function AnimatedTile(animation) {
+        var _this = _super.call(this, animation.tileAt(0).tileSet) || this;
+        _this._frameProgression = 0;
+        _this.enabled = true;
+        _this._animation = animation;
+        return _this;
+    }
+    Object.defineProperty(AnimatedTile.prototype, "tileX", {
+        // override
+        get: function () {
+            return this._animation.tileAt(this._frameProgression).tileX;
+        },
+        // override
+        set: function (value) {
+            this._animation.tileAt(this._frameProgression).tileX = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(AnimatedTile.prototype, "tileY", {
+        // override
+        get: function () {
+            return this._animation.tileAt(this._frameProgression).tileY;
+        },
+        // override
+        set: function (value) {
+            this._animation.tileAt(this._frameProgression).tileY = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(AnimatedTile.prototype, "tileSet", {
+        // override
+        get: function () {
+            return this._animation.tileAt(this._frameProgression).tileSet;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    // override
+    AnimatedTile.prototype.update = function () {
+        if (this.enabled) {
+            var frameRate = this._animation.frameRate;
+            if (frameRate != 0) {
+                this._frameProgression += frameRate * Timer_1.Timer.deltaSeconds;
+                if (frameRate > 0) {
+                    if (this._frameProgression >= this._animation.frames.length) {
+                        this._frameProgression = 0;
+                    }
+                }
+                else {
+                    if (this._frameProgression < 0) {
+                        this._frameProgression = this._animation.frames.length;
+                    }
+                }
+            }
+        }
+        _super.prototype.update.call(this);
+    };
+    return AnimatedTile;
+}(Tile_1.Tile));
+exports.AnimatedTile = AnimatedTile;
 
 
 /***/ })
