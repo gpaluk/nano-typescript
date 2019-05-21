@@ -1,5 +1,5 @@
-import {Texture} from './Texture'
 import {Tile} from './Tile'
+import {Texture} from 'Display/Texture'
 
 export class TileSet {
     private _texture: Texture
@@ -76,34 +76,16 @@ export class TileSet {
         width?: number,
         height?: number
     ) {
-        let tx: number = tileX * this._tileWidth
-        let ty: number = tileY * this._tileHeight
-
-        if (!x) {
-            x = 0
-        }
-
-        if (!y) {
-            y = 0
-        }
-
-        if (!width) {
-            width = this._tileWidth
-        }
-
-        if (!height) {
-            height = this._tileHeight
-        }
-
-        console.log(tx, ty)
+        let sX: number = tileX * this._tileWidth
+        let sY: number = tileY * this._tileHeight
 
         this._texture.draw(
             x,
             y,
             width,
             height,
-            tx,
-            ty,
+            sX,
+            sY,
             this._tileWidth,
             this._tileHeight
         )

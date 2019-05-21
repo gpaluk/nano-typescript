@@ -9,10 +9,17 @@ export class Tile {
     public bounds: TileBounds = TileBounds.NONE
     public mapCode: number = 0
 
-    constructor(tileSet?: TileSet, tileX: number = 0, tileY: number = 0) {
-        tileSet = tileSet
+    constructor(tileSet?: TileSet, tileX: number = 1, tileY: number = 1) {
+        this._tileSet = tileSet
         this._tileX = tileX
         this._tileY = tileY
+    }
+
+    public static fromTile(tile: Tile) {
+        let t: Tile = new Tile(tile.tileSet, tile.tileX, tile.tileY)
+        t.mapCode = tile.mapCode
+        t.bounds = tile.bounds
+        return t
     }
 
     public get left(): boolean {
@@ -39,16 +46,20 @@ export class Tile {
         return this._tileX
     }
 
+    public set tileX(value: number) {
+        this._tileX = value
+    }
+
     public get tileY(): number {
         return this._tileY
     }
 
+    public set tileY(value: number) {
+        this.tileY = value
+    }
+
     public draw(x: number, y: number, width?: number, height?: number): void {
-        if (width && height) {
-            this._tileSet.draw(this._tileX, this._tileY, x, y, width, height)
-        } else {
-            this._tileSet.draw(this._tileX, this._tileY, x, y)
-        }
+        this._tileSet.draw(this._tileX, this._tileY, x, y, width, height)
     }
 
     public set(
@@ -64,4 +75,7 @@ export class Tile {
         this.mapCode = mapCode
         this.bounds = bounds
     }
+
+    // virtual
+    public update(): void {}
 }

@@ -6,7 +6,12 @@ import {AnchorType} from 'Display/AnchorType'
 import {MovieClip} from 'Display/MovieClip'
 import {EventType} from 'Events/EventType'
 import {AssetLoader} from 'Loaders/AssetLoader'
-import {TileSet} from 'Display/TileSet'
+import {TileSet} from 'Display/Tiles/TileSet'
+import {AnimatedTile} from 'Display/Tiles/AnimatedTile'
+import {TileAnimation} from 'Display/Tiles/TileAnimation'
+import {Timer} from 'Utils/Timer'
+import {TileMap} from 'Display/Tiles/TileMap'
+import {Tile} from 'Display/Tiles/Tile'
 
 let clearColor: Color = new Color(0.3, 0.6, 0.9, 1)
 let stage = Stage.init(800, 600, clearColor, 30, true)
@@ -14,6 +19,7 @@ let stage = Stage.init(800, 600, clearColor, 30, true)
 const BUNNY_PATH: string = './assets/bunny.png'
 const STAR_PATH: string = './assets/star.png'
 const ICE_SET_PATH: string = './assets/ice_set.png'
+const MAP_DATA_PATH: string = './assets/map_data.json'
 
 let loader: AssetLoader = new AssetLoader()
 loader.addEventListener(EventType.COMPLETE, onLoaderComplete)
@@ -24,6 +30,7 @@ loader.addEventListener(EventType.LOADED, onLoaderItemLoaded)
 loader.add(BUNNY_PATH)
 loader.add(STAR_PATH)
 loader.add(ICE_SET_PATH)
+loader.add(MAP_DATA_PATH)
 loader.load()
 
 function onLoaderComplete(e: Event): void {
@@ -44,11 +51,32 @@ function onLoaderTimeout(e: Event): void {
 }
 
 function buildScene(): void {
-    /*
     let tileSet: TileSet = loader.getTileSet(ICE_SET_PATH, 32, 32)
-    tileSet.draw(1, 1, 50, 50, 100, 100)
+
+    let tileAnimation: TileAnimation = new TileAnimation(tileSet)
+    tileAnimation.frameRate = 5
+
+    let tileMap: TileMap = new TileMap(10, 10)
+    tileMap.x = 100
+    tileMap.y = 50
+    tileMap.animations.push(tileAnimation)
+    tileMap.setData(tileSet, loader.getJson(MAP_DATA_PATH).data)
+
+    stage.root.addChild(tileMap)
+
+    /*
+    console.log('numTilesX: ' + tileSet.numTilesX)
+    console.log('numTilesY: ' + tileSet.numTilesY)
+    console.log('tileWidth: ' + tileSet.tileWidth)
+    console.log('tileHeight: ' + tileSet.tileHeight)
+
+    let tile: Tile = tileSet.getTile(0, 0)
+    tile.draw(50, 60, 100, 100)
+
+    tileSet.draw(4, 0, 50, 50, 100, 100)
     */
 
+    /*
     let bunny: Sprite = loader.getSprite(BUNNY_PATH)
     bunny.blendMode = BlendMode.SOURCE_OVER
     bunny.anchor = AnchorType.CENTER
@@ -88,4 +116,5 @@ function buildScene(): void {
     mc.tint = new Color(1, 0, 0, 0.8)
     mc.frames = frames
     stage.root.addChild(mc)
+    */
 }

@@ -2,7 +2,7 @@ import {EventDispatcher} from 'Events/EventDispatcher'
 import {EventType} from 'Events/EventType'
 import {Texture} from 'Display/Texture'
 import {Sprite} from 'Display/Sprite'
-import {TileSet} from 'Display/TileSet'
+import {TileSet} from 'Display/Tiles/TileSet'
 
 export class AssetLoader extends EventDispatcher {
     constructor() {
@@ -18,7 +18,7 @@ export class AssetLoader extends EventDispatcher {
         string,
         HTMLAudioElement
     >()
-    private _jsonMap: Map<string, string> = new Map<string, string>()
+    private _jsonMap: Map<string, any> = new Map<string, any>()
 
     public add(path: string) {
         this._paths.unshift(path)
@@ -52,7 +52,7 @@ export class AssetLoader extends EventDispatcher {
         return this._audioMap.get(path)
     }
 
-    public getJson(path: string): string {
+    public getJson(path: any): any {
         return this._jsonMap.get(path)
     }
 
@@ -151,7 +151,7 @@ export class AssetLoader extends EventDispatcher {
                     this._audioMap.set(path, audio)
                     break
                 case 'json':
-                    this._jsonMap.set(path, target.responseText)
+                    this._jsonMap.set(path, JSON.parse(target.responseText))
                     break
                 default:
                     console.warn(`Unknown file type ${mimeType}`)

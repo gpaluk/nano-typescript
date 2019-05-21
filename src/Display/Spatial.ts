@@ -133,8 +133,6 @@ export abstract class Spatial {
                     this.transform
                 )
             } else {
-                //console.log(this.transform);
-
                 this.worldTransform = this.transform
             }
         }
