@@ -1,7 +1,8 @@
+import {Tweener} from 'Animation/Tweener'
+import {Timer} from 'Utils/Timer'
 import {Color} from './Color'
 import {Container} from './Container'
-import {Timer} from 'Utils/Timer'
-import {Tweener} from 'Animation/Tweener'
+import {AudioMixer} from 'Audio/AudioMixer'
 
 export class Stage {
     private static _instance: Stage
@@ -75,6 +76,7 @@ export class Stage {
 
     public pause(): void {
         this._isPaused = true
+        AudioMixer.pauseAll()
     }
 
     public get isPaused(): boolean {
@@ -93,6 +95,11 @@ export class Stage {
 
         window.onblur = this.instance._onBlur
         window.onfocus = this.instance._onFocus
+    }
+
+    // TODO [GJP] send events through the scenegraph
+    public get canvas(): HTMLCanvasElement {
+        return this._canvas
     }
 
     private _onTouchStart(e: TouchEvent): void {
@@ -123,6 +130,7 @@ export class Stage {
         if (!this._isPaused) {
             this._isFocussed = false
             Stage._instance.pause()
+            AudioMixer.pauseAll()
         }
     }
 
@@ -130,6 +138,7 @@ export class Stage {
         if (!this._isFocussed) {
             this._isFocussed = true
             Stage._instance.play()
+            AudioMixer.resume()
         }
     }
 

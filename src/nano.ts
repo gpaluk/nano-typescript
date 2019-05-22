@@ -5,6 +5,8 @@ import {AssetLoader} from 'Loaders/AssetLoader'
 import {Tweener} from 'Animation/Tweener'
 import {Sprite} from 'Display/Sprite'
 import {EaseType} from 'Animation/EaseType'
+import {AudioMixer} from 'Audio/AudioMixer'
+import {AudioClip} from 'Audio/AudioClip'
 
 /*
 
@@ -120,6 +122,7 @@ const BUNNY_PATH: string = './assets/bunny.png'
 const STAR_PATH: string = './assets/star.png'
 const ICE_SET_PATH: string = './assets/ice_set.png'
 const MAP_DATA_PATH: string = './assets/map_data.json'
+const AUDIO_TEST: string = './assets/audio.mp3'
 
 let loader: AssetLoader = new AssetLoader()
 loader.addEventListener(EventType.COMPLETE, onLoaderComplete)
@@ -131,6 +134,7 @@ loader.add(BUNNY_PATH)
 loader.add(STAR_PATH)
 loader.add(ICE_SET_PATH)
 loader.add(MAP_DATA_PATH)
+loader.add(AUDIO_TEST)
 loader.load()
 
 function onLoaderComplete(e: Event): void {
@@ -157,7 +161,21 @@ function buildScene(): void {
 
     Tweener.create(bunny)
         .translate(0, 300, 0, 300)
+        .rotate(0, 1.4)
+        .scale(1, 2, 1, 2)
+        .alpha(0.1, 1)
         .duration(3)
         .easing(EaseType.BOUNCE_IN_OUT)
         .start()
+
+    AudioMixer.add(AUDIO_TEST, loader.getAudioClip(AUDIO_TEST), true)
+
+    /**
+     * An event must be invoked to play audio in latest HTML5 spec
+     * This is a temporary hack that will be refactored to handle events
+     * through the scenegraph
+     */
+    stage.canvas.onclick = e => {
+        AudioMixer.play(AUDIO_TEST)
+    }
 }
