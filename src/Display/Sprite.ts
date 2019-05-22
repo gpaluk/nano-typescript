@@ -6,6 +6,8 @@ import {Stage} from './Stage'
 import {Color} from './Color'
 import {AnchorType} from './AnchorType'
 import {Texture} from './Texture'
+import {Bound} from './Bound'
+import {createCipher} from 'crypto'
 
 export class Sprite extends Container {
     public alpha: number = 1
@@ -14,6 +16,7 @@ export class Sprite extends Container {
 
     public pivot: Point = Point.ZERO
 
+    protected _modelBound: Bound = Bound.ZERO
     protected _targetCanvas: HTMLCanvasElement
     protected _targetContext: CanvasRenderingContext2D
 
@@ -50,7 +53,14 @@ export class Sprite extends Container {
         this.graphics = this.canvas.getContext('2d')
 
         if (texture) {
+            //TODO [GJP] Tidy all this up
             this._texture = texture
+            this._targetCanvas.width = texture.width
+            this.canvas.width = texture.width
+            this._targetCanvas.height = texture.height
+            this.canvas.height = texture.height
+            this._width = texture.width
+            this._height = texture.height
         } else {
             this._texture = new Texture()
         }
@@ -64,7 +74,9 @@ export class Sprite extends Container {
         }
     }
 
-    public dispose(): void {}
+    public dispose(): void {
+        this._modelBound.dispose()
+    }
 
     public get texture(): Texture {
         return this._texture
@@ -82,6 +94,24 @@ export class Sprite extends Container {
         super.update(initiator)
     }
 
+    //override
+    public updateModelBound(): void {
+        this._modelBound.set(
+            -this.pivot.x,
+            -this.pivot.y,
+            this._targetCanvas.width,
+            this._targetCanvas.height
+        )
+    }
+
+    // override
+    public updateWorldBound(): void {
+        this._worldBound = Bound.transform(
+            this._modelBound,
+            this.worldTransform
+        )
+    }
+
     // override
     public draw(): void {
         if (this.alpha < Number.EPSILON) {
@@ -90,6 +120,7 @@ export class Sprite extends Container {
 
         if (this._isDirty) {
             this.redraw()
+            this.updateModelSpace()
         }
 
         let context: CanvasRenderingContext2D = Stage.context
@@ -105,6 +136,39 @@ export class Sprite extends Container {
         context.drawImage(target.canvas, -this.pivot.x, -this.pivot.y)
 
         super.draw()
+    }
+
+    // override
+    public drawDebug(): void {
+        let c: CanvasRenderingContext2D = Stage.context
+
+        c.globalCompositeOperation = BlendMode.SOURCE_OVER
+        c.imageSmoothingEnabled = true
+        c.globalAlpha = 1
+
+        let m: Matrix = this.worldTransform.matrix
+        c.setTransform(m.m00, m.m10, m.m01, m.m11, m.m02, m.m12)
+
+        c.strokeStyle = '#0F0'
+        c.lineWidth = 0.5 / this.scale
+        c.strokeRect(
+            this._modelBound.aabb.x,
+            this._modelBound.aabb.y,
+            this._modelBound.aabb.width,
+            this._modelBound.aabb.height
+        )
+
+        c.resetTransform()
+        c.strokeStyle = '#F00'
+        c.lineWidth = 0.5
+        c.strokeRect(
+            this._worldBound.aabb.x,
+            this._worldBound.aabb.y,
+            this._worldBound.aabb.width,
+            this._worldBound.aabb.height
+        )
+
+        super.drawDebug()
     }
 
     private redraw(): void {
@@ -141,16 +205,6 @@ export class Sprite extends Container {
         this._mask.src = value
     }
 
-    /*
-    public set image(value: string) {
-        this._image.src = value
-    }
-
-    public get image(): string {
-        return this._image.src
-    }
-    */
-
     public get tint(): Color {
         return this._tint
     }
@@ -159,30 +213,6 @@ export class Sprite extends Container {
         this._tint = value
         this._isDirty = true
     }
-
-    /*
-    public get width():number
-    {
-        return this._width;
-    }
-
-    public set width(value:number)
-    {
-        this._width = value;
-        this._isDirty = true;
-    }
-
-    public get height():number
-    {
-        return this._height;
-    }
-
-    public set height(value:number)
-    {
-        this._height = value;
-        this._isDirty = true;
-    }
-    */
 
     public get width(): number {
         return this._targetCanvas.width

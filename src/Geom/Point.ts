@@ -23,6 +23,8 @@ export class Point {
         this.y = y
     }
 
+    public dispose(): void {}
+
     public add(p: Point): void {
         this.x += p.x
         this.y += p.y
