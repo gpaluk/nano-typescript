@@ -3,6 +3,7 @@ import {EventType} from 'Events/EventType'
 import {Texture} from 'Display/Texture'
 import {Sprite} from 'Display/Sprite'
 import {TileSet} from 'Display/Tiles/TileSet'
+import {AudioClip} from 'Audio/AudioClip'
 
 export class AssetLoader extends EventDispatcher {
     constructor() {
@@ -50,6 +51,10 @@ export class AssetLoader extends EventDispatcher {
 
     public getAudio(path: string): HTMLAudioElement {
         return this._audioMap.get(path)
+    }
+
+    public getAudioClip(path: string): AudioClip {
+        return new AudioClip(this.getAudio(path))
     }
 
     public getJson(path: any): any {
@@ -100,6 +105,7 @@ export class AssetLoader extends EventDispatcher {
             }
 
             switch (mimeType) {
+                case 'png':
                 case 'image/png':
                     let png = document.createElement('img')
                     png.src = path
@@ -116,6 +122,8 @@ export class AssetLoader extends EventDispatcher {
                         data[19]
                     this._imageMap.set(path, png)
                     break
+                case 'jpg':
+                case 'jpeg':
                 case 'image/jpeg':
                     let jpg = document.createElement('img')
                     jpg.src = path
@@ -143,6 +151,7 @@ export class AssetLoader extends EventDispatcher {
 
                     this._imageMap.set(path, jpg)
                     break
+                case 'mp3':
                 case 'audio/mpeg':
                     let audio = document.createElement('audio')
                     audio.crossOrigin = 'anonymous'
@@ -154,8 +163,10 @@ export class AssetLoader extends EventDispatcher {
                     this._jsonMap.set(path, JSON.parse(target.responseText))
                     break
                 default:
-                    console.warn(`Unknown file type ${mimeType}`)
                     this.dispatchEvent(new Event(EventType.ERROR))
+                    console.warn(
+                        `Unknown mime/file extension type: ${mimeType}`
+                    )
                     return
             }
         } else {
@@ -179,6 +190,7 @@ export class AssetLoader extends EventDispatcher {
         switch (magic) {
             case 0x4944:
             case 0xfffb:
+            case 0xfff3:
                 return 'audio/mpeg'
             case 0x8950:
                 return 'image/png'

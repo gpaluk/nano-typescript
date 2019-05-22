@@ -1,17 +1,14 @@
-import {Stage} from 'Display/Stage'
 import {Color} from 'Display/Color'
-import {Sprite} from 'Display/Sprite'
-import {BlendMode} from 'Display/BlendMode'
-import {AnchorType} from 'Display/AnchorType'
-import {MovieClip} from 'Display/MovieClip'
+import {Stage} from 'Display/Stage'
 import {EventType} from 'Events/EventType'
 import {AssetLoader} from 'Loaders/AssetLoader'
-import {TileSet} from 'Display/Tiles/TileSet'
-import {AnimatedTile} from 'Display/Tiles/AnimatedTile'
-import {TileAnimation} from 'Display/Tiles/TileAnimation'
-import {Timer} from 'Utils/Timer'
-import {TileMap} from 'Display/Tiles/TileMap'
-import {Tile} from 'Display/Tiles/Tile'
+import {Tweener} from 'Animation/Tweener'
+import {Sprite} from 'Display/Sprite'
+import {EaseType} from 'Animation/EaseType'
+import {AudioMixer} from 'Audio/AudioMixer'
+import {AudioClip} from 'Audio/AudioClip'
+
+/*
 
 let clearColor: Color = new Color(0.3, 0.6, 0.9, 1)
 let stage = Stage.init(800, 600, clearColor, 30, true)
@@ -57,14 +54,11 @@ function buildScene(): void {
     tileAnimation.frameRate = 5
 
     let tileMap: TileMap = new TileMap(10, 10)
-    tileMap.x = 100
-    tileMap.y = 50
     tileMap.animations.push(tileAnimation)
     tileMap.setData(tileSet, loader.getJson(MAP_DATA_PATH).data)
 
     stage.root.addChild(tileMap)
 
-    /*
     console.log('numTilesX: ' + tileSet.numTilesX)
     console.log('numTilesY: ' + tileSet.numTilesY)
     console.log('tileWidth: ' + tileSet.tileWidth)
@@ -74,9 +68,7 @@ function buildScene(): void {
     tile.draw(50, 60, 100, 100)
 
     tileSet.draw(4, 0, 50, 50, 100, 100)
-    */
 
-    /*
     let bunny: Sprite = loader.getSprite(BUNNY_PATH)
     bunny.blendMode = BlendMode.SOURCE_OVER
     bunny.anchor = AnchorType.CENTER
@@ -88,7 +80,6 @@ function buildScene(): void {
     bunny.x = 300
     bunny.y = 300
     bunny.rotationSpeed = 1
-    bunny.update()
 
     let star: Sprite = loader.getSprite(STAR_PATH)
     star.blendMode = BlendMode.COLOR_BURN
@@ -116,5 +107,75 @@ function buildScene(): void {
     mc.tint = new Color(1, 0, 0, 0.8)
     mc.frames = frames
     stage.root.addChild(mc)
-    */
+}
+*/
+
+/*
+//Stage.init(800, 600, Color.RED, 30, true)
+//let game: Game = new Game()
+*/
+
+let clearColor: Color = new Color(0.3, 0.6, 0.9, 1)
+let stage = Stage.init(800, 600, clearColor, 30, true)
+
+const BUNNY_PATH: string = './assets/bunny.png'
+const STAR_PATH: string = './assets/star.png'
+const ICE_SET_PATH: string = './assets/ice_set.png'
+const MAP_DATA_PATH: string = './assets/map_data.json'
+const AUDIO_TEST: string = './assets/audio.mp3'
+
+let loader: AssetLoader = new AssetLoader()
+loader.addEventListener(EventType.COMPLETE, onLoaderComplete)
+loader.addEventListener(EventType.ERROR, onLoaderError)
+loader.addEventListener(EventType.TIMEOUT, onLoaderTimeout)
+loader.addEventListener(EventType.LOADED, onLoaderItemLoaded)
+
+loader.add(BUNNY_PATH)
+loader.add(STAR_PATH)
+loader.add(ICE_SET_PATH)
+loader.add(MAP_DATA_PATH)
+loader.add(AUDIO_TEST)
+loader.load()
+
+function onLoaderComplete(e: Event): void {
+    console.log('Loading complete')
+    buildScene()
+}
+
+function onLoaderItemLoaded(e: Event): void {
+    console.log('Loaded item')
+}
+
+function onLoaderError(e: Event): void {
+    console.log('An error occured whilst loading assets')
+}
+
+function onLoaderTimeout(e: Event): void {
+    console.log('An timeout occured whilst loading assets')
+}
+
+function buildScene(): void {
+    let bunny: Sprite = loader.getSprite(BUNNY_PATH)
+    bunny.smoothing = false
+    stage.root.addChild(bunny)
+
+    Tweener.create(bunny)
+        .translate(0, 300, 0, 300)
+        .rotate(0, 1.4)
+        .scale(1, 2, 1, 2)
+        .alpha(0.1, 1)
+        .duration(3)
+        .easing(EaseType.BOUNCE_IN_OUT)
+        .start()
+
+    AudioMixer.add(AUDIO_TEST, loader.getAudioClip(AUDIO_TEST), true)
+
+    /**
+     * An event must be invoked to play audio in latest HTML5 spec
+     * This is a temporary hack that will be refactored to handle events
+     * through the scenegraph
+     */
+    stage.canvas.onclick = e => {
+        AudioMixer.play(AUDIO_TEST)
+    }
 }

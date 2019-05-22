@@ -1,6 +1,8 @@
+import {Tweener} from 'Animation/Tweener'
+import {Timer} from 'Utils/Timer'
 import {Color} from './Color'
 import {Container} from './Container'
-import {Timer} from 'Utils/Timer'
+import {AudioMixer} from 'Audio/AudioMixer'
 
 export class Stage {
     private static _instance: Stage
@@ -59,6 +61,10 @@ export class Stage {
         return instance
     }
 
+    public static get instance(): Stage {
+        return Stage._instance
+    }
+
     public static get context(): CanvasRenderingContext2D {
         return Stage._instance._context
     }
@@ -70,6 +76,11 @@ export class Stage {
 
     public pause(): void {
         this._isPaused = true
+        AudioMixer.pauseAll()
+    }
+
+    public get isPaused(): boolean {
+        return this._isPaused
     }
 
     private addEventListeners(): void {
@@ -84,6 +95,11 @@ export class Stage {
 
         window.onblur = this.instance._onBlur
         window.onfocus = this.instance._onFocus
+    }
+
+    // TODO [GJP] send events through the scenegraph
+    public get canvas(): HTMLCanvasElement {
+        return this._canvas
     }
 
     private _onTouchStart(e: TouchEvent): void {
@@ -114,6 +130,7 @@ export class Stage {
         if (!this._isPaused) {
             this._isFocussed = false
             Stage._instance.pause()
+            AudioMixer.pauseAll()
         }
     }
 
@@ -121,6 +138,7 @@ export class Stage {
         if (!this._isFocussed) {
             this._isFocussed = true
             Stage._instance.play()
+            AudioMixer.resume()
         }
     }
 
@@ -138,6 +156,10 @@ export class Stage {
 
     public get root(): Container {
         return this._root
+    }
+
+    public set root(value: Container) {
+        this._root = value
     }
 
     public set framerate(value: number) {
@@ -179,7 +201,7 @@ export class Stage {
         instance.resetCanvasState()
         instance.clear()
 
-        // TODO update tweener
+        Tweener.update(Timer.deltaSeconds)
         instance._root.update(true)
         instance._root.draw()
 
