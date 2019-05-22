@@ -7,7 +7,6 @@ import {Color} from './Color'
 import {AnchorType} from './AnchorType'
 import {Texture} from './Texture'
 import {Bound} from './Bound'
-import {createCipher} from 'crypto'
 
 export class Sprite extends Container {
     public alpha: number = 1
@@ -83,7 +82,15 @@ export class Sprite extends Container {
     }
 
     public set texture(value: Texture) {
+        //TODO [GJP] Tidy all this up
         this._texture = value
+        this._targetCanvas.width = value.width
+        this.canvas.width = value.width
+        this._targetCanvas.height = value.height
+        this.canvas.height = value.height
+        this._width = value.width
+        this._height = value.height
+
         this._isDirty = true
     }
 
@@ -150,7 +157,7 @@ export class Sprite extends Container {
         c.setTransform(m.m00, m.m10, m.m01, m.m11, m.m02, m.m12)
 
         c.strokeStyle = '#0F0'
-        c.lineWidth = 0.5 / this.scale
+        c.lineWidth = 0.3
         c.strokeRect(
             this._modelBound.aabb.x,
             this._modelBound.aabb.y,
@@ -160,7 +167,7 @@ export class Sprite extends Container {
 
         c.resetTransform()
         c.strokeStyle = '#F00'
-        c.lineWidth = 0.5
+        c.lineWidth = 1
         c.strokeRect(
             this._worldBound.aabb.x,
             this._worldBound.aabb.y,
