@@ -15,6 +15,18 @@ export class Transform {
 
     constructor() {}
 
+    public dispose() {
+        this._scale.dispose()
+        this._rotation.dispose()
+        this._translation.dispose()
+        this._matrix.dispose()
+
+        this._scale = null
+        this._rotation = null
+        this._translation = null
+        this._matrix = null
+    }
+
     public setScale(x: number, y: number): void {
         this._scale.x = x
         this._scale.y = y

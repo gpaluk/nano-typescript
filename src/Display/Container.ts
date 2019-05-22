@@ -10,6 +10,7 @@ export class Container extends Spatial {
 
     public dispose() {
         this.removeAllChildren()
+
         super.dispose()
     }
 
@@ -47,13 +48,17 @@ export class Container extends Spatial {
         super.updateWorldData()
 
         for (let child of this._children) {
-            child.update(false)
+            if (child != null) {
+                child.update(false)
+            }
         }
     }
 
     public draw(): void {
         for (let child of this._children) {
-            child.draw()
+            if (child != null) {
+                child.draw()
+            }
         }
     }
 

@@ -45,6 +45,8 @@ export class Matrix {
         this.m22 = m22
     }
 
+    public dispose(): void {}
+
     public get euler(): number {
         return Math.atan2(-this.m01, this.m00)
     }
@@ -77,6 +79,13 @@ export class Matrix {
             lhs.m20 * rhs.m00 + lhs.m21 * rhs.m10 + lhs.m22 * rhs.m20,
             lhs.m20 * rhs.m01 + lhs.m21 * rhs.m11 + lhs.m22 * rhs.m21,
             lhs.m20 * rhs.m02 + lhs.m21 * rhs.m12 + lhs.m22 * rhs.m22
+        )
+    }
+
+    public static multiplyPoint(lhs: Matrix, rhs: Point): Point {
+        return new Point(
+            lhs.m00 * rhs.x + lhs.m01 * rhs.y + lhs.m02,
+            lhs.m10 * rhs.x + lhs.m11 * rhs.y + lhs.m12
         )
     }
 

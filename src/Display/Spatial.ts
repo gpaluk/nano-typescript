@@ -29,7 +29,29 @@ export abstract class Spatial {
     private _scaleY: number = 1
     private _rotation: number = 0
 
-    public dispose() {}
+    // virtual
+    protected updateWorldData(): void {
+        // TODO updateController(applicationTime);
+
+        if (this._worldTransformIsDirty) {
+            this.transform.setTranslate(this._x, this._y)
+            this.transform.setScale(this._scaleX, this._scaleY)
+            this.transform.setRotate(this._rotation)
+
+            if (this._parent != null) {
+                this.worldTransform = Transform.multiply(
+                    this._parent.worldTransform,
+                    this.transform
+                )
+            } else {
+                this.worldTransform = this.transform
+            }
+        }
+    }
+
+    public dispose() {
+        this.transform.dispose()
+    }
 
     public get x(): number {
         return this._x
@@ -99,7 +121,7 @@ export abstract class Spatial {
     }
 
     public update(initiator: boolean): void {
-        let dt = Timer.deltaSeconds
+        let dt: number = Timer.deltaSeconds
 
         if (!this.velocity.isZero) {
             this.x += this.velocity.x * dt
@@ -115,26 +137,6 @@ export abstract class Spatial {
 
         if (initiator) {
             this.propagateBoundToRoot()
-        }
-    }
-
-    // virtual
-    protected updateWorldData(): void {
-        // TODO updateController(applicationTime);
-
-        if (this._worldTransformIsDirty) {
-            this.transform.setTranslate(this._x, this._y)
-            this.transform.setScale(this._scaleX, this._scaleY)
-            this.transform.setRotate(this._rotation)
-
-            if (this._parent != null) {
-                this.worldTransform = Transform.multiply(
-                    this._parent.worldTransform,
-                    this.transform
-                )
-            } else {
-                this.worldTransform = this.transform
-            }
         }
     }
 

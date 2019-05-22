@@ -7,6 +7,7 @@ import {Sprite} from 'Display/Sprite'
 import {EaseType} from 'Animation/EaseType'
 import {AudioMixer} from 'Audio/AudioMixer'
 import {AudioClip} from 'Audio/AudioClip'
+import {AnchorType} from 'Display/AnchorType'
 
 /*
 
@@ -156,13 +157,14 @@ function onLoaderTimeout(e: Event): void {
 
 function buildScene(): void {
     let bunny: Sprite = loader.getSprite(BUNNY_PATH)
+    bunny.anchor = AnchorType.CENTER
     bunny.smoothing = false
     stage.root.addChild(bunny)
 
     Tweener.create(bunny)
         .translate(0, 300, 0, 300)
         .rotate(0, 1.4)
-        .scale(1, 2, 1, 2)
+        .scale(2, 4, 2, 4)
         .alpha(0.1, 1)
         .duration(3)
         .easing(EaseType.BOUNCE_IN_OUT)
