@@ -1,25 +1,12 @@
-import {Stage} from 'Display/Stage'
 import {Color} from 'Display/Color'
-import {Game} from 'Demo/Game'
-
-Stage.init(800, 600, Color.RED, 30, true)
-let game: Game = new Game()
-
-/*
 import {Stage} from 'Display/Stage'
-import {Color} from 'Display/Color'
-import {Sprite} from 'Display/Sprite'
-import {BlendMode} from 'Display/BlendMode'
-import {AnchorType} from 'Display/AnchorType'
-import {MovieClip} from 'Display/MovieClip'
 import {EventType} from 'Events/EventType'
 import {AssetLoader} from 'Loaders/AssetLoader'
-import {TileSet} from 'Display/Tiles/TileSet'
-import {AnimatedTile} from 'Display/Tiles/AnimatedTile'
-import {TileAnimation} from 'Display/Tiles/TileAnimation'
-import {Timer} from 'Utils/Timer'
-import {TileMap} from 'Display/Tiles/TileMap'
-import {Tile} from 'Display/Tiles/Tile'
+import {Tweener} from 'Animation/Tweener'
+import {Sprite} from 'Display/Sprite'
+import {EaseType} from 'Animation/EaseType'
+
+/*
 
 let clearColor: Color = new Color(0.3, 0.6, 0.9, 1)
 let stage = Stage.init(800, 600, clearColor, 30, true)
@@ -91,7 +78,6 @@ function buildScene(): void {
     bunny.x = 300
     bunny.y = 300
     bunny.rotationSpeed = 1
-    bunny.update()
 
     let star: Sprite = loader.getSprite(STAR_PATH)
     star.blendMode = BlendMode.COLOR_BURN
@@ -121,3 +107,57 @@ function buildScene(): void {
     stage.root.addChild(mc)
 }
 */
+
+/*
+//Stage.init(800, 600, Color.RED, 30, true)
+//let game: Game = new Game()
+*/
+
+let clearColor: Color = new Color(0.3, 0.6, 0.9, 1)
+let stage = Stage.init(800, 600, clearColor, 30, true)
+
+const BUNNY_PATH: string = './assets/bunny.png'
+const STAR_PATH: string = './assets/star.png'
+const ICE_SET_PATH: string = './assets/ice_set.png'
+const MAP_DATA_PATH: string = './assets/map_data.json'
+
+let loader: AssetLoader = new AssetLoader()
+loader.addEventListener(EventType.COMPLETE, onLoaderComplete)
+loader.addEventListener(EventType.ERROR, onLoaderError)
+loader.addEventListener(EventType.TIMEOUT, onLoaderTimeout)
+loader.addEventListener(EventType.LOADED, onLoaderItemLoaded)
+
+loader.add(BUNNY_PATH)
+loader.add(STAR_PATH)
+loader.add(ICE_SET_PATH)
+loader.add(MAP_DATA_PATH)
+loader.load()
+
+function onLoaderComplete(e: Event): void {
+    console.log('Loading complete')
+    buildScene()
+}
+
+function onLoaderItemLoaded(e: Event): void {
+    console.log('Loaded item')
+}
+
+function onLoaderError(e: Event): void {
+    console.log('An error occured whilst loading assets')
+}
+
+function onLoaderTimeout(e: Event): void {
+    console.log('An timeout occured whilst loading assets')
+}
+
+function buildScene(): void {
+    let bunny: Sprite = loader.getSprite(BUNNY_PATH)
+    bunny.smoothing = false
+    stage.root.addChild(bunny)
+
+    Tweener.create(bunny)
+        .translate(0, 300, 0, 300)
+        .duration(3)
+        .easing(EaseType.BOUNCE_IN_OUT)
+        .start()
+}

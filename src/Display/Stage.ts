@@ -1,6 +1,7 @@
 import {Color} from './Color'
 import {Container} from './Container'
 import {Timer} from 'Utils/Timer'
+import {Tweener} from 'Animation/Tweener'
 
 export class Stage {
     private static _instance: Stage
@@ -66,21 +67,6 @@ export class Stage {
     public static get context(): CanvasRenderingContext2D {
         return Stage._instance._context
     }
-
-    /*
-    public static get isPaused(): boolean {
-        return Stage._instance._isPaused
-    }
-
-    public static get root(): Container {
-        return Stage._instance._root
-    }
-
-    // internal
-    public static set root(value: Container) {
-        Stage._instance._root = value
-    }
-    */
 
     public play(): void {
         this._lastUpdate = Date.now()
@@ -206,7 +192,7 @@ export class Stage {
         instance.resetCanvasState()
         instance.clear()
 
-        // TODO update tweener
+        Tweener.update(Timer.deltaSeconds)
         instance._root.update(true)
         instance._root.draw()
 
