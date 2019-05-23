@@ -4,7 +4,7 @@ import {Matrix} from 'Geom/Matrix'
 import {Rectangle} from 'Geom/Rectangle'
 
 export class Bound {
-    private _transform: Transform
+    private _transform: Transform = Transform.IDENTITY
     private _isAABBDirty: boolean
     private _aabb: Rectangle = new Rectangle()
 

@@ -10,6 +10,7 @@ export class Container extends Spatial {
 
     public dispose() {
         this.removeAllChildren()
+        this._children = null
 
         super.dispose()
     }
@@ -37,10 +38,8 @@ export class Container extends Spatial {
 
     public removeAllChildren() {
         for (let child of this._children) {
-            child.parent = null
-            child.dispose()
+            this.removeChild(child)
         }
-        this._children = null
     }
 
     // override
