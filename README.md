@@ -79,4 +79,4 @@ We have provided the ability to run **Nano** projects as desktop applications fo
 `npm run desktop`
 
 ## Many Thanks
-**Thank you** for checking out **Nano TypeSctipt**. We are super excited to see the amazing HTML5 games and apps that you build and we hope to showcase them here. Please let us know about your projects.
+**Thank you** for checking out **Nano TypeScript**. We are super excited to see the amazing HTML5 games and apps that you build and we hope to showcase them here. Please let us know about your projects.
