@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 19);
+/******/ 	return __webpack_require__(__webpack_require__.s = 21);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -91,136 +91,11 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Point = /** @class */ (function () {
-    function Point(x, y) {
-        if (x === void 0) { x = 0; }
-        if (y === void 0) { y = 0; }
-        this.x = x;
-        this.y = y;
-    }
-    Object.defineProperty(Point, "ZERO", {
-        get: function () {
-            return new Point(0, 0);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Point, "ONE", {
-        get: function () {
-            return new Point(1, 1);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Point, "AXIS_X", {
-        get: function () {
-            return new Point(1, 0);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Point, "AXIS_Y", {
-        get: function () {
-            return new Point(0, 1);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Point.prototype.dispose = function () { };
-    Point.prototype.add = function (p) {
-        this.x += p.x;
-        this.y += p.y;
-    };
-    Point.prototype.subtract = function (p) {
-        this.x -= p.x;
-        this.y -= p.y;
-    };
-    Point.prototype.multiply = function (p) {
-        this.x *= p.x;
-        this.y *= p.y;
-    };
-    Point.prototype.divide = function (p) {
-        this.x /= p.x;
-        this.y /= p.y;
-    };
-    Point.prototype.scale = function (scalar) {
-        this.x *= scalar;
-        this.y *= scalar;
-    };
-    Point.prototype.dot = function (p) {
-        return this.x * p.x + this.y * p.y;
-    };
-    Point.prototype.reflection = function (normal) {
-        var n = normal.clone();
-        var t = this.clone();
-        var dotN = t.dot(n);
-        n.scale(dotN);
-        n.scale(2);
-        t.subtract(n);
-        return t;
-    };
-    Point.prototype.invert = function () {
-        this.x *= -1;
-        this.y *= -1;
-    };
-    Point.prototype.normalize = function () {
-        if (length < Number.EPSILON) {
-            this.x = 0;
-            this.y = 0;
-        }
-        else {
-            var invLength = 1 / length;
-            this.x *= invLength;
-            this.y *= invLength;
-        }
-    };
-    Point.prototype.squaredLength = function () {
-        return this.x * this.x + this.y * this.y;
-    };
-    Point.prototype.length = function () {
-        return Math.sqrt(this.x * this.x + this.y * this.y);
-    };
-    Point.prototype.set = function (x, y) {
-        this.x = x;
-        this.y = y;
-    };
-    Point.prototype.clone = function () {
-        return new Point(this.x, this.y);
-    };
-    Object.defineProperty(Point.prototype, "isZero", {
-        get: function () {
-            return this.x == 0 && this.y == 0;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Point.prototype, "isOne", {
-        get: function () {
-            return this.x == 1 && this.y == 1;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Point.prototype.toString = function () {
-        return "[Point] (x:" + this.x.toFixed(5) + ", y:" + this.y.toFixed(5) + ")";
-    };
-    return Point;
-}());
-exports.Point = Point;
-
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var Tweener_1 = __webpack_require__(5);
-var Timer_1 = __webpack_require__(3);
-var Color_1 = __webpack_require__(8);
-var Container_1 = __webpack_require__(7);
-var AudioMixer_1 = __webpack_require__(13);
+var Tweener_1 = __webpack_require__(8);
+var Timer_1 = __webpack_require__(6);
+var Color_1 = __webpack_require__(4);
+var Container_1 = __webpack_require__(2);
+var AudioMixer_1 = __webpack_require__(9);
 var Stage = /** @class */ (function () {
     function Stage() {
         this._clearColor = new Color_1.Color(0.3, 0.6, 0.9);
@@ -421,7 +296,7 @@ exports.Stage = Stage;
 
 
 /***/ }),
-/* 2 */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -435,13 +310,350 @@ var EventType = /** @class */ (function () {
     EventType.TIMEOUT = 'timeout';
     EventType.COMPLETE = 'complete';
     EventType.STARTED = 'started';
+    EventType.CLICK = 'click';
+    EventType.MOUSE_DOWN = 'mousedown';
+    EventType.MOUSE_UP = 'mouseup';
+    EventType.MOUSE_OVER = 'mouseover';
+    EventType.MOUSE_OUT = 'mouseout';
     return EventType;
 }());
 exports.EventType = EventType;
 
 
 /***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var Spatial_1 = __webpack_require__(24);
+var Container = /** @class */ (function (_super) {
+    __extends(Container, _super);
+    function Container() {
+        var _this = _super.call(this) || this;
+        _this._children = [];
+        return _this;
+    }
+    Container.prototype.dispose = function () {
+        this.removeAllChildren();
+        this._children = null;
+        _super.prototype.dispose.call(this);
+    };
+    Object.defineProperty(Container.prototype, "children", {
+        get: function () {
+            return this._children;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Container.prototype.addChild = function (spatial) {
+        if (this._children.lastIndexOf(spatial) != -1) {
+            //TODO warn
+            return;
+        }
+        spatial.parent = this;
+        this._children.push(spatial);
+    };
+    Container.prototype.removeChild = function (spatial) {
+        var index = this._children.lastIndexOf(spatial);
+        if (index != -1) {
+            spatial.parent = null;
+            this._children.splice(index, 1);
+        }
+    };
+    Container.prototype.removeAllChildren = function () {
+        var _this = this;
+        this._children.forEach(function (child) {
+            child.parent = null;
+            _this.removeChild(child);
+        });
+        this._children = [];
+    };
+    // override
+    Container.prototype.updateWorldData = function () {
+        _super.prototype.updateWorldData.call(this);
+        for (var _i = 0, _a = this._children; _i < _a.length; _i++) {
+            var child = _a[_i];
+            if (child != null) {
+                child.update(false);
+            }
+        }
+    };
+    Container.prototype.draw = function () {
+        for (var _i = 0, _a = this._children; _i < _a.length; _i++) {
+            var child = _a[_i];
+            if (child != null) {
+                child.draw();
+            }
+        }
+    };
+    Container.prototype.drawDebug = function () {
+        for (var _i = 0, _a = this._children; _i < _a.length; _i++) {
+            var child = _a[_i];
+            child.drawDebug();
+        }
+    };
+    return Container;
+}(Spatial_1.Spatial));
+exports.Container = Container;
+
+
+/***/ }),
 /* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Point = /** @class */ (function () {
+    function Point(x, y) {
+        if (x === void 0) { x = 0; }
+        if (y === void 0) { y = 0; }
+        this.x = x;
+        this.y = y;
+    }
+    Object.defineProperty(Point, "ZERO", {
+        get: function () {
+            return new Point(0, 0);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Point, "ONE", {
+        get: function () {
+            return new Point(1, 1);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Point, "AXIS_X", {
+        get: function () {
+            return new Point(1, 0);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Point, "AXIS_Y", {
+        get: function () {
+            return new Point(0, 1);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Point.prototype.dispose = function () { };
+    Point.prototype.add = function (p) {
+        this.x += p.x;
+        this.y += p.y;
+    };
+    Point.prototype.subtract = function (p) {
+        this.x -= p.x;
+        this.y -= p.y;
+    };
+    Point.prototype.multiply = function (p) {
+        this.x *= p.x;
+        this.y *= p.y;
+    };
+    Point.prototype.divide = function (p) {
+        this.x /= p.x;
+        this.y /= p.y;
+    };
+    Point.prototype.scale = function (scalar) {
+        this.x *= scalar;
+        this.y *= scalar;
+    };
+    Point.prototype.dot = function (p) {
+        return this.x * p.x + this.y * p.y;
+    };
+    Point.prototype.reflection = function (normal) {
+        var n = normal.clone();
+        var t = this.clone();
+        var dotN = t.dot(n);
+        n.scale(dotN);
+        n.scale(2);
+        t.subtract(n);
+        return t;
+    };
+    Point.prototype.invert = function () {
+        this.x *= -1;
+        this.y *= -1;
+    };
+    Point.prototype.normalize = function () {
+        if (length < Number.EPSILON) {
+            this.x = 0;
+            this.y = 0;
+        }
+        else {
+            var invLength = 1 / length;
+            this.x *= invLength;
+            this.y *= invLength;
+        }
+    };
+    Point.prototype.squaredLength = function () {
+        return this.x * this.x + this.y * this.y;
+    };
+    Point.prototype.length = function () {
+        return Math.sqrt(this.x * this.x + this.y * this.y);
+    };
+    Point.prototype.set = function (x, y) {
+        this.x = x;
+        this.y = y;
+    };
+    Point.prototype.clone = function () {
+        return new Point(this.x, this.y);
+    };
+    Object.defineProperty(Point.prototype, "isZero", {
+        get: function () {
+            return this.x == 0 && this.y == 0;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Point.prototype, "isOne", {
+        get: function () {
+            return this.x == 1 && this.y == 1;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Point.prototype.toString = function () {
+        return "[Point] (x:" + this.x.toFixed(5) + ", y:" + this.y.toFixed(5) + ")";
+    };
+    return Point;
+}());
+exports.Point = Point;
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Color = /** @class */ (function () {
+    function Color(red, green, blue, alpha) {
+        if (red === void 0) { red = 0; }
+        if (green === void 0) { green = 0; }
+        if (blue === void 0) { blue = 0; }
+        if (alpha === void 0) { alpha = 1; }
+        this._red = red;
+        this._green = green;
+        this._blue = blue;
+        this._alpha = alpha;
+    }
+    Object.defineProperty(Color.prototype, "red", {
+        get: function () {
+            return this._red;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Color.prototype, "green", {
+        get: function () {
+            return this._green;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Color.prototype, "blue", {
+        get: function () {
+            return this._blue;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Color.prototype, "alpha", {
+        get: function () {
+            return this._alpha;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Color, "RED", {
+        get: function () {
+            return new Color(1, 0, 0, 1);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Color.prototype.toHexRGB = function () {
+        var red = Math.floor(this._red * 255);
+        var green = Math.floor(this._green * 255);
+        var blue = Math.floor(this._blue * 255);
+        return ('#' +
+            red.toString(16).padStart(2, '0') +
+            green.toString(16).padStart(2, '0') +
+            blue.toString(16).padStart(2, '0'));
+    };
+    Color.prototype.toHexRGBA = function () {
+        var red = Math.floor(this._red * 255);
+        var green = Math.floor(this._green * 255);
+        var blue = Math.floor(this._blue * 255);
+        var alpha = Math.floor(this._alpha * 255);
+        return ('#' +
+            red.toString(16).padStart(2, '0') +
+            green.toString(16).padStart(2, '0') +
+            blue.toString(16).padStart(2, '0') +
+            alpha.toString(16).padStart(2, '0'));
+    };
+    return Color;
+}());
+exports.Color = Color;
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var EventDispatcher = /** @class */ (function () {
+    function EventDispatcher() {
+        this._delegate = document.createDocumentFragment();
+    }
+    EventDispatcher.prototype.addEventListener = function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        this._delegate.addEventListener.apply(this._delegate, args);
+    };
+    EventDispatcher.prototype.dispatchEvent = function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        return this._delegate.dispatchEvent.apply(this._delegate, args);
+    };
+    EventDispatcher.prototype.removeEventListener = function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        return this._delegate.removeEventListener.apply(this._delegate, args);
+    };
+    return EventDispatcher;
+}());
+exports.EventDispatcher = EventDispatcher;
+
+
+/***/ }),
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -458,13 +670,13 @@ exports.Timer = Timer;
 
 
 /***/ }),
-/* 4 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var TileBounds_1 = __webpack_require__(25);
+var TileBounds_1 = __webpack_require__(30);
 var Tile = /** @class */ (function () {
     function Tile(tileSet, tileX, tileY) {
         if (tileX === void 0) { tileX = 1; }
@@ -556,13 +768,13 @@ exports.Tile = Tile;
 
 
 /***/ }),
-/* 5 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Tween_1 = __webpack_require__(20);
+var Tween_1 = __webpack_require__(22);
 var Tweener = /** @class */ (function () {
     function Tweener() {
     }
@@ -614,213 +826,90 @@ exports.Tweener = Tweener;
 
 
 /***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var EventDispatcher = /** @class */ (function () {
-    function EventDispatcher() {
-        this._delegate = document.createDocumentFragment();
-    }
-    EventDispatcher.prototype.addEventListener = function () {
-        var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            args[_i] = arguments[_i];
-        }
-        this._delegate.addEventListener.apply(this._delegate, args);
-    };
-    EventDispatcher.prototype.dispatchEvent = function () {
-        var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            args[_i] = arguments[_i];
-        }
-        return this._delegate.dispatchEvent.apply(this._delegate, args);
-    };
-    EventDispatcher.prototype.removeEventListener = function () {
-        var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            args[_i] = arguments[_i];
-        }
-        return this._delegate.removeEventListener.apply(this._delegate, args);
-    };
-    return EventDispatcher;
-}());
-exports.EventDispatcher = EventDispatcher;
-
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var Spatial_1 = __webpack_require__(22);
-var Container = /** @class */ (function (_super) {
-    __extends(Container, _super);
-    function Container() {
-        var _this = _super.call(this) || this;
-        _this._children = [];
-        return _this;
-    }
-    Container.prototype.dispose = function () {
-        this.removeAllChildren();
-        _super.prototype.dispose.call(this);
-    };
-    Object.defineProperty(Container.prototype, "children", {
-        get: function () {
-            return this._children;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Container.prototype.addChild = function (spatial) {
-        if (this._children.lastIndexOf(spatial) != -1) {
-            //TODO warn
-            return;
-        }
-        spatial.parent = this;
-        this._children.push(spatial);
-    };
-    Container.prototype.removeChild = function (spatial) {
-        var index = this._children.lastIndexOf(spatial);
-        if (index != -1) {
-            spatial.parent = null;
-            this._children.splice(index, 1);
-        }
-    };
-    Container.prototype.removeAllChildren = function () {
-        for (var _i = 0, _a = this._children; _i < _a.length; _i++) {
-            var child = _a[_i];
-            child.parent = null;
-            child.dispose();
-        }
-        this._children = null;
-    };
-    // override
-    Container.prototype.updateWorldData = function () {
-        _super.prototype.updateWorldData.call(this);
-        for (var _i = 0, _a = this._children; _i < _a.length; _i++) {
-            var child = _a[_i];
-            if (child != null) {
-                child.update(false);
-            }
-        }
-    };
-    Container.prototype.draw = function () {
-        for (var _i = 0, _a = this._children; _i < _a.length; _i++) {
-            var child = _a[_i];
-            if (child != null) {
-                child.draw();
-            }
-        }
-    };
-    Container.prototype.drawDebug = function () {
-        for (var _i = 0, _a = this._children; _i < _a.length; _i++) {
-            var child = _a[_i];
-            child.drawDebug();
-        }
-    };
-    return Container;
-}(Spatial_1.Spatial));
-exports.Container = Container;
-
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var Color = /** @class */ (function () {
-    function Color(red, green, blue, alpha) {
-        if (red === void 0) { red = 0; }
-        if (green === void 0) { green = 0; }
-        if (blue === void 0) { blue = 0; }
-        if (alpha === void 0) { alpha = 1; }
-        this._red = red;
-        this._green = green;
-        this._blue = blue;
-        this._alpha = alpha;
-    }
-    Object.defineProperty(Color.prototype, "red", {
-        get: function () {
-            return this._red;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Color.prototype, "green", {
-        get: function () {
-            return this._green;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Color.prototype, "blue", {
-        get: function () {
-            return this._blue;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Color.prototype, "alpha", {
-        get: function () {
-            return this._alpha;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Color, "RED", {
-        get: function () {
-            return new Color(1, 0, 0, 1);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Color.prototype.toHexRGB = function () {
-        var red = Math.floor(this._red * 255);
-        var green = Math.floor(this._green * 255);
-        var blue = Math.floor(this._blue * 255);
-        return ('#' +
-            red.toString(16).padStart(2, '0') +
-            green.toString(16).padStart(2, '0') +
-            blue.toString(16).padStart(2, '0'));
-    };
-    Color.prototype.toHexRGBA = function () {
-        var red = Math.floor(this._red * 255);
-        var green = Math.floor(this._green * 255);
-        var blue = Math.floor(this._blue * 255);
-        var alpha = Math.floor(this._alpha * 255);
-        return ('#' +
-            red.toString(16).padStart(2, '0') +
-            green.toString(16).padStart(2, '0') +
-            blue.toString(16).padStart(2, '0') +
-            alpha.toString(16).padStart(2, '0'));
-    };
-    return Color;
-}());
-exports.Color = Color;
-
-
-/***/ }),
 /* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var AudioMixer = /** @class */ (function () {
+    function AudioMixer() {
+    }
+    AudioMixer.add = function (id, audio, loop) {
+        if (loop === void 0) { loop = false; }
+        if (!this._audioMap.get(id)) {
+            audio.loop = loop;
+            this._audioMap.set(id, audio);
+        }
+        else {
+            console.warn('AudioMixer::add AudioMixer already contains key');
+        }
+    };
+    AudioMixer.play = function (id) {
+        if (this._audioMap.has(id) && this.isEnabled) {
+            this._audioMap.get(id).play();
+        }
+    };
+    AudioMixer.pause = function (id) {
+        if (this._audioMap.has(id)) {
+            this._audioMap.get(id).pause();
+        }
+    };
+    AudioMixer.pauseAll = function () {
+        this._audioMap.forEach(function (value) {
+            value.pause();
+        });
+    };
+    AudioMixer.stop = function (id) {
+        if (this._audioMap.has(id)) {
+            this._audioMap.get(id).stop();
+        }
+    };
+    AudioMixer.stopAll = function () {
+        this._audioMap.forEach(function (value) {
+            value.stop();
+        });
+    };
+    AudioMixer.resume = function () {
+        if (this.isEnabled) {
+            this._audioMap.forEach(function (value) {
+                if (value.isPlaying) {
+                    value.play();
+                }
+            });
+        }
+    };
+    AudioMixer._audioMap = new Map();
+    AudioMixer.isEnabled = true;
+    return AudioMixer;
+}());
+exports.AudioMixer = AudioMixer;
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var AnchorType;
+(function (AnchorType) {
+    AnchorType[AnchorType["NONE"] = 0] = "NONE";
+    AnchorType[AnchorType["BOTTOM_CENTER"] = 1] = "BOTTOM_CENTER";
+    AnchorType[AnchorType["BOTTOM_LEFT"] = 2] = "BOTTOM_LEFT";
+    AnchorType[AnchorType["BOTTOM_RIGHT"] = 3] = "BOTTOM_RIGHT";
+    AnchorType[AnchorType["CENTER"] = 4] = "CENTER";
+    AnchorType[AnchorType["CENTER_LEFT"] = 5] = "CENTER_LEFT";
+    AnchorType[AnchorType["CENTER_RIGHT"] = 6] = "CENTER_RIGHT";
+    AnchorType[AnchorType["TOP_CENTER"] = 7] = "TOP_CENTER";
+    AnchorType[AnchorType["TOP_LEFT"] = 8] = "TOP_LEFT";
+    AnchorType[AnchorType["TOP_RIGHT"] = 9] = "TOP_RIGHT";
+})(AnchorType = exports.AnchorType || (exports.AnchorType = {}));
+
+
+/***/ }),
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -863,14 +952,14 @@ var EaseType;
 
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Point_1 = __webpack_require__(0);
-var Matrix_1 = __webpack_require__(11);
+var Point_1 = __webpack_require__(3);
+var Matrix_1 = __webpack_require__(13);
 var Transform = /** @class */ (function () {
     function Transform() {
         this._scale = Point_1.Point.ONE;
@@ -995,13 +1084,13 @@ exports.Transform = Transform;
 
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Point_1 = __webpack_require__(0);
+var Point_1 = __webpack_require__(3);
 var Matrix = /** @class */ (function () {
     function Matrix(m00, m01, m02, m10, m11, m12, m20, m21, m22) {
         if (m00 === void 0) { m00 = 1; }
@@ -1114,18 +1203,19 @@ exports.Matrix = Matrix;
 
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Transform_1 = __webpack_require__(10);
-var Point_1 = __webpack_require__(0);
-var Matrix_1 = __webpack_require__(11);
-var Rectangle_1 = __webpack_require__(23);
+var Transform_1 = __webpack_require__(12);
+var Point_1 = __webpack_require__(3);
+var Matrix_1 = __webpack_require__(13);
+var Rectangle_1 = __webpack_require__(25);
 var Bound = /** @class */ (function () {
     function Bound(vertices) {
+        this._transform = Transform_1.Transform.IDENTITY;
         this._aabb = new Rectangle_1.Rectangle();
         this._vertices = [
             Point_1.Point.ZERO,
@@ -1212,68 +1302,7 @@ exports.Bound = Bound;
 
 
 /***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var AudioMixer = /** @class */ (function () {
-    function AudioMixer() {
-    }
-    AudioMixer.add = function (id, audio, loop) {
-        if (loop === void 0) { loop = false; }
-        if (!this._audioMap.get(id)) {
-            audio.loop = loop;
-            this._audioMap.set(id, audio);
-        }
-        else {
-            console.warn('AudioMixer::add AudioMixer already contains key');
-        }
-    };
-    AudioMixer.play = function (id) {
-        if (this._audioMap.has(id) && this.isEnabled) {
-            this._audioMap.get(id).play();
-        }
-    };
-    AudioMixer.pause = function (id) {
-        if (this._audioMap.has(id)) {
-            this._audioMap.get(id).pause();
-        }
-    };
-    AudioMixer.pauseAll = function () {
-        this._audioMap.forEach(function (value) {
-            value.pause();
-        });
-    };
-    AudioMixer.stop = function (id) {
-        if (this._audioMap.has(id)) {
-            this._audioMap.get(id).stop();
-        }
-    };
-    AudioMixer.stopAll = function () {
-        for (var key in this._audioMap.keys) {
-            this._audioMap.get(key).stop();
-        }
-    };
-    AudioMixer.resume = function () {
-        if (this.isEnabled) {
-            for (var key in this._audioMap.keys) {
-                if (this._audioMap.get(key).isPlaying) {
-                    this._audioMap.get(key).play();
-                }
-            }
-        }
-    };
-    AudioMixer._audioMap = new Map();
-    AudioMixer.isEnabled = true;
-    return AudioMixer;
-}());
-exports.AudioMixer = AudioMixer;
-
-
-/***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1292,9 +1321,74 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Stage_1 = __webpack_require__(1);
-var EventType_1 = __webpack_require__(2);
-var EventDispatcher_1 = __webpack_require__(6);
+var Container_1 = __webpack_require__(2);
+var AssetLoader_1 = __webpack_require__(29);
+var EventType_1 = __webpack_require__(1);
+var Scene = /** @class */ (function (_super) {
+    __extends(Scene, _super);
+    function Scene() {
+        var _this = _super.call(this) || this;
+        _this.assets = new AssetLoader_1.AssetLoader();
+        _this.update();
+        return _this;
+    }
+    Scene.prototype.loadScene = function (scene) {
+        this.application.loadScene(scene);
+    };
+    // internal
+    Scene.prototype.addEventListeners = function () {
+        var _this = this;
+        this.assets.addEventListener(EventType_1.EventType.COMPLETE, function (e) {
+            return _this.onAssetsComplete(e);
+        });
+        this.assets.addEventListener(EventType_1.EventType.TIMEOUT, function (e) {
+            return _this.onAssetsError(e);
+        });
+        this.assets.addEventListener(EventType_1.EventType.ERROR, function (e) {
+            return _this.onAssetsError(e);
+        });
+    };
+    // internal
+    Scene.prototype.removeEventListeners = function () {
+        var _this = this;
+        this.assets.removeEventListener(EventType_1.EventType.COMPLETE, function (e) {
+            return _this.onAssetsComplete(e);
+        });
+        this.assets.removeEventListener(EventType_1.EventType.TIMEOUT, function (e) {
+            return _this.onAssetsError(e);
+        });
+        this.assets.removeEventListener(EventType_1.EventType.ERROR, function (e) {
+            return _this.onAssetsError(e);
+        });
+    };
+    return Scene;
+}(Container_1.Container));
+exports.Scene = Scene;
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var Stage_1 = __webpack_require__(0);
+var EventType_1 = __webpack_require__(1);
+var EventDispatcher_1 = __webpack_require__(5);
 var Texture = /** @class */ (function (_super) {
     __extends(Texture, _super);
     function Texture(image) {
@@ -1373,7 +1467,7 @@ exports.Texture = Texture;
 
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1392,13 +1486,13 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var BlendMode_1 = __webpack_require__(16);
-var Point_1 = __webpack_require__(0);
-var Container_1 = __webpack_require__(7);
-var Stage_1 = __webpack_require__(1);
-var AnchorType_1 = __webpack_require__(17);
-var Texture_1 = __webpack_require__(14);
-var Bound_1 = __webpack_require__(12);
+var BlendMode_1 = __webpack_require__(18);
+var Point_1 = __webpack_require__(3);
+var Container_1 = __webpack_require__(2);
+var Stage_1 = __webpack_require__(0);
+var AnchorType_1 = __webpack_require__(10);
+var Texture_1 = __webpack_require__(16);
+var Bound_1 = __webpack_require__(14);
 var Sprite = /** @class */ (function (_super) {
     __extends(Sprite, _super);
     function Sprite(texture) {
@@ -1408,23 +1502,13 @@ var Sprite = /** @class */ (function (_super) {
         _this.blendMode = BlendMode_1.BlendMode.SOURCE_OVER;
         _this.pivot = Point_1.Point.ZERO;
         _this._modelBound = Bound_1.Bound.ZERO;
-        // TODO Dynamic allocation
-        _this._width = 100;
-        _this._height = 100;
         _this._isDirty = true;
         _this._targetCanvas = document.createElement('canvas');
         _this._targetContext = _this._targetCanvas.getContext('2d');
         _this.canvas = document.createElement('canvas');
         _this.graphics = _this.canvas.getContext('2d');
         if (texture) {
-            //TODO [GJP] Tidy all this up
-            _this._texture = texture;
-            _this._targetCanvas.width = texture.width;
-            _this.canvas.width = texture.width;
-            _this._targetCanvas.height = texture.height;
-            _this.canvas.height = texture.height;
-            _this._width = texture.width;
-            _this._height = texture.height;
+            _this.texture = texture;
         }
         else {
             _this._texture = new Texture_1.Texture();
@@ -1453,7 +1537,7 @@ var Sprite = /** @class */ (function (_super) {
         configurable: true
     });
     Sprite.prototype.dispose = function () {
-        this._modelBound.dispose();
+        //this._modelBound.dispose()
     };
     Object.defineProperty(Sprite.prototype, "texture", {
         get: function () {
@@ -1567,12 +1651,9 @@ var Sprite = /** @class */ (function (_super) {
     });
     Object.defineProperty(Sprite.prototype, "width", {
         get: function () {
-            return this._targetCanvas.width;
+            return this._worldBound.aabb.width;
         },
         set: function (value) {
-            if (this._isDirty) {
-                this.redraw();
-            }
             this.scaleX = value / this._targetCanvas.width;
         },
         enumerable: true,
@@ -1580,18 +1661,123 @@ var Sprite = /** @class */ (function (_super) {
     });
     Object.defineProperty(Sprite.prototype, "height", {
         get: function () {
-            return this._targetCanvas.height;
+            return this._worldBound.aabb.height;
         },
         set: function (value) {
-            if (this._isDirty) {
-                this.redraw();
-            }
             this.scaleY = value / this._targetCanvas.height;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(Sprite.prototype, "anchor", {
+    Object.defineProperty(Sprite.prototype, "left", {
+        get: function () {
+            return this._worldBound.aabb.x;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Sprite.prototype, "right", {
+        get: function () {
+            return this.left + this.width;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Sprite.prototype, "top", {
+        get: function () {
+            return this._worldBound.aabb.y;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Sprite.prototype, "bottom", {
+        get: function () {
+            return this.top + this.height;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Sprite.prototype, "center", {
+        get: function () {
+            return new Point_1.Point((this.left + this.width) / 2, (this.top + this.height) / 2);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Sprite.prototype.intersectsXY = function (x, y) {
+        if (this.bottom < y) {
+            return false;
+        }
+        if (this.top > y) {
+            return false;
+        }
+        if (this.right < x) {
+            return false;
+        }
+        if (this.left > x) {
+            return false;
+        }
+        return true;
+    };
+    Sprite.prototype.intersectsPoint = function (point) {
+        return this.intersectsXY(point.x, point.y);
+    };
+    /**
+     * TODO [GJP] This is fast and dirty! Fix this up
+     * by implementing a full physics system
+     */
+    Sprite.prototype.intersects = function (sprite) {
+        if (this.bottom < sprite.top) {
+            return false;
+        }
+        if (this.top > sprite.bottom) {
+            return false;
+        }
+        if (this.right < sprite.left) {
+            return false;
+        }
+        if (this.left > sprite.right) {
+            return false;
+        }
+        return true;
+    };
+    /**
+     * TODO [GJP] This is fast and dirty! Fix this up
+     * by implementing a full physics system
+     */
+    Sprite.prototype.intersectsRectangle = function (rect) {
+        if (this.bottom < rect.top) {
+            return false;
+        }
+        if (this.top > rect.bottom) {
+            return false;
+        }
+        if (this.right < rect.left) {
+            return false;
+        }
+        if (this.left > rect.right) {
+            return false;
+        }
+    };
+    Sprite.prototype.intersectsRadiusAdvanced = function (sprite, radius, radiusOther, tolerance) {
+        var center1 = this.center;
+        var center2 = sprite.center;
+        var xdiff = center2.x - center1.x;
+        var ydiff = center2.y - center1.y;
+        var dCentreSq = ydiff * ydiff + xdiff * xdiff;
+        var rSumSq = radius + radiusOther;
+        rSumSq *= rSumSq;
+        return dCentreSq - rSumSq <= tolerance * tolerance;
+    };
+    Sprite.prototype.intersectsRadius = function (sprite, radius) {
+        if (radius) {
+            return this.intersectsRadiusAdvanced(sprite, radius, radius, 0);
+        }
+        else {
+            return this.intersectsRadiusAdvanced(sprite, (this.width + this.height) / 4, (sprite.width + sprite.height) / 4, 0);
+        }
+    };
+    Object.defineProperty(Sprite.prototype, "anchorType", {
         set: function (value) {
             var width = this._width;
             var height = this._height;
@@ -1636,7 +1822,7 @@ exports.Sprite = Sprite;
 
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1674,35 +1860,13 @@ var BlendMode;
 
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var AnchorType;
-(function (AnchorType) {
-    AnchorType[AnchorType["NONE"] = 0] = "NONE";
-    AnchorType[AnchorType["BOTTOM_CENTER"] = 1] = "BOTTOM_CENTER";
-    AnchorType[AnchorType["BOTTOM_LEFT"] = 2] = "BOTTOM_LEFT";
-    AnchorType[AnchorType["BOTTOM_RIGHT"] = 3] = "BOTTOM_RIGHT";
-    AnchorType[AnchorType["CENTER"] = 4] = "CENTER";
-    AnchorType[AnchorType["CENTER_LEFT"] = 5] = "CENTER_LEFT";
-    AnchorType[AnchorType["CENTER_RIGHT"] = 6] = "CENTER_RIGHT";
-    AnchorType[AnchorType["TOP_CENTER"] = 7] = "TOP_CENTER";
-    AnchorType[AnchorType["TOP_LEFT"] = 8] = "TOP_LEFT";
-    AnchorType[AnchorType["TOP_RIGHT"] = 9] = "TOP_RIGHT";
-})(AnchorType = exports.AnchorType || (exports.AnchorType = {}));
-
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var Tile_1 = __webpack_require__(4);
+var Tile_1 = __webpack_require__(7);
 var TileSet = /** @class */ (function () {
     function TileSet(texture, tileWidth, tileHeight) {
         this._tileWidth = -1;
@@ -1786,130 +1950,43 @@ exports.TileSet = TileSet;
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Color_1 = __webpack_require__(8);
-var Stage_1 = __webpack_require__(1);
-var EventType_1 = __webpack_require__(2);
-var AssetLoader_1 = __webpack_require__(24);
-var Tweener_1 = __webpack_require__(5);
-var EaseType_1 = __webpack_require__(9);
-var AudioMixer_1 = __webpack_require__(13);
-var AnchorType_1 = __webpack_require__(17);
-var TileAnimation_1 = __webpack_require__(27);
-var TileMap_1 = __webpack_require__(29);
-var MovieClip_1 = __webpack_require__(31);
-var BlendMode_1 = __webpack_require__(16);
-/*
-//Stage.init(800, 600, Color.RED, 30, true)
-//let game: Game = new Game()
-*/
-var clearColor = new Color_1.Color(0.3, 0.6, 0.9, 1);
-var stage = Stage_1.Stage.init(800, 600, clearColor, 30, true);
-var BUNNY_PATH = './assets/bunny.png';
-var STAR_PATH = './assets/star.png';
-var ICE_SET_PATH = './assets/ice_set.png';
-var MAP_DATA_PATH = './assets/map_data.json';
-var AUDIO_TEST = './assets/audio.mp3';
-var loader = new AssetLoader_1.AssetLoader();
-loader.addEventListener(EventType_1.EventType.COMPLETE, onLoaderComplete);
-loader.addEventListener(EventType_1.EventType.ERROR, onLoaderError);
-loader.addEventListener(EventType_1.EventType.TIMEOUT, onLoaderTimeout);
-loader.addEventListener(EventType_1.EventType.LOADED, onLoaderItemLoaded);
-loader.add(BUNNY_PATH);
-loader.add(STAR_PATH);
-loader.add(ICE_SET_PATH);
-loader.add(MAP_DATA_PATH);
-loader.add(AUDIO_TEST);
-loader.load();
-function onLoaderComplete(e) {
-    console.log('Loading complete');
-    buildScene();
-}
-function onLoaderItemLoaded(e) {
-    console.log('Loaded item');
-}
-function onLoaderError(e) {
-    console.log('An error occured whilst loading assets');
-}
-function onLoaderTimeout(e) {
-    console.log('An timeout occured whilst loading assets');
-}
-function buildScene() {
-    var tileSet = loader.getTileSet(ICE_SET_PATH, 32, 32);
-    var tileAnimation = new TileAnimation_1.TileAnimation(tileSet);
-    tileAnimation.frameRate = 10;
-    var tileMap = new TileMap_1.TileMap(10, 10);
-    tileMap.x = 50;
-    tileMap.y = 50;
-    tileMap.rotate(0.03);
-    tileMap.rotationSpeed = -0.01;
-    tileMap.velocity.set(5, 5);
-    tileMap.animations.push(tileAnimation);
-    tileMap.setData(tileSet, loader.getJson(MAP_DATA_PATH).data);
-    var bunny = loader.getSprite(BUNNY_PATH);
-    bunny.blendMode = BlendMode_1.BlendMode.SOURCE_OVER;
-    bunny.anchor = AnchorType_1.AnchorType.CENTER;
-    bunny.scale = 2;
-    bunny.smoothing = false;
-    bunny.graphics.fillStyle = '#FF0000';
-    bunny.graphics.fillRect(0, 0, 10, 10);
-    bunny.tint = new Color_1.Color(0, 1, 0, 0.8);
-    bunny.x = 300;
-    bunny.y = 300;
-    bunny.rotationSpeed = 1;
-    var star = loader.getSprite(STAR_PATH);
-    star.blendMode = BlendMode_1.BlendMode.HARD_LIGHT;
-    star.x = 30;
-    star.y = 30;
-    star.scale = 1.3;
-    star.alpha = 0.75;
-    star.tint = new Color_1.Color(1, 0, 0, 0.5);
-    star.smoothing = false;
-    star.anchor = AnchorType_1.AnchorType.CENTER;
-    star.mask = BUNNY_PATH;
-    star.rotationSpeed = 2;
-    var frames = [bunny, star];
-    var mc = new MovieClip_1.MovieClip();
-    mc.scale = 3;
-    mc.frames = frames;
-    mc.blendMode = BlendMode_1.BlendMode.COLOR;
-    mc.anchor = AnchorType_1.AnchorType.CENTER;
-    mc.rotationSpeed = -4;
-    mc.x = 100;
-    mc.y = 100;
-    mc.framerate = 3;
-    mc.tint = new Color_1.Color(1, 0, 0, 0.8);
-    stage.root.addChild(tileMap);
-    bunny.addChild(star);
-    stage.root.addChild(bunny);
-    stage.root.addChild(mc);
-    Tweener_1.Tweener.create(bunny)
-        .translate(0, 300, 0, 300)
-        .rotate(0, 1.4)
-        .scale(2, 4, 2, 4)
-        .alpha(0.1, 1)
-        .duration(3)
-        .easing(EaseType_1.EaseType.BOUNCE_IN_OUT)
-        .start();
-    AudioMixer_1.AudioMixer.add(AUDIO_TEST, loader.getAudioClip(AUDIO_TEST), true);
-    /**
-     * An event must be invoked to play audio in latest HTML5 spec
-     * This is a temporary hack that will be refactored to handle events
-     * through the scenegraph
-     */
-    stage.canvas.onclick = function (e) {
-        AudioMixer_1.AudioMixer.play(AUDIO_TEST);
-    };
-}
+var Assets = /** @class */ (function () {
+    function Assets() {
+    }
+    Assets.BUNNY_PATH = './assets/bunny.png';
+    Assets.STAR_PATH = './assets/star.png';
+    Assets.ICE_SET_PATH = './assets/ice_set.png';
+    Assets.MAP_DATA_PATH = './assets/map_data.json';
+    Assets.AUDIO_TEST = './assets/audio.mp3';
+    Assets.BUTTON_UP = './assets/button_up.png';
+    Assets.BUTTON_DOWN = './assets/button_down.png';
+    return Assets;
+}());
+exports.Assets = Assets;
 
 
 /***/ }),
-/* 20 */
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Color_1 = __webpack_require__(4);
+var Stage_1 = __webpack_require__(0);
+var Game_1 = __webpack_require__(26);
+Stage_1.Stage.init(800, 600, new Color_1.Color(0.3, 0.6, 0.9), 30, true);
+var game = new Game_1.Game();
+
+
+/***/ }),
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1928,11 +2005,11 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var EaseType_1 = __webpack_require__(9);
-var EventType_1 = __webpack_require__(2);
-var Tweener_1 = __webpack_require__(5);
-var Pool_1 = __webpack_require__(21);
-var EventDispatcher_1 = __webpack_require__(6);
+var EaseType_1 = __webpack_require__(11);
+var EventType_1 = __webpack_require__(1);
+var Tweener_1 = __webpack_require__(8);
+var Pool_1 = __webpack_require__(23);
+var EventDispatcher_1 = __webpack_require__(5);
 var Tween = /** @class */ (function (_super) {
     __extends(Tween, _super);
     function Tween() {
@@ -1979,7 +2056,7 @@ var Tween = /** @class */ (function (_super) {
     };
     Tween.prototype.start = function () {
         if (this._isPlaying == false) {
-            dispatchEvent(new Event(EventType_1.EventType.STARTED));
+            this.dispatchEvent(new Event(EventType_1.EventType.STARTED));
             this._isPlaying = true;
         }
     };
@@ -2267,7 +2344,7 @@ var Tween = /** @class */ (function (_super) {
                     this._sprite.rotation = this.interpolateLinearFunc(this._startRotation, this._destinationRotation, this._easeFunction(t));
             }
             if (this._time >= this._targetTime) {
-                dispatchEvent(new Event(EventType_1.EventType.COMPLETE));
+                this.dispatchEvent(new Event(EventType_1.EventType.COMPLETE));
                 Tweener_1.Tweener.remove(this);
             }
         }
@@ -2446,7 +2523,7 @@ exports.Tween = Tween;
 
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2519,35 +2596,52 @@ exports.Pool = Pool;
 
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Transform_1 = __webpack_require__(10);
-var Bound_1 = __webpack_require__(12);
-var Point_1 = __webpack_require__(0);
-var Timer_1 = __webpack_require__(3);
-var Spatial = /** @class */ (function () {
+var Transform_1 = __webpack_require__(12);
+var Bound_1 = __webpack_require__(14);
+var Point_1 = __webpack_require__(3);
+var Timer_1 = __webpack_require__(6);
+var EventDispatcher_1 = __webpack_require__(5);
+var Spatial = /** @class */ (function (_super) {
+    __extends(Spatial, _super);
     function Spatial() {
-        this.name = '';
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.name = '';
         // internal use only
-        this.transform = Transform_1.Transform.IDENTITY;
+        _this.transform = Transform_1.Transform.IDENTITY;
         // internal use only
-        this.worldTransform = Transform_1.Transform.IDENTITY;
-        this._worldBoundIsDirty = true;
-        this._worldTransformIsDirty = true;
-        this._parent = null;
+        _this.worldTransform = Transform_1.Transform.IDENTITY;
+        _this._worldBoundIsDirty = true;
+        _this._worldTransformIsDirty = true;
+        _this._parent = null;
         // internal use only
-        this._worldBound = Bound_1.Bound.IDENTITY;
-        this.velocity = Point_1.Point.ZERO;
-        this.rotationSpeed = 0;
-        this._x = 0;
-        this._y = 0;
-        this._scaleX = 1;
-        this._scaleY = 1;
-        this._rotation = 0;
+        _this._worldBound = Bound_1.Bound.IDENTITY;
+        _this.velocity = Point_1.Point.ZERO;
+        _this.rotationSpeed = 0;
+        _this._x = 0;
+        _this._y = 0;
+        _this._scaleX = 1;
+        _this._scaleY = 1;
+        _this._rotation = 0;
+        return _this;
     }
     // virtual
     Spatial.prototype.updateWorldData = function () {
@@ -2566,6 +2660,11 @@ var Spatial = /** @class */ (function () {
     };
     Spatial.prototype.dispose = function () {
         this.transform.dispose();
+        this.worldTransform.dispose();
+        this._worldBound.dispose();
+        this.transform = null;
+        this.worldTransform = null;
+        this._worldBound = null;
     };
     Object.defineProperty(Spatial.prototype, "x", {
         get: function () {
@@ -2648,6 +2747,7 @@ var Spatial = /** @class */ (function () {
         configurable: true
     });
     Spatial.prototype.update = function (initiator) {
+        if (initiator === void 0) { initiator = true; }
         var dt = Timer_1.Timer.deltaSeconds;
         if (!this.velocity.isZero) {
             this.x += this.velocity.x * dt;
@@ -2684,18 +2784,18 @@ var Spatial = /** @class */ (function () {
         // virtual
     };
     return Spatial;
-}());
+}(EventDispatcher_1.EventDispatcher));
 exports.Spatial = Spatial;
 
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Point_1 = __webpack_require__(0);
+var Point_1 = __webpack_require__(3);
 var Rectangle = /** @class */ (function () {
     function Rectangle(x, y, width, height) {
         if (x === void 0) { x = 0; }
@@ -2882,7 +2982,7 @@ exports.Rectangle = Rectangle;
 
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2901,12 +3001,174 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var EventDispatcher_1 = __webpack_require__(6);
-var EventType_1 = __webpack_require__(2);
-var Texture_1 = __webpack_require__(14);
-var Sprite_1 = __webpack_require__(15);
-var TileSet_1 = __webpack_require__(18);
-var AudioClip_1 = __webpack_require__(26);
+var Application_1 = __webpack_require__(27);
+var SplashScene_1 = __webpack_require__(28);
+var Game = /** @class */ (function (_super) {
+    __extends(Game, _super);
+    function Game() {
+        var _this = _super.call(this) || this;
+        _this.loadScene(new SplashScene_1.SplashScene());
+        return _this;
+    }
+    return Game;
+}(Application_1.Application));
+exports.Game = Game;
+
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var Stage_1 = __webpack_require__(0);
+var Container_1 = __webpack_require__(2);
+var Application = /** @class */ (function (_super) {
+    __extends(Application, _super);
+    function Application() {
+        var _this = _super.call(this) || this;
+        Stage_1.Stage.instance.root = _this;
+        return _this;
+    }
+    Object.defineProperty(Application.prototype, "isPaused", {
+        get: function () {
+            return Stage_1.Stage.instance.isPaused;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Application.prototype.pause = function () {
+        Stage_1.Stage.instance.pause();
+    };
+    Application.prototype.play = function () {
+        Stage_1.Stage.instance.play();
+    };
+    Application.prototype.loadScene = function (screen) {
+        if (this._currentScreen != null) {
+            this._currentScreen.assets.clear();
+            this._currentScreen.removeEventListeners();
+            this._currentScreen.application = null;
+            this.removeAllChildren();
+        }
+        this._currentScreen = screen;
+        this._currentScreen.application = this;
+        this.addChild(this._currentScreen);
+        this._currentScreen.addEventListeners();
+        this._currentScreen.init();
+        this._currentScreen.assets.load();
+    };
+    return Application;
+}(Container_1.Container));
+exports.Application = Application;
+
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var Scene_1 = __webpack_require__(15);
+var Assets_1 = __webpack_require__(20);
+var EventType_1 = __webpack_require__(1);
+var Button_1 = __webpack_require__(32);
+var AudioMixer_1 = __webpack_require__(9);
+var Color_1 = __webpack_require__(4);
+var GameScene_1 = __webpack_require__(33);
+var SplashScene = /** @class */ (function (_super) {
+    __extends(SplashScene, _super);
+    function SplashScene() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    SplashScene.prototype.init = function () {
+        this.assets.add(Assets_1.Assets.BUTTON_DOWN);
+        this.assets.add(Assets_1.Assets.BUTTON_UP);
+    };
+    SplashScene.prototype.onAssetsComplete = function () {
+        console.log('All of your assets were loaded.');
+        this.createScene();
+    };
+    SplashScene.prototype.onAssetsError = function (e) {
+        console.log('There was an error whilst loading your assets');
+    };
+    SplashScene.prototype.createScene = function () {
+        var _this = this;
+        var buttonUp = this.assets.getSprite(Assets_1.Assets.BUTTON_UP);
+        var buttonOver = this.assets.getSprite(Assets_1.Assets.BUTTON_UP);
+        buttonOver.tint = new Color_1.Color(1, 0, 0, 0.2);
+        var buttonDown = this.assets.getSprite(Assets_1.Assets.BUTTON_DOWN);
+        var button = new Button_1.Button(buttonUp, buttonOver, buttonDown);
+        button.addEventListener(EventType_1.EventType.CLICK, function (e) {
+            return _this.onButtonClick(e);
+        });
+        button.x = 400;
+        button.y = 500;
+        button.scale = 0.4;
+        this.addChild(button);
+    };
+    SplashScene.prototype.onButtonClick = function (e) {
+        AudioMixer_1.AudioMixer.play(Assets_1.Assets.AUDIO_TEST);
+        this.loadScene(new GameScene_1.GameScene());
+    };
+    return SplashScene;
+}(Scene_1.Scene));
+exports.SplashScene = SplashScene;
+
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var EventDispatcher_1 = __webpack_require__(5);
+var EventType_1 = __webpack_require__(1);
+var Texture_1 = __webpack_require__(16);
+var Sprite_1 = __webpack_require__(17);
+var TileSet_1 = __webpack_require__(19);
+var AudioClip_1 = __webpack_require__(31);
 var AssetLoader = /** @class */ (function (_super) {
     __extends(AssetLoader, _super);
     function AssetLoader() {
@@ -2919,6 +3181,12 @@ var AssetLoader = /** @class */ (function (_super) {
     }
     AssetLoader.prototype.add = function (path) {
         this._paths.unshift(path);
+    };
+    AssetLoader.prototype.clear = function () {
+        this.paths.length = 0;
+        this._imageMap.clear();
+        this._audioMap.clear();
+        this._jsonMap.clear();
     };
     Object.defineProperty(AssetLoader.prototype, "paths", {
         get: function () {
@@ -2969,10 +3237,10 @@ var AssetLoader = /** @class */ (function (_super) {
         xhr.send();
     };
     AssetLoader.prototype.onAssetError = function (e, path) {
-        dispatchEvent(new Event(EventType_1.EventType.ERROR));
+        this.dispatchEvent(new Event(EventType_1.EventType.ERROR));
     };
     AssetLoader.prototype.onAssetTimeout = function (e, path) {
-        dispatchEvent(new Event(EventType_1.EventType.TIMEOUT));
+        this.dispatchEvent(new Event(EventType_1.EventType.TIMEOUT));
     };
     AssetLoader.prototype.onAssetLoad = function (e, path) {
         var target = e.target;
@@ -3084,7 +3352,7 @@ exports.AssetLoader = AssetLoader;
 
 
 /***/ }),
-/* 25 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3103,7 +3371,7 @@ var TileBounds;
 
 
 /***/ }),
-/* 26 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3123,6 +3391,7 @@ var AudioClip = /** @class */ (function () {
             })
                 .catch(function (error) {
                 // Auto-play was prevented
+                console.warn('Audio autoplay was prevented');
             });
         }
     };
@@ -3155,13 +3424,306 @@ exports.AudioClip = AudioClip;
 
 
 /***/ }),
-/* 27 */
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var Container_1 = __webpack_require__(2);
+var AnchorType_1 = __webpack_require__(10);
+var Stage_1 = __webpack_require__(0);
+var EventType_1 = __webpack_require__(1);
+var Button = /** @class */ (function (_super) {
+    __extends(Button, _super);
+    function Button(upState, overState, downState) {
+        var _this = _super.call(this) || this;
+        _this._overState = null;
+        _this._downState = null;
+        _this._upState = upState;
+        _this._upState.anchorType = AnchorType_1.AnchorType.CENTER;
+        if (overState != null) {
+            _this._overState = overState;
+            _this._overState.anchorType = AnchorType_1.AnchorType.CENTER;
+        }
+        if (downState != null) {
+            _this._downState = downState;
+            _this._downState.anchorType = AnchorType_1.AnchorType.CENTER;
+        }
+        _this._activeState = _this._upState;
+        Stage_1.Stage.context.canvas.onmousedown = function (e) { return _this.onMouseDown(e); };
+        Stage_1.Stage.context.canvas.onmousemove = function (e) { return _this.onMouseMove(e); };
+        Stage_1.Stage.context.canvas.onmouseup = function (e) { return _this.onMouseUp(e); };
+        // TODO [GJP] Add
+        _this.update();
+        _this.addChild(_this._activeState);
+        return _this;
+    }
+    Button.prototype.dispose = function () {
+        // remove event listeners
+        this.removeChild(this._activeState);
+        this._activeState.dispose();
+        this._upState.dispose();
+        if (this._downState) {
+            this._downState.dispose();
+        }
+        if (this._overState) {
+            this._overState.dispose();
+        }
+        Stage_1.Stage.context.canvas.onmousedown = null;
+        Stage_1.Stage.context.canvas.onmousemove = null;
+        Stage_1.Stage.context.canvas.onmouseup = null;
+        this._activeState = null;
+        this._upState = null;
+        this._downState = null;
+        this._overState = null;
+        _super.prototype.dispose.call(this);
+    };
+    Button.prototype.intersectsPoint = function (point) {
+        return this._activeState.intersectsPoint(point);
+    };
+    Button.prototype.intersectsXY = function (x, y) {
+        return this._activeState.intersectsXY(x, y);
+    };
+    Button.prototype.forceUpState = function () {
+        this.setMouseOut();
+    };
+    Button.prototype.setMouseOut = function () {
+        this._activeState = this._upState;
+        this.removeAllChildren();
+        this.addChild(this._upState);
+    };
+    Button.prototype.setMouseOver = function () {
+        if (this._overState) {
+            this._activeState = this._overState;
+            this.removeAllChildren();
+            this.addChild(this._overState);
+        }
+    };
+    Button.prototype.setMouseDown = function () {
+        if (this._downState) {
+            this._activeState = this._downState;
+            this.removeAllChildren();
+            this.addChild(this._downState);
+        }
+    };
+    Button.prototype.updateMouseState = function () {
+        if (this._isMouseOver && this._isMouseDown) {
+            if (this._downState) {
+                this.setMouseDown();
+            }
+            else if (this._overState) {
+                this.setMouseOver();
+            }
+            else {
+                this.setMouseOut();
+            }
+        }
+        else if (this._isMouseDown) {
+            if (this._downState) {
+                this.setMouseDown();
+            }
+            else {
+                this.setMouseOut();
+            }
+        }
+        else if (this._isMouseOver) {
+            if (this._overState) {
+                this.setMouseOver();
+            }
+            else {
+                this.setMouseOut();
+            }
+        }
+        else {
+            this.setMouseOut();
+        }
+    };
+    Button.prototype.onMouseMove = function (e) {
+        if (this._activeState.intersectsXY(e.layerX, e.layerY)) {
+            if (!this._isMouseOver) {
+                this._isMouseOver = true;
+                this.updateMouseState();
+                this.dispatchEvent(new Event(EventType_1.EventType.MOUSE_OVER));
+            }
+            Stage_1.Stage.instance.canvas.style.cursor = 'pointer';
+        }
+        else {
+            if (this._isMouseOver) {
+                this._isMouseOver = false;
+                this.updateMouseState();
+                this.dispatchEvent(new Event(EventType_1.EventType.MOUSE_OUT));
+            }
+            Stage_1.Stage.instance.canvas.style.cursor = 'auto';
+        }
+    };
+    Button.prototype.onMouseDown = function (e) {
+        var evt = e;
+        if (this._activeState.intersectsXY(evt.layerX, evt.layerY)) {
+            this._isClickTarget = true;
+            this._isMouseDown = true;
+            this.updateMouseState();
+            this.dispatchEvent(new Event(EventType_1.EventType.MOUSE_DOWN));
+        }
+        else {
+            this._isClickTarget = false;
+        }
+    };
+    Button.prototype.onMouseUp = function (e) {
+        Stage_1.Stage.instance.canvas.style.cursor = 'auto';
+        this._isMouseDown = false;
+        this.updateMouseState();
+        if (this._activeState.intersectsXY(e.layerX, e.layerY)) {
+            this.dispatchEvent(new Event(EventType_1.EventType.CLICK));
+        }
+        else if (this._isClickTarget) {
+            this.dispatchEvent(new Event(EventType_1.EventType.MOUSE_UP));
+        }
+        this._isClickTarget = false;
+    };
+    return Button;
+}(Container_1.Container));
+exports.Button = Button;
+
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var Scene_1 = __webpack_require__(15);
+var Assets_1 = __webpack_require__(20);
+var TileAnimation_1 = __webpack_require__(34);
+var TileMap_1 = __webpack_require__(36);
+var BlendMode_1 = __webpack_require__(18);
+var AnchorType_1 = __webpack_require__(10);
+var Color_1 = __webpack_require__(4);
+var MovieClip_1 = __webpack_require__(38);
+var Tweener_1 = __webpack_require__(8);
+var EaseType_1 = __webpack_require__(11);
+var AudioMixer_1 = __webpack_require__(9);
+var GameScene = /** @class */ (function (_super) {
+    __extends(GameScene, _super);
+    function GameScene() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    GameScene.prototype.onAssetsError = function (e) { };
+    GameScene.prototype.init = function () {
+        this.assets.add(Assets_1.Assets.BUNNY_PATH);
+        this.assets.add(Assets_1.Assets.STAR_PATH);
+        this.assets.add(Assets_1.Assets.ICE_SET_PATH);
+        this.assets.add(Assets_1.Assets.MAP_DATA_PATH);
+        this.assets.add(Assets_1.Assets.AUDIO_TEST);
+    };
+    GameScene.prototype.onAssetsComplete = function () {
+        console.log('All of your assets were loaded.');
+        this.createScene();
+    };
+    GameScene.prototype.createScene = function () {
+        var tileSet = this.assets.getTileSet(Assets_1.Assets.ICE_SET_PATH, 32, 32);
+        var tileAnimation = new TileAnimation_1.TileAnimation(tileSet);
+        tileAnimation.frameRate = 10;
+        var tileMap = new TileMap_1.TileMap(10, 10);
+        tileMap.x = 50;
+        tileMap.y = 50;
+        tileMap.rotate(0.03);
+        tileMap.rotationSpeed = -0.01;
+        tileMap.velocity.set(5, 5);
+        tileMap.animations.push(tileAnimation);
+        tileMap.setData(tileSet, this.assets.getJson(Assets_1.Assets.MAP_DATA_PATH).data);
+        var bunny = this.assets.getSprite(Assets_1.Assets.BUNNY_PATH);
+        bunny.blendMode = BlendMode_1.BlendMode.SOURCE_OVER;
+        bunny.anchorType = AnchorType_1.AnchorType.CENTER;
+        bunny.scale = 2;
+        bunny.smoothing = false;
+        bunny.graphics.fillStyle = '#FF0000';
+        bunny.graphics.fillRect(0, 0, 10, 10);
+        bunny.tint = new Color_1.Color(0, 1, 0, 0.8);
+        bunny.x = 300;
+        bunny.y = 300;
+        bunny.rotationSpeed = 1;
+        var star = this.assets.getSprite(Assets_1.Assets.STAR_PATH);
+        star.blendMode = BlendMode_1.BlendMode.HARD_LIGHT;
+        star.x = 30;
+        star.y = 30;
+        star.scale = 1.3;
+        star.alpha = 0.75;
+        star.tint = new Color_1.Color(1, 0, 0, 0.5);
+        star.smoothing = false;
+        star.anchorType = AnchorType_1.AnchorType.CENTER;
+        star.mask = Assets_1.Assets.BUNNY_PATH;
+        star.rotationSpeed = 2;
+        var frames = [bunny, star];
+        var mc = new MovieClip_1.MovieClip();
+        mc.scale = 3;
+        mc.frames = frames;
+        mc.blendMode = BlendMode_1.BlendMode.COLOR;
+        mc.anchorType = AnchorType_1.AnchorType.CENTER;
+        mc.rotationSpeed = -4;
+        mc.x = 100;
+        mc.y = 100;
+        mc.framerate = 3;
+        mc.tint = new Color_1.Color(1, 0, 0, 0.8);
+        this.addChild(tileMap);
+        bunny.addChild(star);
+        this.addChild(bunny);
+        this.addChild(mc);
+        Tweener_1.Tweener.create(bunny)
+            .translate(0, 300, 0, 300)
+            .rotate(0, 1.4)
+            .scale(2, 4, 2, 4)
+            .alpha(0.1, 1)
+            .duration(3)
+            .easing(EaseType_1.EaseType.BOUNCE_IN_OUT)
+            .start();
+        AudioMixer_1.AudioMixer.add(Assets_1.Assets.AUDIO_TEST, this.assets.getAudioClip(Assets_1.Assets.AUDIO_TEST), true);
+        AudioMixer_1.AudioMixer.play(Assets_1.Assets.AUDIO_TEST);
+    };
+    GameScene.prototype.dispose = function () {
+        console.log('GameScene::disposing');
+        _super.prototype.dispose.call(this);
+    };
+    return GameScene;
+}(Scene_1.Scene));
+exports.GameScene = GameScene;
+
+
+/***/ }),
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var TileCollection_1 = __webpack_require__(28);
+var TileCollection_1 = __webpack_require__(35);
 var TileAnimation = /** @class */ (function () {
     function TileAnimation(tileset) {
         this.frameRate = 30;
@@ -3185,14 +3747,14 @@ exports.TileAnimation = TileAnimation;
 
 
 /***/ }),
-/* 28 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Tile_1 = __webpack_require__(4);
-var TileSet_1 = __webpack_require__(18);
+var Tile_1 = __webpack_require__(7);
+var TileSet_1 = __webpack_require__(19);
 var TileCollection = /** @class */ (function () {
     function TileCollection() {
         this._tiles = [];
@@ -3251,7 +3813,7 @@ exports.TileCollection = TileCollection;
 
 
 /***/ }),
-/* 29 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3270,10 +3832,10 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Tile_1 = __webpack_require__(4);
-var Container_1 = __webpack_require__(7);
-var AnimatedTile_1 = __webpack_require__(30);
-var Stage_1 = __webpack_require__(1);
+var Tile_1 = __webpack_require__(7);
+var Container_1 = __webpack_require__(2);
+var AnimatedTile_1 = __webpack_require__(37);
+var Stage_1 = __webpack_require__(0);
 var TileMap = /** @class */ (function (_super) {
     __extends(TileMap, _super);
     function TileMap(width, height) {
@@ -3487,7 +4049,7 @@ exports.TileMap = TileMap;
 
 
 /***/ }),
-/* 30 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3506,8 +4068,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Tile_1 = __webpack_require__(4);
-var Timer_1 = __webpack_require__(3);
+var Tile_1 = __webpack_require__(7);
+var Timer_1 = __webpack_require__(6);
 var AnimatedTile = /** @class */ (function (_super) {
     __extends(AnimatedTile, _super);
     function AnimatedTile(animation) {
@@ -3575,7 +4137,7 @@ exports.AnimatedTile = AnimatedTile;
 
 
 /***/ }),
-/* 31 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3594,8 +4156,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Sprite_1 = __webpack_require__(15);
-var Timer_1 = __webpack_require__(3);
+var Sprite_1 = __webpack_require__(17);
+var Timer_1 = __webpack_require__(6);
 var MovieClip = /** @class */ (function (_super) {
     __extends(MovieClip, _super);
     function MovieClip() {
