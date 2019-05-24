@@ -6,7 +6,7 @@
     "dev": "webpack-dev-server --config webpack.dev.js --host 0.0.0.0 --port 3000 --display-modules --content-base dev --inline --hot --mode development --env.ENVIRONMENT=dev",
     "release": "webpack --config webpack.release.js --mode production --progress --colors",
     "desktop": "npm run release && webpack --config webpack.desktop.js --mode production --progress --colors && electron ./build/desktop/electron.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "karma start"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,10 @@
   "devDependencies": {
     "electron": "^5.0.1",
     "eslint": "^5.16.0",
+    "karma": "^4.0.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-jasmine": "^2.0.1",
+    "karma-typescript": "^4.0.0",
     "ts-loader": "^6.0.0",
     "typescript": "^3.4.5",
     "uglifyjs-webpack-plugin": "^2.1.2",
@@ -37,6 +41,7 @@
     "webpack-dev-server": "^3.3.1"
   },
   "dependencies": {
+    "@types/jest": "^24.0.13",
     "copy-webpack-plugin": "^5.0.3",
     "remove-strict-webpack-plugin": "^0.1.2",
     "uglify-js": "^3.5.13"
