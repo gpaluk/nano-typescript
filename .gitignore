@@ -330,3 +330,6 @@ ASALocalRun/
 
 # OS Files
 *.DS_Store
+
+#unit tests
+[Cc]overage/
