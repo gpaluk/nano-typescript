@@ -78,5 +78,11 @@ We have provided the ability to run **Nano** projects as desktop applications fo
 
 `npm run desktop`
 
+### Unit tests
+
+Also included is a suite of unit tests. Unit tests allow for the automation of testing and can catch issues before deployment. You can run the suite of unit tests with:
+
+`npm run test`
+
 ## Many Thanks
 **Thank you** for checking out **Nano TypeScript**. We are super excited to see the amazing HTML5 games and apps that you build and we hope to showcase them here. Please let us know about your projects.
