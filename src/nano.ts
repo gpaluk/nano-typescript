@@ -13,12 +13,12 @@ import {TileMap} from 'Display/Tiles/TileMap'
 import {MovieClip} from 'Display/MovieClip'
 import {BlendMode} from 'Display/BlendMode'
 import {Button} from 'GUI/Button'
+import {Game} from 'Demo/Game'
+
+Stage.init(800, 600, new Color(0.3, 0.6, 0.9), 30, true)
+let game: Game = new Game()
 
 /*
-//Stage.init(800, 600, Color.RED, 30, true)
-//let game: Game = new Game()
-*/
-
 let clearColor: Color = new Color(0.3, 0.6, 0.9, 1)
 let stage = Stage.init(800, 600, clearColor, 30, true)
 
@@ -129,17 +129,6 @@ function buildScene(): void {
 
     AudioMixer.add(AUDIO_TEST, loader.getAudioClip(AUDIO_TEST), true)
 
-    /**
-     * An event must be invoked to play audio in latest HTML5 spec
-     * This is a temporary hack that will be refactored to handle events
-     * through the scenegraph
-     */
-    /*
-    stage.canvas.onclick = e => {
-        AudioMixer.play(AUDIO_TEST)
-    }
-    */
-
     // button test
     let buttonUp: Sprite = loader.getSprite(BUTTON_UP)
     let buttonOver: Sprite = loader.getSprite(BUTTON_UP)
@@ -178,3 +167,4 @@ function buildScene(): void {
         console.log('Button was rolled out')
     }
 }
+*/

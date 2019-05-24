@@ -24,19 +24,18 @@ export class Application extends Container {
 
     public loadScene(screen: Scene) {
         if (this._currentScreen != null) {
-            this._currentScreen.dispose()
-
+            this._currentScreen.assets.clear()
+            this._currentScreen.removeEventListeners()
             this._currentScreen.application = null
 
-            let pos = this._children.indexOf(this._currentScreen)
-            if (pos != -1) {
-                this.removeChild(this._currentScreen)
-            }
+            this.removeAllChildren()
         }
 
         this._currentScreen = screen
         this._currentScreen.application = this
         this.addChild(this._currentScreen)
+        this._currentScreen.addEventListeners()
         this._currentScreen.init()
+        this._currentScreen.assets.load()
     }
 }

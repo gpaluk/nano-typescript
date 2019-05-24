@@ -43,7 +43,31 @@ export class Button extends Container {
         this.addChild(this._activeState)
     }
 
-    // TODO dispose()
+    public dispose() {
+        // remove event listeners
+        this.removeChild(this._activeState)
+        this._activeState.dispose()
+        this._upState.dispose()
+
+        if (this._downState) {
+            this._downState.dispose()
+        }
+
+        if (this._overState) {
+            this._overState.dispose()
+        }
+
+        Stage.context.canvas.onmousedown = null
+        Stage.context.canvas.onmousemove = null
+        Stage.context.canvas.onmouseup = null
+
+        this._activeState = null
+        this._upState = null
+        this._downState = null
+        this._overState = null
+
+        super.dispose()
+    }
 
     public intersectsPoint(point: Point): boolean {
         return this._activeState.intersectsPoint(point)
@@ -105,10 +129,8 @@ export class Button extends Container {
         }
     }
 
-    private onMouseMove(e: Event) {
-        let evt: MouseEvent = e as MouseEvent
-
-        if (this._activeState.intersectsXY(evt.layerX, evt.layerY)) {
+    private onMouseMove(e: MouseEvent) {
+        if (this._activeState.intersectsXY(e.layerX, e.layerY)) {
             if (!this._isMouseOver) {
                 this._isMouseOver = true
                 this.updateMouseState()
@@ -127,7 +149,7 @@ export class Button extends Container {
         }
     }
 
-    private onMouseDown(e: Event): void {
+    private onMouseDown(e: MouseEvent): void {
         let evt: MouseEvent = e as MouseEvent
 
         if (this._activeState.intersectsXY(evt.layerX, evt.layerY)) {
@@ -141,25 +163,17 @@ export class Button extends Container {
         }
     }
 
-    private onMouseUp(e: Event): void {
-        let evt: MouseEvent = e as MouseEvent
-
+    private onMouseUp(e: MouseEvent): void {
         Stage.instance.canvas.style.cursor = 'auto'
         this._isMouseDown = false
         this.updateMouseState()
 
-        if (this._activeState.intersectsXY(evt.layerX, evt.layerY)) {
+        if (this._activeState.intersectsXY(e.layerX, e.layerY)) {
             this.dispatchEvent(new Event(EventType.CLICK))
         } else if (this._isClickTarget) {
             this.dispatchEvent(new Event(EventType.MOUSE_UP))
         }
 
         this._isClickTarget = false
-    }
-
-    public dispose() {
-        // remove event listeners
-
-        super.dispose()
     }
 }

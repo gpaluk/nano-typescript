@@ -19,6 +19,7 @@ export class AudioClip {
                 })
                 .catch(error => {
                     // Auto-play was prevented
+                    console.warn('Audio autoplay was prevented')
                 })
         }
     }

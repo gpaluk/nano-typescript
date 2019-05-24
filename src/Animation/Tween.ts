@@ -72,7 +72,7 @@ export class Tween extends EventDispatcher {
 
     public start(): void {
         if (this._isPlaying == false) {
-            dispatchEvent(new Event(EventType.STARTED))
+            this.dispatchEvent(new Event(EventType.STARTED))
             this._isPlaying = true
         }
     }
@@ -387,7 +387,7 @@ export class Tween extends EventDispatcher {
             }
 
             if (this._time >= this._targetTime) {
-                dispatchEvent(new Event(EventType.COMPLETE))
+                this.dispatchEvent(new Event(EventType.COMPLETE))
 
                 Tweener.remove(this)
             }

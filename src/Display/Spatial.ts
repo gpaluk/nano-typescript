@@ -52,6 +52,12 @@ export abstract class Spatial extends EventDispatcher {
 
     public dispose() {
         this.transform.dispose()
+        this.worldTransform.dispose()
+        this._worldBound.dispose()
+
+        this.transform = null
+        this.worldTransform = null
+        this._worldBound = null
     }
 
     public get x(): number {

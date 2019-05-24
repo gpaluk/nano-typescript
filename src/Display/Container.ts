@@ -37,9 +37,11 @@ export class Container extends Spatial {
     }
 
     public removeAllChildren() {
-        for (let child of this._children) {
+        this._children.forEach(child => {
+            child.parent = null
             this.removeChild(child)
-        }
+        })
+        this._children = []
     }
 
     // override
