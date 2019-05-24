@@ -2,8 +2,9 @@ import {Transform} from 'Geom/Transform'
 import {Bound} from './Bound'
 import {Point} from 'Geom/Point'
 import {Timer} from 'Utils/Timer'
+import {EventDispatcher} from 'Events/EventDispatcher'
 
-export abstract class Spatial {
+export abstract class Spatial extends EventDispatcher {
     public name: string = ''
 
     // internal use only
@@ -51,6 +52,12 @@ export abstract class Spatial {
 
     public dispose() {
         this.transform.dispose()
+        this.worldTransform.dispose()
+        this._worldBound.dispose()
+
+        this.transform = null
+        this.worldTransform = null
+        this._worldBound = null
     }
 
     public get x(): number {
@@ -120,7 +127,7 @@ export abstract class Spatial {
         this._parent = value
     }
 
-    public update(initiator: boolean): void {
+    public update(initiator: boolean = true): void {
         let dt: number = Timer.deltaSeconds
 
         if (!this.velocity.isZero) {

@@ -25,6 +25,13 @@ export class AssetLoader extends EventDispatcher {
         this._paths.unshift(path)
     }
 
+    public clear() {
+        this.paths.length = 0
+        this._imageMap.clear()
+        this._audioMap.clear()
+        this._jsonMap.clear()
+    }
+
     public get paths(): string[] {
         return this._paths
     }
@@ -86,11 +93,11 @@ export class AssetLoader extends EventDispatcher {
     }
 
     private onAssetError(e: Event, path: string): void {
-        dispatchEvent(new Event(EventType.ERROR))
+        this.dispatchEvent(new Event(EventType.ERROR))
     }
 
     private onAssetTimeout(e: Event, path: string): void {
-        dispatchEvent(new Event(EventType.TIMEOUT))
+        this.dispatchEvent(new Event(EventType.TIMEOUT))
     }
 
     private onAssetLoad(e: Event, path: string): void {

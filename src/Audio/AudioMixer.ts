@@ -42,18 +42,18 @@ export class AudioMixer {
     }
 
     public static stopAll(): void {
-        for (let key in this._audioMap.keys) {
-            this._audioMap.get(key).stop()
-        }
+        this._audioMap.forEach(value => {
+            value.stop()
+        })
     }
 
     public static resume(): void {
         if (this.isEnabled) {
-            for (let key in this._audioMap.keys) {
-                if (this._audioMap.get(key).isPlaying) {
-                    this._audioMap.get(key).play()
+            this._audioMap.forEach(value => {
+                if (value.isPlaying) {
+                    value.play()
                 }
-            }
+            })
         }
     }
 }

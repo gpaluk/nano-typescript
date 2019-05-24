@@ -12,12 +12,13 @@ import {TileAnimation} from 'Display/Tiles/TileAnimation'
 import {TileMap} from 'Display/Tiles/TileMap'
 import {MovieClip} from 'Display/MovieClip'
 import {BlendMode} from 'Display/BlendMode'
+import {Button} from 'GUI/Button'
+import {Game} from 'Demo/Game'
+
+Stage.init(800, 600, new Color(0.3, 0.6, 0.9), 30, true)
+let game: Game = new Game()
 
 /*
-//Stage.init(800, 600, Color.RED, 30, true)
-//let game: Game = new Game()
-*/
-
 let clearColor: Color = new Color(0.3, 0.6, 0.9, 1)
 let stage = Stage.init(800, 600, clearColor, 30, true)
 
@@ -26,6 +27,8 @@ const STAR_PATH: string = './assets/star.png'
 const ICE_SET_PATH: string = './assets/ice_set.png'
 const MAP_DATA_PATH: string = './assets/map_data.json'
 const AUDIO_TEST: string = './assets/audio.mp3'
+const BUTTON_UP: string = './assets/button_up.png'
+const BUTTON_DOWN: string = './assets/button_down.png'
 
 let loader: AssetLoader = new AssetLoader()
 loader.addEventListener(EventType.COMPLETE, onLoaderComplete)
@@ -38,6 +41,9 @@ loader.add(STAR_PATH)
 loader.add(ICE_SET_PATH)
 loader.add(MAP_DATA_PATH)
 loader.add(AUDIO_TEST)
+loader.add(BUTTON_UP)
+loader.add(BUTTON_DOWN)
+
 loader.load()
 
 function onLoaderComplete(e: Event): void {
@@ -73,7 +79,7 @@ function buildScene(): void {
 
     let bunny: Sprite = loader.getSprite(BUNNY_PATH)
     bunny.blendMode = BlendMode.SOURCE_OVER
-    bunny.anchor = AnchorType.CENTER
+    bunny.anchorType = AnchorType.CENTER
     bunny.scale = 2
     bunny.smoothing = false
     bunny.graphics.fillStyle = '#FF0000'
@@ -91,7 +97,7 @@ function buildScene(): void {
     star.alpha = 0.75
     star.tint = new Color(1, 0, 0, 0.5)
     star.smoothing = false
-    star.anchor = AnchorType.CENTER
+    star.anchorType = AnchorType.CENTER
     star.mask = BUNNY_PATH
     star.rotationSpeed = 2
 
@@ -100,7 +106,7 @@ function buildScene(): void {
     mc.scale = 3
     mc.frames = frames
     mc.blendMode = BlendMode.COLOR
-    mc.anchor = AnchorType.CENTER
+    mc.anchorType = AnchorType.CENTER
     mc.rotationSpeed = -4
     mc.x = 100
     mc.y = 100
@@ -123,12 +129,42 @@ function buildScene(): void {
 
     AudioMixer.add(AUDIO_TEST, loader.getAudioClip(AUDIO_TEST), true)
 
-    /**
-     * An event must be invoked to play audio in latest HTML5 spec
-     * This is a temporary hack that will be refactored to handle events
-     * through the scenegraph
-     */
-    stage.canvas.onclick = e => {
+    // button test
+    let buttonUp: Sprite = loader.getSprite(BUTTON_UP)
+    let buttonOver: Sprite = loader.getSprite(BUTTON_UP)
+    buttonOver.tint = new Color(1, 0, 0, 0.2)
+    let buttonDown: Sprite = loader.getSprite(BUTTON_DOWN)
+
+    let button: Button = new Button(buttonUp, buttonOver, buttonDown)
+    button.addEventListener(EventType.CLICK, onButtonClick)
+    button.addEventListener(EventType.MOUSE_DOWN, onButtonDown)
+    button.addEventListener(EventType.MOUSE_OVER, onButtonOver)
+    button.addEventListener(EventType.MOUSE_UP, onButtonUp)
+    button.addEventListener(EventType.MOUSE_OUT, onButtonOut)
+    button.x = 400
+    button.y = 500
+    button.scale = 0.4
+    stage.root.addChild(button)
+
+    function onButtonClick(e: Event): void {
+        console.log('Button was clicked')
         AudioMixer.play(AUDIO_TEST)
     }
+
+    function onButtonDown(e: Event): void {
+        console.log('Button was pressed')
+    }
+
+    function onButtonOver(e: Event): void {
+        console.log('Button was rolled over')
+    }
+
+    function onButtonUp(e: Event): void {
+        console.log('Button was released')
+    }
+
+    function onButtonOut(e: Event): void {
+        console.log('Button was rolled out')
+    }
 }
+*/

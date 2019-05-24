@@ -7,6 +7,7 @@ import {Color} from './Color'
 import {AnchorType} from './AnchorType'
 import {Texture} from './Texture'
 import {Bound} from './Bound'
+import {Rectangle} from 'Geom/Rectangle'
 
 export class Sprite extends Container {
     public alpha: number = 1
@@ -27,8 +28,8 @@ export class Sprite extends Container {
     protected _mask: HTMLImageElement
 
     // TODO Dynamic allocation
-    private _width: number = 100
-    private _height: number = 100
+    private _width: number
+    private _height: number
 
     protected _isDirty: boolean = true
 
@@ -52,14 +53,7 @@ export class Sprite extends Container {
         this.graphics = this.canvas.getContext('2d')
 
         if (texture) {
-            //TODO [GJP] Tidy all this up
-            this._texture = texture
-            this._targetCanvas.width = texture.width
-            this.canvas.width = texture.width
-            this._targetCanvas.height = texture.height
-            this.canvas.height = texture.height
-            this._width = texture.width
-            this._height = texture.height
+            this.texture = texture
         } else {
             this._texture = new Texture()
         }
@@ -74,7 +68,7 @@ export class Sprite extends Container {
     }
 
     public dispose(): void {
-        this._modelBound.dispose()
+        //this._modelBound.dispose()
     }
 
     public get texture(): Texture {
@@ -222,28 +216,145 @@ export class Sprite extends Container {
     }
 
     public get width(): number {
-        return this._targetCanvas.width
+        return this._worldBound.aabb.width
     }
 
     public set width(value: number) {
-        if (this._isDirty) {
-            this.redraw()
-        }
         this.scaleX = value / this._targetCanvas.width
     }
 
     public get height(): number {
-        return this._targetCanvas.height
+        return this._worldBound.aabb.height
     }
 
     public set height(value: number) {
-        if (this._isDirty) {
-            this.redraw()
-        }
         this.scaleY = value / this._targetCanvas.height
     }
 
-    public set anchor(value: AnchorType) {
+    public get left(): number {
+        return this._worldBound.aabb.x
+    }
+
+    public get right(): number {
+        return this.left + this.width
+    }
+
+    public get top(): number {
+        return this._worldBound.aabb.y
+    }
+
+    public get bottom(): number {
+        return this.top + this.height
+    }
+
+    public get center(): Point {
+        return new Point(
+            (this.left + this.width) / 2,
+            (this.top + this.height) / 2
+        )
+    }
+
+    public intersectsXY(x: number, y: number): boolean {
+        if (this.bottom < y) {
+            return false
+        }
+
+        if (this.top > y) {
+            return false
+        }
+
+        if (this.right < x) {
+            return false
+        }
+
+        if (this.left > x) {
+            return false
+        }
+
+        return true
+    }
+
+    public intersectsPoint(point: Point): boolean {
+        return this.intersectsXY(point.x, point.y)
+    }
+
+    /**
+     * TODO [GJP] This is fast and dirty! Fix this up
+     * by implementing a full physics system
+     */
+    public intersects(sprite: Sprite): boolean {
+        if (this.bottom < sprite.top) {
+            return false
+        }
+
+        if (this.top > sprite.bottom) {
+            return false
+        }
+
+        if (this.right < sprite.left) {
+            return false
+        }
+
+        if (this.left > sprite.right) {
+            return false
+        }
+
+        return true
+    }
+
+    /**
+     * TODO [GJP] This is fast and dirty! Fix this up
+     * by implementing a full physics system
+     */
+    public intersectsRectangle(rect: Rectangle): boolean {
+        if (this.bottom < rect.top) {
+            return false
+        }
+
+        if (this.top > rect.bottom) {
+            return false
+        }
+
+        if (this.right < rect.left) {
+            return false
+        }
+
+        if (this.left > rect.right) {
+            return false
+        }
+    }
+
+    public intersectsRadiusAdvanced(
+        sprite: Sprite,
+        radius: number,
+        radiusOther: number,
+        tolerance: number
+    ): boolean {
+        let center1: Point = this.center
+        let center2: Point = sprite.center
+        let xdiff: number = center2.x - center1.x
+        let ydiff: number = center2.y - center1.y
+        let dCentreSq: number = ydiff * ydiff + xdiff * xdiff
+        let rSumSq: number = radius + radiusOther
+        rSumSq *= rSumSq
+
+        return dCentreSq - rSumSq <= tolerance * tolerance
+    }
+
+    public intersectsRadius(sprite: Sprite, radius?: number) {
+        if (radius) {
+            return this.intersectsRadiusAdvanced(sprite, radius, radius, 0)
+        } else {
+            return this.intersectsRadiusAdvanced(
+                sprite,
+                (this.width + this.height) / 4,
+                (sprite.width + sprite.height) / 4,
+                0
+            )
+        }
+    }
+
+    public set anchorType(value: AnchorType) {
         let width: number = this._width
         let height: number = this._height
         let halfWidth: number = this._width / 2
