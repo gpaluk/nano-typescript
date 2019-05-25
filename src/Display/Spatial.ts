@@ -50,7 +50,7 @@ export abstract class Spatial extends EventDispatcher {
         }
     }
 
-    public dispose() {
+    public dispose(): void {
         this.transform.dispose()
         this.worldTransform.dispose()
         this._worldBound.dispose()

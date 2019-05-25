@@ -150,16 +150,16 @@ export class Stage {
         return this._context
     }
 
-    public get framerate(): number {
-        return this._framerate
-    }
-
     public get root(): Container {
         return this._root
     }
 
     public set root(value: Container) {
         this._root = value
+    }
+
+    public get framerate(): number {
+        return this._framerate
     }
 
     public set framerate(value: number) {
@@ -188,14 +188,14 @@ export class Stage {
 
             instance._accumulator += delta
             while (instance._accumulator >= instance._updateInterval) {
-                instance.update(delta)
+                instance.update()
                 instance._accumulator -= instance._updateInterval
             }
             instance._lastUpdate = currentTime
         }
     }
 
-    public update(applicationTime: number): void {
+    public update(): void {
         let instance = Stage._instance
 
         instance.resetCanvasState()

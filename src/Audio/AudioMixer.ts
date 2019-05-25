@@ -8,7 +8,11 @@ export class AudioMixer {
 
     private static isEnabled: boolean = true
 
-    public static add(id: string, audio: AudioClip, loop: boolean = false) {
+    public static add(
+        id: string,
+        audio: AudioClip,
+        loop: boolean = false
+    ): void {
         if (!this._audioMap.get(id)) {
             audio.loop = loop
             this._audioMap.set(id, audio)
@@ -29,10 +33,12 @@ export class AudioMixer {
         }
     }
 
-    public static pauseAll() {
-        this._audioMap.forEach(value => {
-            value.pause()
-        })
+    public static pauseAll(): void {
+        this._audioMap.forEach(
+            (value): void => {
+                value.pause()
+            }
+        )
     }
 
     public static stop(id: string): void {
@@ -42,18 +48,22 @@ export class AudioMixer {
     }
 
     public static stopAll(): void {
-        this._audioMap.forEach(value => {
-            value.stop()
-        })
+        this._audioMap.forEach(
+            (value): void => {
+                value.stop()
+            }
+        )
     }
 
     public static resume(): void {
         if (this.isEnabled) {
-            this._audioMap.forEach(value => {
-                if (value.isPlaying) {
-                    value.play()
+            this._audioMap.forEach(
+                (value): void => {
+                    if (value.isPlaying) {
+                        value.play()
+                    }
                 }
-            })
+            )
         }
     }
 }

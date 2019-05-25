@@ -14,7 +14,7 @@ export class Application extends Container {
         Stage.instance.root = this
     }
 
-    public pause() {
+    public pause(): void {
         Stage.instance.pause()
     }
 
@@ -22,7 +22,7 @@ export class Application extends Container {
         Stage.instance.play()
     }
 
-    public loadScene(screen: Scene) {
+    public loadScene(screen: Scene): void {
         if (this._currentScreen != null) {
             this._currentScreen.assets.clear()
             this._currentScreen.removeEventListeners()

@@ -5,11 +5,11 @@ import {EventDispatcher} from 'Events/EventDispatcher'
 export class Texture extends EventDispatcher {
     private readonly _image: HTMLImageElement
 
-    public get image() {
+    public get image(): HTMLImageElement {
         return this._image
     }
 
-    constructor(image: HTMLImageElement = null) {
+    public constructor(image: HTMLImageElement = null) {
         super()
 
         if (image) {
@@ -18,15 +18,15 @@ export class Texture extends EventDispatcher {
             this._image = document.createElement('img')
         }
 
-        this._image.onload = e => this.onImageLoad(e)
-        this._image.onerror = e => this.onImageError(e)
+        this._image.onload = (e): void => this.onImageLoad(e)
+        this._image.onerror = (e): void => this.onImageError(e)
     }
 
-    public get width() {
+    public get width(): number {
         return this._image.width
     }
 
-    public get height() {
+    public get height(): number {
         return this._image.height
     }
 
@@ -37,7 +37,7 @@ export class Texture extends EventDispatcher {
         this._image.src = value
     }
 
-    public get path() {
+    public get path(): string {
         return this._image.src
     }
 
@@ -45,7 +45,7 @@ export class Texture extends EventDispatcher {
         this.dispatchEvent(new Event(EventType.LOADED))
     }
 
-    private onImageError(e: Event | string) {
+    private onImageError(e: Event | string): void {
         this._image.src = ''
         this.dispatchEvent(new CustomEvent(EventType.ERROR))
     }

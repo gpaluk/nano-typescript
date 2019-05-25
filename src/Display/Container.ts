@@ -3,12 +3,12 @@ import {Spatial} from './Spatial'
 export class Container extends Spatial {
     protected _children: Spatial[]
 
-    constructor() {
+    public constructor() {
         super()
         this._children = []
     }
 
-    public dispose() {
+    public dispose(): void {
         this.removeAllChildren()
         this._children = null
 
@@ -36,11 +36,13 @@ export class Container extends Spatial {
         }
     }
 
-    public removeAllChildren() {
-        this._children.forEach(child => {
-            child.parent = null
-            this.removeChild(child)
-        })
+    public removeAllChildren(): void {
+        this._children.forEach(
+            (child): void => {
+                child.parent = null
+                this.removeChild(child)
+            }
+        )
         this._children = []
     }
 

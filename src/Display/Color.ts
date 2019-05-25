@@ -4,7 +4,7 @@ export class Color {
     private _blue: number
     private _alpha: number
 
-    constructor(
+    public constructor(
         red: number = 0,
         green: number = 0,
         blue: number = 0,

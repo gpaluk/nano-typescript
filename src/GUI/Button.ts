@@ -16,7 +16,11 @@ export class Button extends Container {
     private _isMouseOver: boolean
     private _isClickTarget: boolean
 
-    constructor(upState: Sprite, overState?: Sprite, downState?: Sprite) {
+    public constructor(
+        upState: Sprite,
+        overState?: Sprite,
+        downState?: Sprite
+    ) {
         super()
 
         this._upState = upState
@@ -43,7 +47,7 @@ export class Button extends Container {
         this.addChild(this._activeState)
     }
 
-    public dispose() {
+    public dispose(): void {
         // remove event listeners
         this.removeChild(this._activeState)
         this._activeState.dispose()
@@ -103,7 +107,7 @@ export class Button extends Container {
         }
     }
 
-    public updateMouseState() {
+    public updateMouseState(): void {
         if (this._isMouseOver && this._isMouseDown) {
             if (this._downState) {
                 this.setMouseDown()
@@ -129,7 +133,7 @@ export class Button extends Container {
         }
     }
 
-    private onMouseMove(e: MouseEvent) {
+    private onMouseMove(e: MouseEvent): void {
         if (this._activeState.intersectsXY(e.layerX, e.layerY)) {
             if (!this._isMouseOver) {
                 this._isMouseOver = true

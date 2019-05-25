@@ -1,8 +1,12 @@
 export class Pool<T> {
-    private _released: Array<T>
-    private readonly _pool: Array<T>
+    private _released: T[]
+    private readonly _pool: T[]
 
-    constructor(count: number, private type: new () => T) {
+    private type: new () => T
+
+    public constructor(count: number, type: new () => T) {
+        this.type = type
+
         this._released = new Array<T>()
         this._pool = new Array<T>()
 
@@ -56,7 +60,7 @@ export class Pool<T> {
         return this._pool.length
     }
 
-    public get active(): Array<T> {
+    public get active(): T[] {
         return this._pool
     }
 }

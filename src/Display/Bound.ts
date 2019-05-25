@@ -26,7 +26,7 @@ export class Bound {
         return new Bound(vertices)
     }
 
-    constructor(vertices: Point[]) {
+    public constructor(vertices: Point[]) {
         this._transform = Transform.IDENTITY
         this._vertices = vertices
         this._isAABBDirty = true
@@ -42,7 +42,7 @@ export class Bound {
     }
 
     public static transform(bound: Bound, transform: Transform): Bound {
-        let newVerts: Array<Point> = new Array<Point>(4)
+        let newVerts: Point[] = new Array<Point>(4)
 
         for (let i = 0; i < 4; ++i) {
             newVerts[i] = Matrix.multiplyPoint(

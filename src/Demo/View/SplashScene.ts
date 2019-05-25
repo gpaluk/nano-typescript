@@ -30,8 +30,9 @@ export class SplashScene extends Scene {
         let buttonDown: Sprite = this.assets.getSprite(Assets.BUTTON_DOWN)
 
         let button: Button = new Button(buttonUp, buttonOver, buttonDown)
-        button.addEventListener(EventType.CLICK, (e: Event) =>
-            this.onButtonClick(e)
+        button.addEventListener(
+            EventType.CLICK,
+            (e: Event): void => this.onButtonClick(e)
         )
         button.x = 400
         button.y = 500

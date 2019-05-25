@@ -7,7 +7,7 @@ export abstract class Scene extends Container {
     public assets: AssetLoader = new AssetLoader()
     public application: Application
 
-    constructor() {
+    public constructor() {
         super()
         this.update()
     }
@@ -19,28 +19,34 @@ export abstract class Scene extends Container {
     }
 
     // internal
-    public addEventListeners() {
-        this.assets.addEventListener(EventType.COMPLETE, (e: Event) =>
-            this.onAssetsComplete(e)
+    public addEventListeners(): void {
+        this.assets.addEventListener(
+            EventType.COMPLETE,
+            (e: Event): void => this.onAssetsComplete(e)
         )
-        this.assets.addEventListener(EventType.TIMEOUT, (e: Event) =>
-            this.onAssetsError(e)
+        this.assets.addEventListener(
+            EventType.TIMEOUT,
+            (e: Event): void => this.onAssetsError(e)
         )
-        this.assets.addEventListener(EventType.ERROR, (e: Event) =>
-            this.onAssetsError(e)
+        this.assets.addEventListener(
+            EventType.ERROR,
+            (e: Event): void => this.onAssetsError(e)
         )
     }
 
     // internal
-    public removeEventListeners() {
-        this.assets.removeEventListener(EventType.COMPLETE, (e: Event) =>
-            this.onAssetsComplete(e)
+    public removeEventListeners(): void {
+        this.assets.removeEventListener(
+            EventType.COMPLETE,
+            (e: Event): void => this.onAssetsComplete(e)
         )
-        this.assets.removeEventListener(EventType.TIMEOUT, (e: Event) =>
-            this.onAssetsError(e)
+        this.assets.removeEventListener(
+            EventType.TIMEOUT,
+            (e: Event): void => this.onAssetsError(e)
         )
-        this.assets.removeEventListener(EventType.ERROR, (e: Event) =>
-            this.onAssetsError(e)
+        this.assets.removeEventListener(
+            EventType.ERROR,
+            (e: Event): void => this.onAssetsError(e)
         )
     }
 

@@ -13,9 +13,7 @@ export class Transform {
     private _matrix: Matrix = Matrix.IDENTITY
     private _isDirty: boolean = true
 
-    constructor() {}
-
-    public dispose() {
+    public dispose(): void {
         this._scale.dispose()
         this._rotation.dispose()
         this._translation.dispose()

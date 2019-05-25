@@ -1,6 +1,6 @@
 {
   "name": "nano-typescript",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Super fast and lightweight 2D graphics library for TypeScript",
   "scripts": {
     "dev": "webpack-dev-server --config webpack.dev.js --host 0.0.0.0 --port 3000 --display-modules --content-base dev --inline --hot --mode development --env.ENVIRONMENT=dev",
@@ -27,12 +27,17 @@
   },
   "homepage": "https://github.com/PluginIO/nano-typescript#readme",
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^1.9.0",
+    "@typescript-eslint/parser": "^1.9.0",
     "electron": "^5.0.1",
     "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-prettier": "^3.1.0",
     "karma": "^4.0.0",
     "karma-chrome-launcher": "^2.2.0",
     "karma-jasmine": "^2.0.1",
     "karma-typescript": "^4.0.0",
+    "prettier": "^1.17.1",
     "ts-loader": "^6.0.0",
     "typescript": "^3.4.5",
     "uglifyjs-webpack-plugin": "^2.1.2",

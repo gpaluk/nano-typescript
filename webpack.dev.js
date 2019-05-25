@@ -1,6 +1,6 @@
 const path = require('path')
 
-module.exports = env => {
+module.exports = () => {
     return {
         entry: path.resolve(__dirname, './src/nano.ts'),
         output: {

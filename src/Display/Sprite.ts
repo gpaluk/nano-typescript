@@ -41,7 +41,7 @@ export class Sprite extends Container {
         return this._targetCanvas
     }
 
-    constructor(texture?: Texture) {
+    public constructor(texture?: Texture) {
         super()
 
         this._targetCanvas = document.createElement(
@@ -55,14 +55,17 @@ export class Sprite extends Container {
         if (texture) {
             this.texture = texture
         } else {
-            this._texture = new Texture()
+            let img: HTMLImageElement = document.createElement('img')
+            img.width = 300
+            img.height = 200
+            this._texture = new Texture(img)
         }
 
         this._mask = document.createElement('img')
-        this._mask.onload = () => {
+        this._mask.onload = (): void => {
             this._isDirty = true
         }
-        this._mask.onerror = () => {
+        this._mask.onerror = (): void => {
             this._mask.src = ''
         }
     }
@@ -172,7 +175,7 @@ export class Sprite extends Container {
         super.drawDebug()
     }
 
-    private redraw(): void {
+    public redraw(): void {
         let ctx = this._targetContext
         ctx.clearRect(0, 0, this._width, this._height)
         ctx.globalAlpha = 1
@@ -341,7 +344,7 @@ export class Sprite extends Container {
         return dCentreSq - rSumSq <= tolerance * tolerance
     }
 
-    public intersectsRadius(sprite: Sprite, radius?: number) {
+    public intersectsRadius(sprite: Sprite, radius?: number): boolean {
         if (radius) {
             return this.intersectsRadiusAdvanced(sprite, radius, radius, 0)
         } else {

@@ -7,7 +7,7 @@ export class Rectangle {
     public width: number
     public height: number
 
-    constructor(
+    public constructor(
         x: number = 0,
         y: number = 0,
         width: number = 0,
@@ -62,7 +62,10 @@ export class Rectangle {
      * TODO [GJP]This method is currently a hack, needs writing properly,
      * probably at the same time as an entire fast physics system
      */
-    public static transformBy(transform: Transform, bound: Rectangle) {
+    public static transformBy(
+        transform: Transform,
+        bound: Rectangle
+    ): Rectangle {
         let rectangle: Rectangle = new Rectangle(
             bound.x,
             bound.y,

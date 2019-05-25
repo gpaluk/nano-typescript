@@ -10,7 +10,7 @@ export class MovieClip extends Sprite {
     private _updateInterval: number = 0
     private _isPaused: boolean = false
 
-    constructor() {
+    public constructor() {
         super()
     }
 
@@ -30,7 +30,7 @@ export class MovieClip extends Sprite {
         this._updateInterval = 1 / value
     }
 
-    public get frames() {
+    public get frames(): Sprite[] {
         return this._frames
     }
 
