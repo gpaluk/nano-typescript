@@ -5,7 +5,7 @@ export class Circle {
     public y: number
     public radius: number
 
-    constructor(x: number = 0, y: number = 0, radius: number) {
+    public constructor(x: number = 0, y: number = 0, radius: number) {
         this.x = x
         this.y = y
         this.radius = radius
@@ -28,7 +28,7 @@ export class Circle {
         this.radius = value / 2
     }
 
-    public set(x: number, y: number, radius: number) {
+    public set(x: number, y: number, radius: number): void {
         this.x = x
         this.y = y
         this.radius = radius

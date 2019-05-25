@@ -21,7 +21,7 @@ export class Matrix {
     public m21: number
     public m22: number
 
-    constructor(
+    public constructor(
         m00: number = 1,
         m01: number = 0,
         m02: number = 0,
@@ -89,7 +89,7 @@ export class Matrix {
         )
     }
 
-    public compose(scale: Point, rotation: Matrix, translation: Point) {
+    public compose(scale: Point, rotation: Matrix, translation: Point): void {
         let sMat: Matrix = Matrix.scale(scale.x, scale.y)
         let rMat: Matrix = Matrix.multiply(sMat, rotation)
 
@@ -106,7 +106,7 @@ export class Matrix {
         )
     }
 
-    public decompose(scale: Point, rotation: Matrix, translation: Point) {
+    public decompose(scale: Point, rotation: Matrix, translation: Point): void {
         translation.set(this.m02, this.m12)
 
         let sx: number = Math.sqrt(this.m00 * this.m00 + this.m01 * this.m01)
@@ -136,7 +136,7 @@ export class Matrix {
         m20: number,
         m21: number,
         m22: number
-    ) {
+    ): void {
         this.m00 = m00
         this.m01 = m01
         this.m02 = m02

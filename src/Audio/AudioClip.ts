@@ -14,22 +14,26 @@ export class AudioClip {
 
         if (playPromise !== undefined) {
             playPromise
-                .then(_ => {
-                    // Automatic playback started!
-                })
-                .catch(error => {
-                    // Auto-play was prevented
-                    console.warn('Audio autoplay was prevented')
-                })
+                .then(
+                    (_): void => {
+                        // Automatic playback started!
+                    }
+                )
+                .catch(
+                    (error): void => {
+                        // Auto-play was prevented
+                        console.warn('Audio autoplay was prevented')
+                    }
+                )
         }
     }
 
-    public dispose() {
+    public dispose(): void {
         this._audio = null
     }
 
     // internal
-    public play() {
+    public play(): void {
         this.isPlaying = true
 
         this.playPromise(this._audio)
@@ -38,7 +42,7 @@ export class AudioClip {
     }
 
     //internal
-    public stop() {
+    public stop(): void {
         this.isPlaying = false
         this._audio.pause()
         this._audio.currentTime = 0

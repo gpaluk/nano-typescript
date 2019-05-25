@@ -1,7 +1,11 @@
 import {HelloService} from './hello-service.interface'
 
 export class HelloComponent {
-    constructor(private helloService: HelloService) {}
+    private helloService: HelloService
+
+    public constructor(helloService: HelloService) {
+        this.helloService = helloService
+    }
 
     public sayHello(): string {
         return this.helloService.sayHello()

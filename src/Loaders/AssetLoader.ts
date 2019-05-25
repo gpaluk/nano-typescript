@@ -6,7 +6,7 @@ import {TileSet} from 'Display/Tiles/TileSet'
 import {AudioClip} from 'Audio/AudioClip'
 
 export class AssetLoader extends EventDispatcher {
-    constructor() {
+    public constructor() {
         super()
     }
 
@@ -21,11 +21,11 @@ export class AssetLoader extends EventDispatcher {
     >()
     private _jsonMap: Map<string, any> = new Map<string, any>()
 
-    public add(path: string) {
+    public add(path: string): void {
         this._paths.unshift(path)
     }
 
-    public clear() {
+    public clear(): void {
         this.paths.length = 0
         this._imageMap.clear()
         this._audioMap.clear()
@@ -68,7 +68,7 @@ export class AssetLoader extends EventDispatcher {
         return this._jsonMap.get(path)
     }
 
-    public load() {
+    public load(): void {
         this.loadItem(this._paths.shift())
     }
 
@@ -84,9 +84,9 @@ export class AssetLoader extends EventDispatcher {
                 break
         }
 
-        xhr.onload = e => this.onAssetLoad(e, path)
-        xhr.onerror = e => this.onAssetError(e, path)
-        xhr.ontimeout = e => this.onAssetTimeout(e, path)
+        xhr.onload = (e): void => this.onAssetLoad(e, path)
+        xhr.onerror = (e): void => this.onAssetError(e, path)
+        xhr.ontimeout = (e): void => this.onAssetTimeout(e, path)
 
         xhr.open('GET', path, true)
         xhr.send()
@@ -215,7 +215,7 @@ export class AssetLoader extends EventDispatcher {
         }
     }
 
-    public getFileExtension(filePath: string) {
+    public getFileExtension(filePath: string): string {
         return filePath.substr(
             filePath.lastIndexOf('.') + 1,
             filePath.length - 1

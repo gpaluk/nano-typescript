@@ -4,7 +4,7 @@ import * as path from 'path'
 
 let mainWindow: BrowserWindow
 
-function createWindow() {
+function createWindow(): void {
     mainWindow = new BrowserWindow({
         width: 800,
         height: 600
@@ -22,9 +22,12 @@ function createWindow() {
 
     //mainWindow.webContents.openDevTools()
 
-    mainWindow.on('closed', () => {
-        mainWindow = null
-    })
+    mainWindow.on(
+        'closed',
+        (): void => {
+            mainWindow = null
+        }
+    )
 }
 
 app.on('ready', createWindow)

@@ -18,7 +18,7 @@ export class Point {
     public x: number
     public y: number
 
-    constructor(x: number = 0, y: number = 0) {
+    public constructor(x: number = 0, y: number = 0) {
         this.x = x
         this.y = y
     }
@@ -66,12 +66,12 @@ export class Point {
         return t
     }
 
-    public invert() {
+    public invert(): void {
         this.x *= -1
         this.y *= -1
     }
 
-    public normalize() {
+    public normalize(): void {
         if (length < Number.EPSILON) {
             this.x = 0
             this.y = 0
@@ -82,11 +82,11 @@ export class Point {
         }
     }
 
-    public squaredLength(): Number {
+    public squaredLength(): number {
         return this.x * this.x + this.y * this.y
     }
 
-    public length(): Number {
+    public length(): number {
         return Math.sqrt(this.x * this.x + this.y * this.y)
     }
 

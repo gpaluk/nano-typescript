@@ -1,8 +1,7 @@
 const path = require('path')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
 
-module.exports = env => {
+module.exports = () => {
     return {
         entry: {
             electron: path.resolve(__dirname, './electron.ts'),

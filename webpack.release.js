@@ -2,7 +2,7 @@ const path = require('path')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
-module.exports = env => {
+module.exports = () => {
     return {
         entry: {
             nano: path.resolve(__dirname, './src/nano.ts'),

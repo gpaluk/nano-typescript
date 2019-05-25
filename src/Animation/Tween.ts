@@ -229,7 +229,7 @@ export class Tween extends EventDispatcher {
 
     private _easeFunction: Function
 
-    private setEaseFunction() {
+    private setEaseFunction(): void {
         switch (this._easeType) {
             case EaseType.BACK_IN:
                 this._easeFunction = this.backIn
@@ -611,7 +611,7 @@ export class Tween extends EventDispatcher {
         return this.bounceOut(k * 2 - 1) * 0.5 + 0.5
     }
 
-    private interpolateLinearFunc(p0: number, p1: number, t: number) {
+    private interpolateLinearFunc(p0: number, p1: number, t: number): number {
         return (p1 - p0) * t + p0
     }
 }
