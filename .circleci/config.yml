@@ -12,6 +12,9 @@ jobs:
           name: update-npm
           command: 'sudo npm install -g npm@6.9.0'
       - run:
+          name: permissions
+          command: 'chown -R $USER:$USER /home/circleci/nano-typescript/node_modules/'
+      - run:
           name: install dependencies
           command: 'sudo npm install'
       - run:
