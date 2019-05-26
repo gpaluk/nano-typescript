@@ -1,15 +1,27 @@
-export default function(config) {
+module.exports = function(config) {
     config.set({
         frameworks: ['jasmine', 'karma-typescript'],
-        basePath: 'test',
-        files: [
-            '**/*.ts' // *.tsx for React Jsx
-        ],
+        basePath: '',
+        files: ['src/**/*.ts', 'test/**/*.ts'],
         preprocessors: {
-            '**/*.ts': ['karma-typescript']
+            'src/**/*.js': ['coverage'],
+            'src/**/*.ts': ['karma-typescript', 'coverage'],
+            'test/**/*.ts': ['karma-typescript']
         },
-        reporters: ['dots', 'karma-typescript'],
-        browsers: ['ChromeHeadless'],
+
+        karmaTypescriptConfig: {
+            tsconfig: './tsconfig.json',
+            include: ['test/**/*.ts', 'src/**/*.ts']
+        },
+
+        // optionally, configure the reporter
+        coverageReporter: {
+            type: 'html',
+            dir: 'coverage/'
+        },
+
+        reporters: ['dots', 'coverage', 'karma-typescript'],
+        browsers: ['Chrome'],
         singleRun: true
     })
 }
