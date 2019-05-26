@@ -222,6 +222,16 @@ var Stage = /** @class */ (function () {
     Stage.prototype.domElement = function () {
         return this._context;
     };
+    Object.defineProperty(Stage.prototype, "root", {
+        get: function () {
+            return this._root;
+        },
+        set: function (value) {
+            this._root = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(Stage.prototype, "framerate", {
         get: function () {
             return this._framerate;
@@ -229,16 +239,6 @@ var Stage = /** @class */ (function () {
         set: function (value) {
             this._framerate = value;
             this._updateInterval = 1 / this._framerate;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Stage.prototype, "root", {
-        get: function () {
-            return this._root;
-        },
-        set: function (value) {
-            this._root = value;
         },
         enumerable: true,
         configurable: true
@@ -262,13 +262,13 @@ var Stage = /** @class */ (function () {
             Timer_1.Timer.deltaSeconds = delta;
             instance._accumulator += delta;
             while (instance._accumulator >= instance._updateInterval) {
-                instance.update(delta);
+                instance.update();
                 instance._accumulator -= instance._updateInterval;
             }
             instance._lastUpdate = currentTime;
         }
     };
-    Stage.prototype.update = function (applicationTime) {
+    Stage.prototype.update = function () {
         var instance = Stage._instance;
         instance.resetCanvasState();
         instance.clear();
@@ -1338,28 +1338,16 @@ var Scene = /** @class */ (function (_super) {
     // internal
     Scene.prototype.addEventListeners = function () {
         var _this = this;
-        this.assets.addEventListener(EventType_1.EventType.COMPLETE, function (e) {
-            return _this.onAssetsComplete(e);
-        });
-        this.assets.addEventListener(EventType_1.EventType.TIMEOUT, function (e) {
-            return _this.onAssetsError(e);
-        });
-        this.assets.addEventListener(EventType_1.EventType.ERROR, function (e) {
-            return _this.onAssetsError(e);
-        });
+        this.assets.addEventListener(EventType_1.EventType.COMPLETE, function (e) { return _this.onAssetsComplete(e); });
+        this.assets.addEventListener(EventType_1.EventType.TIMEOUT, function (e) { return _this.onAssetsError(e); });
+        this.assets.addEventListener(EventType_1.EventType.ERROR, function (e) { return _this.onAssetsError(e); });
     };
     // internal
     Scene.prototype.removeEventListeners = function () {
         var _this = this;
-        this.assets.removeEventListener(EventType_1.EventType.COMPLETE, function (e) {
-            return _this.onAssetsComplete(e);
-        });
-        this.assets.removeEventListener(EventType_1.EventType.TIMEOUT, function (e) {
-            return _this.onAssetsError(e);
-        });
-        this.assets.removeEventListener(EventType_1.EventType.ERROR, function (e) {
-            return _this.onAssetsError(e);
-        });
+        this.assets.removeEventListener(EventType_1.EventType.COMPLETE, function (e) { return _this.onAssetsComplete(e); });
+        this.assets.removeEventListener(EventType_1.EventType.TIMEOUT, function (e) { return _this.onAssetsError(e); });
+        this.assets.removeEventListener(EventType_1.EventType.ERROR, function (e) { return _this.onAssetsError(e); });
     };
     return Scene;
 }(Container_1.Container));
@@ -1511,7 +1499,10 @@ var Sprite = /** @class */ (function (_super) {
             _this.texture = texture;
         }
         else {
-            _this._texture = new Texture_1.Texture();
+            var img = document.createElement('img');
+            img.width = 300;
+            img.height = 200;
+            _this._texture = new Texture_1.Texture(img);
         }
         _this._mask = document.createElement('img');
         _this._mask.onload = function () {
@@ -1981,7 +1972,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Color_1 = __webpack_require__(4);
 var Stage_1 = __webpack_require__(0);
 var Game_1 = __webpack_require__(26);
-Stage_1.Stage.init(800, 600, new Color_1.Color(0.3, 0.6, 0.9), 30, true);
+var stage = Stage_1.Stage.init(800, 600, new Color_1.Color(0.3, 0.6, 0.9), 30, true);
 var game = new Game_1.Game();
 
 
@@ -3126,9 +3117,7 @@ var SplashScene = /** @class */ (function (_super) {
         buttonOver.tint = new Color_1.Color(1, 0, 0, 0.2);
         var buttonDown = this.assets.getSprite(Assets_1.Assets.BUTTON_DOWN);
         var button = new Button_1.Button(buttonUp, buttonOver, buttonDown);
-        button.addEventListener(EventType_1.EventType.CLICK, function (e) {
-            return _this.onButtonClick(e);
-        });
+        button.addEventListener(EventType_1.EventType.CLICK, function (e) { return _this.onButtonClick(e); });
         button.x = 400;
         button.y = 500;
         button.scale = 0.4;
