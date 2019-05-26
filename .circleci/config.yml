@@ -13,7 +13,7 @@ jobs:
           command: 'sudo npm install -g npm@6.9.0'
       - run:
           name: create electron directory
-          command: 'sudo mkdir /home/circleci/nano-typescript/node_modules/electron/.electron'
+          command: 'sudo mkdir -p /home/circleci/nano-typescript/node_modules/electron/.electron'
       - run:
           name: add electron permissions
           command: 'sudo chown -R $USER:$USER /home/circleci/nano-typescript/node_modules/electron/.electron'
