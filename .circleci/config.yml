@@ -8,4 +8,4 @@ jobs:
       - checkout
       - run:
           name: update-npm
-          command: 'sudo npm install'
+          command: 'sudo npm install -g npm@6.9.0'
