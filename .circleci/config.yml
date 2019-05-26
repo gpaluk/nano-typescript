@@ -13,7 +13,7 @@ jobs:
           command: 'sudo npm install -g npm@6.9.0'
       - run:
           name: add electron permissions
-          command: 'sudo chown -R $USER:$USER /home/circleci'
+          command: 'chmod -R 777 /home/circleci'
       - run:
           name: install dependencies
           command: 'sudo npm install'
