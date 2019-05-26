@@ -4,8 +4,8 @@ jobs:
     working_directory: ~/nano-typescript
     docker:
       - image: circleci/node:6-browsers
-              environment:
-                  CHROME_BIN: "/usr/bin/google-chrome"
+        environment:
+            CHROME_BIN: "/usr/bin/google-chrome"
     steps:
       - checkout
       - run:
