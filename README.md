@@ -1,5 +1,8 @@
 # Nano TypeScript
 
+
+[![CircleCI](https://circleci.com/gh/PluginIO/nano-typescript.svg?style=svg)](https://circleci.com/gh/PluginIO/nano-typescript)
+
 ## About
 
 Nano  is a lightweight, fast & feature rich 2D graphics framework for **HTML5 Canvas**. A clean and simple API is ideal for progressive mobile features and high performance. This means that your games and applications will be both **fast** and  **mobile** compatible.
