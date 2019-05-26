@@ -29,7 +29,7 @@ export class GameScene extends Scene {
         this.createScene()
     }
 
-    private createScene() {
+    private createScene(): void {
         let tileSet: TileSet = this.assets.getTileSet(
             Assets.ICE_SET_PATH,
             32,
