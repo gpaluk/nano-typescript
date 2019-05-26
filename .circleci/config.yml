@@ -12,9 +12,6 @@ jobs:
           name: update-npm
           command: 'sudo npm install -g npm@6.9.0'
       - run:
-          name: add electron permissions
-          command: 'chmod -R 777 /home/circleci'
-      - run:
           name: install dependencies
           command: 'sudo npm install'
       - run:
