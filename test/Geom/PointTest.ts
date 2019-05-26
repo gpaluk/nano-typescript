@@ -13,3 +13,11 @@ describe('Point', (): void => {
         expect(point.y).toEqual(0)
     })
 })
+
+describe('Point', (): void => {
+    it("should have an x & y value of 5 & 10'", (): void => {
+        let point: Point = new Point(5, 10)
+        expect(point.x).toEqual(5)
+        expect(point.y).toEqual(10)
+    })
+})
