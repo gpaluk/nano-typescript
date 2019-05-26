@@ -12,8 +12,11 @@ jobs:
           name: update-npm
           command: 'sudo npm install -g npm@6.9.0'
       - run:
-          name: permissions
-          command: 'chown -R $USER:$USER /home/circleci/nano-typescript/node_modules/'
+          name: create electron directory
+          command: 'sudo mkdir /home/circleci/nano-typescript/node_modules/electron/.electron'
+      - run:
+          name: add electron permissions
+          command: 'sudo chown -R $USER:$USER /home/circleci/nano-typescript/node_modules/electron/.electron'
       - run:
           name: install dependencies
           command: 'sudo npm install'
