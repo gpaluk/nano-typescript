@@ -3,7 +3,7 @@
   "version": "0.0.3",
   "description": "Super fast and lightweight 2D graphics library for TypeScript",
   "scripts": {
-    "preinstall": "sudo npm i -g electron --unsafe-perm=true --allow-root",
+    "preinstall": "sudo npm i -g electron --unsafe-perm=true",
     "dev": "webpack-dev-server --config webpack.dev.js --host 0.0.0.0 --port 3000 --display-modules --content-base dev --inline --hot --mode development --env.ENVIRONMENT=dev",
     "release": "webpack --config webpack.release.js --mode production --progress --colors",
     "desktop": "npm run release && webpack --config webpack.desktop.js --mode production --progress --colors && electron ./build/desktop/electron.js",
@@ -27,6 +27,9 @@
     "url": "https://github.com/PluginIO/nano-typescript/issues"
   },
   "homepage": "https://github.com/PluginIO/nano-typescript#readme",
+  "config": {
+    "unsafe-perm":true
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^1.9.0",
     "@typescript-eslint/parser": "^1.9.0",
