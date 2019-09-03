@@ -65,7 +65,7 @@ To run a development build, we simply run the following instruction in the **ter
 
 `npm run dev`
 
-You can now navigate to `http:/127.0.0.1:3000` in your browser. All being well you should see a sample of the **Nano** engine running in your browser. You can make changes to the source code and your changes will be reflected automatically upon saving.
+You can now navigate to `http://127.0.0.1:3000` in your browser. All being well you should see a sample of the **Nano** engine running in your browser. You can make changes to the source code and your changes will be reflected automatically upon saving.
 
 ### Release Build
 
