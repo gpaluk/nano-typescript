@@ -1,4 +1,4 @@
-import {Spatial} from './Spatial'
+import { Spatial } from './Spatial'
 
 export class Container extends Spatial {
     protected _children: Spatial[]
@@ -32,6 +32,7 @@ export class Container extends Spatial {
         let index = this._children.lastIndexOf(spatial)
         if (index != -1) {
             spatial.parent = null
+            spatial.dispose()
             this._children.splice(index, 1)
         }
     }

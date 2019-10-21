@@ -1,9 +1,9 @@
-import {EventDispatcher} from 'Events/EventDispatcher'
-import {EventType} from 'Events/EventType'
-import {Texture} from 'Display/Texture'
-import {Sprite} from 'Display/Sprite'
-import {TileSet} from 'Display/Tiles/TileSet'
-import {AudioClip} from 'Audio/AudioClip'
+import { EventDispatcher } from 'Events/EventDispatcher'
+import { EventType } from 'Events/EventType'
+import { Texture } from 'Display/Texture'
+import { Sprite } from 'Display/Sprite'
+import { TileSet } from 'Display/Tiles/TileSet'
+import { AudioClip } from 'Audio/AudioClip'
 
 export class AssetLoader extends EventDispatcher {
     public constructor() {
@@ -111,11 +111,14 @@ export class AssetLoader extends EventDispatcher {
                 mimeType = this.getFileExtension(path)
             }
 
+            console.log("Asset loaded: " + path)
+            console.log("MIME: " + mimeType)
+
             switch (mimeType) {
                 case 'png':
                 case 'image/png':
                     let png = document.createElement('img')
-                    png.src = path
+                    png.src = 'data:image/png;base64,' + btoa(String.fromCharCode.apply(null, data));
                     png.crossOrigin = 'anonymous'
                     png.height =
                         (data[20] << 24) |
@@ -128,12 +131,15 @@ export class AssetLoader extends EventDispatcher {
                         (data[18] << 8) |
                         data[19]
                     this._imageMap.set(path, png)
+
+                    console.log("width: " + png.width + ", height: " + png.height)
+                    console.log("MIME: " + mimeType)
                     break
                 case 'jpg':
                 case 'jpeg':
                 case 'image/jpeg':
                     let jpg = document.createElement('img')
-                    jpg.src = path
+                    jpg.src = 'data:image/png;base64,' + btoa(String.fromCharCode.apply(null, data));
                     jpg.crossOrigin = 'anonymous'
 
                     let offset: number = 0
