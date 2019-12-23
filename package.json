@@ -22,6 +22,9 @@
   ],
   "author": "Gary Paluk",
   "license": "MIT",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
   "bugs": {
     "url": "https://github.com/PluginIO/nano-typescript/issues"
   },
