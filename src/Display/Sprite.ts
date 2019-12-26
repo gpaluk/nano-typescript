@@ -1,13 +1,13 @@
-import {BlendMode} from './BlendMode'
-import {Point} from 'Geom/Point'
-import {Container} from './Container'
-import {Matrix} from 'Geom/Matrix'
-import {Stage} from './Stage'
-import {Color} from './Color'
-import {AnchorType} from './AnchorType'
-import {Texture} from './Texture'
-import {Bound} from './Bound'
-import {Rectangle} from 'Geom/Rectangle'
+import { BlendMode } from './BlendMode'
+import { Point } from 'Geom/Point'
+import { Container } from './Container'
+import { Matrix } from 'Geom/Matrix'
+import { Stage } from './Stage'
+import { Color } from './Color'
+import { AnchorType } from './AnchorType'
+import { Texture } from './Texture'
+import { Bound } from './Bound'
+import { Rectangle } from 'Geom/Rectangle'
 
 export class Sprite extends Container {
     public alpha: number = 1
@@ -56,9 +56,9 @@ export class Sprite extends Container {
             this.texture = texture
         } else {
             let img: HTMLImageElement = document.createElement('img')
-            img.width = 300
-            img.height = 200
-            this._texture = new Texture(img)
+            img.width = 10
+            img.height = 10
+            this.texture = new Texture(img)
         }
 
         this._mask = document.createElement('img')
