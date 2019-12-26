@@ -48,11 +48,9 @@ export class GameScene extends Scene {
         tileMap.setData(tileSet, this.assets.getJson(Assets.MAP_DATA_PATH).data)
 
         let bunny: Sprite = this.assets.getSprite(Assets.BUNNY_PATH)
-        bunny.width = 100
-        bunny.height = 100
         bunny.blendMode = BlendMode.SOURCE_OVER
         bunny.anchorType = AnchorType.CENTER
-        bunny.scale = 2
+        bunny.scale = 0.5
         bunny.smoothing = false
         bunny.graphics.fillStyle = '#FF0000'
         bunny.graphics.fillRect(0, 0, 10, 10)
