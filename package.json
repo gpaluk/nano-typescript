@@ -1,6 +1,6 @@
 {
   "name": "nano-typescript",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Super fast and lightweight 2D graphics library for TypeScript",
   "scripts": {
     "dev": "webpack-dev-server --config webpack.dev.js --host 127.0.0.1 --port 3000 --display-modules --content-base dev --inline --hot --mode development --env.ENVIRONMENT=dev",
