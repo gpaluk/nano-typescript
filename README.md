@@ -1,7 +1,7 @@
 # Nano TypeScript
 
 
-[![CircleCI](https://circleci.com/gh/gpaluk/pluginio-backend.svg?style=svg)](https://circleci.com/gh/gpaluk/pluginio-backend)
+[![CircleCI](https://circleci.com/gh/pluginio/nano-typescript.svg?style=svg)](https://circleci.com/gh/pluginio/nano-typescript)
 
 ## About
 
