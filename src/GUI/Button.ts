@@ -134,7 +134,7 @@ export class Button extends Container {
     }
 
     private onMouseMove(e: MouseEvent): void {
-        if (this._activeState.intersectsXY(e.layerX, e.layerY)) {
+        if (this._activeState.intersectsXY(e.clientX, e.clientY)) {
             if (!this._isMouseOver) {
                 this._isMouseOver = true
                 this.updateMouseState()
@@ -156,7 +156,7 @@ export class Button extends Container {
     private onMouseDown(e: MouseEvent): void {
         let evt: MouseEvent = e as MouseEvent
 
-        if (this._activeState.intersectsXY(evt.layerX, evt.layerY)) {
+        if (this._activeState.intersectsXY(evt.clientX, evt.clientY)) {
             this._isClickTarget = true
             this._isMouseDown = true
             this.updateMouseState()
@@ -172,7 +172,7 @@ export class Button extends Container {
         this._isMouseDown = false
         this.updateMouseState()
 
-        if (this._activeState.intersectsXY(e.layerX, e.layerY)) {
+        if (this._activeState.intersectsXY(e.clientX, e.clientY)) {
             this.dispatchEvent(new Event(EventType.CLICK))
         } else if (this._isClickTarget) {
             this.dispatchEvent(new Event(EventType.MOUSE_UP))
