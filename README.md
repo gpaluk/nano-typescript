@@ -1,7 +1,7 @@
 # Nano TypeScript
 
 
-[![CircleCI](https://circleci.com/gh/PluginIO/nano-typescript.svg?style=svg)](https://circleci.com/gh/PluginIO/nano-typescript)
+[![CircleCI](https://circleci.com/gh/pluginio/nano-typescript.svg?style=svg)](https://circleci.com/gh/pluginio/nano-typescript)
 
 ## About
 
@@ -65,7 +65,7 @@ To run a development build, we simply run the following instruction in the **ter
 
 `npm run dev`
 
-You can now navigate to `http:/127.0.0.1:3000` in your browser. All being well you should see a sample of the **Nano** engine running in your browser. You can make changes to the source code and your changes will be reflected automatically upon saving.
+You can now navigate to `http://127.0.0.1:3000` in your browser. All being well you should see a sample of the **Nano** engine running in your browser. You can make changes to the source code and your changes will be reflected automatically upon saving.
 
 ### Release Build
 
@@ -88,4 +88,4 @@ Also included is a suite of unit tests. Unit tests allow for the automation of t
 `npm run test`
 
 ## Many Thanks
-**Thank you** for checking out **Nano TypeScript**. We are super excited to see the amazing HTML5 games and apps that you build and we hope to showcase them here. Please let us know about your projects.
+**Thank you** for checking out **Nano TypeScript**. We are super excited to see the amazing HTML5 games and apps that you build and we hope to showcase them here. Please let us know about your projects. :)

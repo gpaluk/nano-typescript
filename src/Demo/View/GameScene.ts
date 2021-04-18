@@ -1,19 +1,19 @@
-import {Scene} from 'App/Scene'
-import {Assets} from 'Demo/Assets'
-import {TileSet} from 'Display/Tiles/TileSet'
-import {TileAnimation} from 'Display/Tiles/TileAnimation'
-import {TileMap} from 'Display/Tiles/TileMap'
-import {Sprite} from 'Display/Sprite'
-import {BlendMode} from 'Display/BlendMode'
-import {AnchorType} from 'Display/AnchorType'
-import {Color} from 'Display/Color'
-import {MovieClip} from 'Display/MovieClip'
-import {Tweener} from 'Animation/Tweener'
-import {EaseType} from 'Animation/EaseType'
-import {AudioMixer} from 'Audio/AudioMixer'
+import { Scene } from 'App/Scene'
+import { Assets } from 'Demo/Assets'
+import { TileSet } from 'Display/Tiles/TileSet'
+import { TileAnimation } from 'Display/Tiles/TileAnimation'
+import { TileMap } from 'Display/Tiles/TileMap'
+import { Sprite } from 'Display/Sprite'
+import { BlendMode } from 'Display/BlendMode'
+import { AnchorType } from 'Display/AnchorType'
+import { Color } from 'Display/Color'
+import { MovieClip } from 'Display/MovieClip'
+import { Tweener } from 'Animation/Tweener'
+import { EaseType } from 'Animation/EaseType'
+import { AudioMixer } from 'Audio/AudioMixer'
 
 export class GameScene extends Scene {
-    protected onAssetsError(e: Event): void {}
+    protected onAssetsError(e: Event): void { }
 
     public init(): void {
         this.assets.add(Assets.BUNNY_PATH)
@@ -50,7 +50,7 @@ export class GameScene extends Scene {
         let bunny: Sprite = this.assets.getSprite(Assets.BUNNY_PATH)
         bunny.blendMode = BlendMode.SOURCE_OVER
         bunny.anchorType = AnchorType.CENTER
-        bunny.scale = 2
+        bunny.scale = 0.5
         bunny.smoothing = false
         bunny.graphics.fillStyle = '#FF0000'
         bunny.graphics.fillRect(0, 0, 10, 10)

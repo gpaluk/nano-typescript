@@ -1,13 +1,13 @@
-import {BlendMode} from './BlendMode'
-import {Point} from 'Geom/Point'
-import {Container} from './Container'
-import {Matrix} from 'Geom/Matrix'
-import {Stage} from './Stage'
-import {Color} from './Color'
-import {AnchorType} from './AnchorType'
-import {Texture} from './Texture'
-import {Bound} from './Bound'
-import {Rectangle} from 'Geom/Rectangle'
+import { BlendMode } from './BlendMode'
+import { Point } from 'Geom/Point'
+import { Container } from './Container'
+import { Matrix } from 'Geom/Matrix'
+import { Stage } from './Stage'
+import { Color } from './Color'
+import { AnchorType } from './AnchorType'
+import { Texture } from './Texture'
+import { Bound } from './Bound'
+import { Rectangle } from 'Geom/Rectangle'
 
 export class Sprite extends Container {
     public alpha: number = 1
@@ -56,9 +56,9 @@ export class Sprite extends Container {
             this.texture = texture
         } else {
             let img: HTMLImageElement = document.createElement('img')
-            img.width = 300
-            img.height = 200
-            this._texture = new Texture(img)
+            img.width = 10
+            img.height = 10
+            this.texture = new Texture(img)
         }
 
         this._mask = document.createElement('img')
@@ -81,12 +81,23 @@ export class Sprite extends Container {
     public set texture(value: Texture) {
         //TODO [GJP] Tidy all this up
         this._texture = value
-        this._targetCanvas.width = value.width
-        this.canvas.width = value.width
-        this._targetCanvas.height = value.height
-        this.canvas.height = value.height
-        this._width = value.width
-        this._height = value.height
+
+        this.resizeWidth(value.width)
+        this.resizeHeight(value.height)
+    }
+
+    private resizeWidth(width: number): void {
+        this._targetCanvas.width = width
+        this.canvas.width = width
+        this._width = width
+
+        this._isDirty = true
+    }
+
+    private resizeHeight(height: number): void {
+        this._targetCanvas.height = height
+        this.canvas.height = height
+        this._height = height
 
         this._isDirty = true
     }
@@ -223,6 +234,7 @@ export class Sprite extends Container {
     }
 
     public set width(value: number) {
+        this.resizeWidth(value)
         this.scaleX = value / this._targetCanvas.width
     }
 
@@ -231,6 +243,7 @@ export class Sprite extends Container {
     }
 
     public set height(value: number) {
+        this.resizeHeight(value)
         this.scaleY = value / this._targetCanvas.height
     }
 

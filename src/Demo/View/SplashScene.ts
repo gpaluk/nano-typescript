@@ -1,11 +1,11 @@
-import {Scene} from 'App/Scene'
-import {Assets} from 'Demo/Assets'
-import {EventType} from 'Events/EventType'
-import {Button} from 'GUI/Button'
-import {AudioMixer} from 'Audio/AudioMixer'
-import {Sprite} from 'Display/Sprite'
-import {Color} from 'Display/Color'
-import {GameScene} from './GameScene'
+import { Scene } from 'App/Scene'
+import { Assets } from 'Demo/Assets'
+import { EventType } from 'Events/EventType'
+import { Button } from 'GUI/Button'
+import { AudioMixer } from 'Audio/AudioMixer'
+import { Sprite } from 'Display/Sprite'
+import { Color } from 'Display/Color'
+import { GameScene } from './GameScene'
 
 export class SplashScene extends Scene {
     public init(): void {
